@@ -13,6 +13,11 @@ class Mock
 		return new Injector();
 	}
 
+	public function mysqli()
+	{
+		return new Mock\MySqli();
+	}
+
 	public function databaseFactory($injector = null)
 	{
 		if (is_null($this->databaseFactory)) {

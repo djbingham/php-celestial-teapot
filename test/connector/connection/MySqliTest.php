@@ -3,10 +3,10 @@ namespace PHPMySql\Test\Connector\Connection;
 
 require_once dirname(dirname(__DIR__)) . '/bootstrap.php';
 
-use PHPMySql\Test\UnitTest;
+use PHPMySql\Test\DbTest;
 use PHPMySql\Connector\Connection\MySqli;
 
-class MySqliTest extends UnitTest
+class MySqliTest extends DbTest
 {
 	/**
 	 * @var MySqli
@@ -16,6 +16,15 @@ class MySqliTest extends UnitTest
 	public function setUp()
 	{
 		$this->object = new MySqli;
+
+		$this->createTable('testTable', array(
+			'a VARCHAR(10) NOT NULL'
+		));
+	}
+
+	public function tearDown()
+	{
+		$this->dropTable('testTable');
 	}
 
 	public function testSetAndGetEngine()
@@ -55,73 +64,35 @@ class MySqliTest extends UnitTest
 
 	public function testQueryAndGetDataReturnsSelectedData()
 	{
-		$engine = $this->getMockBuilder('Mysqli')
-			->getMock();
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')
-			->getMock();
-		$result = $this->getMockBuilder('MySqli_Result')
-			->disableOriginalConstructor()
-			->getMock();
-
-		$queryString = 'SELECT * FROM table';
 		$data = array(
 			array('a' => '1')
 		);
+		$fields = array_keys($data[0]);
+		$values = array_map(function($row) {
+			return array_values($row);
+		}, $data);
 
-		$engine->expects($this->once())
-			->method('real_query')
-			->with($queryString)
-			->will($this->returnValue(true));
-        $engine->expects($this->once())
-            ->method('store_result')
-            ->with($queryString)
-            ->will($this->returnValue($result));
+		$this->insertData('testTable', $fields, $values);
 
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock();
 		$query->expects($this->any())
 			->method('__toString')
-			->will($this->returnValue($queryString));
+			->will($this->returnValue('SELECT * FROM testTable'));
 
-		$result->expects($this->once())
-			->method('fetch_all')
-			->with(MYSQLI_ASSOC)
-			->will($this->returnValue($data));
-		$result->expects($this->once())
-			->method('free');
-
-		$this->object->setEngine($engine);
+		$this->object->setEngine($this->getMySqli());
 		$this->assertEquals($this->object, $this->object->query($query));
 		$this->assertEquals($data, $this->object->getData());
 	}
 
 	public function testQueryAndGetDataWhenQueryHasNoResultSet()
 	{
-		$engine = $this->getMockBuilder('Mysqli')
-			->getMock();
+		$engine = $this->getMySqli();
 		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')
 			->getMock();
-        $result = $this->getMockBuilder('MySqli_Result')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-		$queryString = 'TRUNCATE table';
-
-		$engine->expects($this->once())
-			->method('real_query')
-			->with($queryString)
-            ->will($this->returnValue(true));
-        $engine->expects($this->once())
-            ->method('store_result')
-            ->with($queryString)
-            ->will($this->returnValue($result));
-
-        $result->expects($this->once())
-            ->method('fetch_all')
-            ->with(MYSQLI_ASSOC)
-            ->will($this->returnValue(array()));
 
 		$query->expects($this->any())
 			->method('__toString')
-			->will($this->returnValue($queryString));
+			->will($this->returnValue('TRUNCATE testTable'));
 
 		$this->object->setEngine($engine);
 		$this->assertEquals($this->object, $this->object->query($query));
@@ -130,30 +101,15 @@ class MySqliTest extends UnitTest
 
 	public function testGetQueryLog()
 	{
-		$engine = $this->getMockBuilder('Mysqli')->getMock();
 		$queries = array(
 			$this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock(),
 			$this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock()
 		);
-        $result = $this->getMockBuilder('MySqli_Result')
-            ->disableOriginalConstructor()
-            ->getMock();
 
 		$queryStrings = array(
 			'SELECT * FROM table1',
 			'SELECT * FROM table2'
 		);
-
-		$engine->expects($this->exactly(2))
-			->method('real_query')
-            ->withConsecutive(
-                array($queries[0]),
-                array($queries[1])
-            )
-			->will($this->returnValue(true));
-        $engine->expects($this->once())
-            ->method('store_result')
-            ->will($this->returnValue($result));
 
 		$queries[0]->expects($this->any())
 			->method('__toString')
@@ -162,7 +118,7 @@ class MySqliTest extends UnitTest
 			->method('__toString')
 			->will($this->returnValue($queryStrings[1]));
 
-		$this->object->setEngine($engine);
+		$this->object->setEngine($this->getMySqli());
 
 		// Test log is initially empty
 		$this->assertEquals(array(), $this->object->getQueryLog());

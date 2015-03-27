@@ -14,6 +14,21 @@ use PHPMySql\Abstractory;
 class DatabaseConnection extends MySqli
 {
 	/**
+	 * @var array
+	 */
+	protected $expectedQuerySequence = array();
+
+	/**
+	 * @var array
+	 */
+	protected $mockGetDataSequence = array();
+
+	/**
+	 * @var mixed Data to return on next call to getData
+	 */
+	protected $nextData;
+
+	/**
 	 * @param Abstractory\Query $query
 	 * @return $this
 	 * @throws \Exception if query doesn't match next expected query
@@ -78,21 +93,6 @@ class DatabaseConnection extends MySqli
 		array_shift($this->mockGetDataSequence);
 		return true;
 	}
-
-    /**
-     * @var array
-     */
-    protected $expectedQuerySequence = array();
-
-    /**
-     * @var array
-     */
-    protected $mockGetDataSequence = array();
-
-    /**
-     * @var mixed Data to return on next call to getData
-     */
-    protected $nextData;
 
     /**
      * @throws \Exception if expecting queries to be run
