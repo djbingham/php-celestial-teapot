@@ -281,14 +281,4 @@ class DataTest extends UnitTest
 		$this->assertEquals($this->object, $setterOutput);
 		$this->assertEquals($dbWrapper, $this->object->getDatabaseWrapper());
 	}
-
-	public function testAppendRow()
-	{
-        $this->markTestIncomplete();
-	}
-
-	public function testAppendRows()
-	{
-        $this->markTestIncomplete();
-	}
 }

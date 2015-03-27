@@ -57,6 +57,13 @@ class MockBuilder extends \PHPUnit_Framework_TestCase
 			->getMock();
 	}
 
+	public function factory()
+	{
+		return $this->getMockBuilder('PHPMySql\Factory')
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
 	public function mySqliFactory()
 	{
 		return $this->getMockBuilder('PHPMySql\Factory\MySqli')

@@ -4,27 +4,26 @@ namespace PHPMySql\Factory\MySqli\QueryBuilder;
 
 use PHPMySql\Factory\SubFactory;
 use PHPMySql\Factory\MySqli\QueryBuilder;
-use PHPMySql\QueryBuilder\MySql\Query;
 
 class Query extends SubFactory
 {
 	public function select()
 	{
-		$query = new Query\Select();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Select();
 		$query->setDatabaseWrapper($this->database->wrapper());
 		return $query;
 	}
 
 	public function insert()
 	{
-		$query = new Query\Insert();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Insert();
 		$query->setDatabaseWrapper($this->database->wrapper());
 		return $query;
 	}
 
 	public function replace()
 	{
-		$query = new Query\Insert();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Insert();
 		$query->setDatabaseWrapper($this->database->wrapper())
 			->replaceRows();
 		return $query;
@@ -32,14 +31,14 @@ class Query extends SubFactory
 
 	public function update()
 	{
-		$query = new Query\Update();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Update();
 		$query->setDatabaseWrapper($this->database->wrapper());
 		return $query;
 	}
 
 	public function delete()
 	{
-		$query = new Query\Delete();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Delete();
 		$query->setDatabaseWrapper($this->database->wrapper());
 		return $query;
 	}
@@ -51,6 +50,6 @@ class Query extends SubFactory
 
 	public function constraint()
 	{
-		return new Query\Constraint();
+		return new \PHPMySql\QueryBuilder\MySql\Query\Constraint();
 	}
 }
