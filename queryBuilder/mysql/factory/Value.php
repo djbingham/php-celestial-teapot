@@ -1,67 +1,49 @@
 <?php
-
 namespace PHPMySql\QueryBuilder\MySql\Factory;
 
-use PHPMySql\DatabaseWrapper;
-use PHPMySql\QueryBuilder\MySql;
+use PHPMySql\Abstractory\Factory as AbstractFactory;
+use PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue;
+use PHPMySql\QueryBuilder\MySql\Value\String;
+use PHPMySql\QueryBuilder\MySql\Value\Number;
+use PHPMySql\QueryBuilder\MySql\Value\Constant;
+use PHPMySql\QueryBuilder\MySql\Value\Table;
+use PHPMySql\QueryBuilder\MySql\Value\ValueList;
+use PHPMySql\QueryBuilder\MySql\Value\SqlFunction;
 
-class Value
+class Value extends AbstractFactory
 {
 	/**
-	 * @var DatabaseWrapper
-	 */
-	protected $databaseWrapper;
-
-	/**
-	 * @param DatabaseWrapper $databaseWrapper
-	 * @return $this
-	 */
-	public function setDatabaseWrapper(DatabaseWrapper $databaseWrapper)
-	{
-		$this->databaseWrapper = $databaseWrapper;
-		return $this;
-	}
-
-	/**
-	 * @return DatabaseWrapper
-	 */
-	public function getDatabaseWrapper()
-	{
-		return $this->databaseWrapper;
-	}
-
-	/**
 	 * @param string $string
-	 * @return MySql\Value\String
+	 * @return String
 	 */
 	public function string($string)
 	{
-		$value = new MySql\Value\String();
-		$value->setDatabaseWrapper($this->getDatabaseWrapper());
+		$value = new String();
+		$value->setConnection($this->connection);
 		$value->setValue($string);
 		return $value;
 	}
 
 	/**
 	 * @param int|float $number
-	 * @return MySql\Value\Number
+	 * @return Number
 	 */
 	public function number($number)
 	{
-		$value = new MySql\Value\Number();
-		$value->setDatabaseWrapper($this->getDatabaseWrapper());
+		$value = new Number();
+		$value->setConnection($this->connection);
 		$value->setValue($number);
 		return $value;
 	}
 
 	/**
 	 * @param string $constant
-	 * @return MySql\Value\Constant
+	 * @return Constant
 	 */
 	public function sqlConstant($constant)
 	{
-		$value = new MySql\Value\Constant();
-		$value->setDatabaseWrapper($this->getDatabaseWrapper());
+		$value = new Constant();
+		$value->setConnection($this->connection);
 		$value->setValue($constant);
 		return $value;
 	}
@@ -69,12 +51,12 @@ class Value
 	/**
 	 * @param string $function
 	 * @param array $params
-	 * @return MySql\Value\SqlFunction
+	 * @return SqlFunction
 	 */
 	public function sqlFunction($function, array $params = array())
 	{
-		$func = new MySql\Value\SqlFunction();
-		$func->setDatabaseWrapper($this->getDatabaseWrapper());
+		$func = new SqlFunction();
+		$func->setConnection($this->connection);
 		$func->setFunction($function);
 		$func->setParams($params);
 		return $func;
@@ -82,12 +64,12 @@ class Value
 
 	/**
 	 * @param $tableName
-	 * @return MySql\Value\Table
+	 * @return Table
 	 */
 	public function table($tableName)
 	{
-		$table = new MySql\Value\Table();
-		$table->setDatabaseWrapper($this->getDatabaseWrapper());
+		$table = new Table();
+		$table->setConnection($this->connection);
 		$table->setTableName($tableName);
 		return $table;
 	}
@@ -95,34 +77,34 @@ class Value
 	/**
 	 * @param $tableName
 	 * @param $fieldName
-	 * @return MySql\Value\Table\Field
+	 * @return Table\Field
 	 */
 	public function tableField($tableName, $fieldName)
 	{
-		$table = new MySql\Value\Table();
-		$table->setDatabaseWrapper($this->getDatabaseWrapper());
+		$table = new Table();
+		$table->setConnection($this->connection);
 		$table->setTableName($tableName);
 		$field = $table->field($fieldName);
 		return $field;
 	}
 
 	/**
-	 * @return MySql\Value\Table\Data
+	 * @return Table\Data
 	 */
 	public function tableData()
 	{
-		$data = new MySql\Value\Table\Data();
-		$data->setDatabaseWrapper($this->getDatabaseWrapper());
+		$data = new Table\Data();
+		$data->setConnection($this->connection);
 		return $data;
 	}
 
 	/**
 	 * @param array $values
-	 * @return MySql\Value\ValueList
+	 * @return ValueList
 	 */
 	public function valueList(array $values)
 	{
-		$valueList = new MySql\Value\ValueList($this->databaseWrapper);
+		$valueList = new ValueList($this->connection);
 		$valueList->setValues($values);
 		return $valueList;
 	}
@@ -130,18 +112,17 @@ class Value
 	/**
 	 * Guess the best type of MySqlValue and return an instance of that
 	 * @param mixed $value Value to turn into a MySqlValue instance
-	 * @return MySql\Abstractory\MySqlValue
+	 * @return MySqlValue
 	 */
 	public function guess($value)
 	{
-		echo "\r\nGUESSING\r\n";
 		$type = $this->guessValueType($value);
 		return $this->createValue($value, $type);
 	}
 
 	protected function guessValueType($value)
 	{
-		if ($value instanceof MySql\Abstractory\MySqlValue) {
+		if ($value instanceof MySqlValue) {
 			return 'literal';
 		} elseif (is_null($value)) {
 			return 'null';
@@ -149,7 +130,7 @@ class Value
 			return 'list';
 		} elseif (is_numeric($value)) {
 			return 'number';
-		} elseif (in_array($value, MySql\Value\Constant::$constants)) {
+		} elseif (in_array($value, Constant::$constants)) {
 			return 'constant';
 		} elseif (preg_match('/^.+\(.+\)$/', (string)$value)) {
 			return 'function';
@@ -166,7 +147,7 @@ class Value
 	 * Create a MySqlValue instance of give type, with given value
 	 * @param mixed $value
 	 * @param string $type
-	 * @return MySql\Abstractory\MySqlValue
+	 * @return MySqlValue
 	 * @throws \Exception
 	 */
 	public function createValue($value, $type)

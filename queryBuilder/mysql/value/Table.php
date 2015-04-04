@@ -38,7 +38,7 @@ class Table extends MySqlValue
 	{
 		if (!array_key_exists($fieldName, $this->fields)) {
 			$field = new Table\Field();
-			$field->setDatabaseWrapper($this->getDatabaseWrapper());
+			$field->setConnection($this->getConnection());
 			$field->setTable($this);
 			$field->setFieldName($fieldName);
 			$this->fields[$fieldName] = $field;
@@ -53,7 +53,9 @@ class Table extends MySqlValue
 	{
 		if (!$this->data instanceof Table\Data) {
 			$this->data = new Table\Data();
-			$this->data->setNullValue($this->getDatabaseWrapper()->queryBuilder()->value()->sqlConstant('NULL'));
+			$nullValue = new Constant();
+			$nullValue->setValue('NULL');
+			$this->data->setNullValue($nullValue);
 		}
 		return $this->data;
 	}

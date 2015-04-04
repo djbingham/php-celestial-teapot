@@ -1,23 +1,21 @@
 <?php
 namespace PHPMySql\Abstractory;
 
-use PHPMySql\Injector;
-
 abstract class Factory
 {
+	/**
+	 * @var IConnection
+	 */
+	protected $connection;
+
 	/**
 	 * @var array
 	 */
 	private $cache = array();
 
-	/**
-	 * @var Injector
-	 */
-	protected $injector;
-
-	public function __construct(Injector $injector)
+	public function __construct(IConnection $connection)
 	{
-		$this->injector = $injector;
+		$this->connection = $connection;
 	}
 
 	/**

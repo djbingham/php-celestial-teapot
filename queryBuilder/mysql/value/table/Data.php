@@ -1,15 +1,15 @@
 <?php
 namespace PHPMySql\QueryBuilder\MySql\Value\Table;
 
-use PHPMySql\DatabaseWrapper;
+use PHPMySql\Abstractory\IConnection;
 use PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue;
 
 class Data
 {
 	/**
-	 * @var DatabaseWrapper
+	 * @var IConnection
 	 */
-	protected $databaseWrapper;
+	protected $connection;
 	protected $nullValue = null;
 	protected $fields = array();
 	protected $rows = array();
@@ -18,15 +18,15 @@ class Data
 	protected $currentRowFields = array();
 	protected $currentRowValues = array();
 
-	public function setDatabaseWrapper(DatabaseWrapper $databaseWrapper)
+	public function setConnection(IConnection $connection)
 	{
-		$this->databaseWrapper = $databaseWrapper;
+		$this->connection = $connection;
 		return $this;
 	}
 
-	public function getDatabaseWrapper()
+	public function getConnection()
 	{
-		return $this->databaseWrapper;
+		return $this->connection;
 	}
 
 	public function setNullValue(MySqlValue $value)

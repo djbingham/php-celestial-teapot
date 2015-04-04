@@ -5,64 +5,35 @@ namespace PHPMySql;
 class DatabaseWrapper
 {
 	/**
-	 * @var Factory
-	 */
-	protected $factory;
-
-	/**
-	 * @var Factory\MySqli\Connection
-	 */
-	protected $connector;
-	/**
-	 * @var Abstractory\ConnectionWrapper
+	 * @var Abstractory\IConnection
 	 */
 	protected $connection;
+
 	/**
-	 * @var Factory\MySqli\QueryBuilder
+	 * @var Abstractory\IQueryBuilderFactory
 	 */
-	protected $queryBuilder;
+	protected $queryBuilderFactory;
 
-	public function __construct(Factory $factory)
+	public function __construct(Abstractory\IConnection $connection, Abstractory\IQueryBuilderFactory $queryBuilderFactory)
 	{
-		$this->factory = $factory;
-	}
-
-	public function connector()
-	{
-		if (!isset($this->connector)) {
-			$this->connector = new Factory\MySqli\Connection($this->factory);
-		}
-		return $this->connector;
+		$this->connection = $connection;
+		$this->queryBuilderFactory = $queryBuilderFactory;
 	}
 
 	/**
-	 * @return Abstractory\ConnectionWrapper
+	 * @return Abstractory\Query
 	 */
-	public function connection()
+	public function query()
 	{
-		return $this->connection;
+		return $this->queryBuilderFactory->query();
 	}
 
 	/**
-	 * @return Factory\MySqli\QueryBuilder
+	 * @return Abstractory\Value
 	 */
-	public function queryBuilder()
+	public function value()
 	{
-		if (!isset($this->queryBuilder)) {
-			$this->queryBuilder = new Factory\MySqli\QueryBuilder($this->factory);
-		}
-		return $this->queryBuilder;
-	}
-
-	/**
-	 * @param Abstractory\ConnectionWrapper $connectionWrapper
-	 * @return DatabaseWrapper $this
-	 */
-	public function connect(Abstractory\ConnectionWrapper $connectionWrapper)
-	{
-		$this->connection = $connectionWrapper;
-		$this->connection()->connect();
-		return $this;
+		return $this->queryBuilderFactory->value();
 	}
 
 	/**
@@ -70,12 +41,9 @@ class DatabaseWrapper
 	 * @return DatabaseWrapper $this
 	 * @throws \Exception If database reports error running query
 	 */
-	public function query(Abstractory\Query $query)
+	public function execute(Abstractory\Query $query)
 	{
-		$this->connection()->query($query);
-		if ($this->connection()->hasError()) {
-			throw new \Exception(sprintf('Database query caused error: %s', $this->connection()->getError()));
-		}
+		$this->connection->executeQuery($query);
 		return $this;
 	}
 
@@ -84,7 +52,7 @@ class DatabaseWrapper
 	 */
 	public function getData()
 	{
-		return $this->connection()->getData();
+		return $this->connection->getLastResultData();
 	}
 
 	/**
@@ -92,7 +60,7 @@ class DatabaseWrapper
 	 */
 	public function getAffectedRowsCount()
 	{
-		return $this->connection()->getAffectedRowsCount();
+		return $this->connection->countAffectedRows();
 	}
 
 	/**
@@ -100,23 +68,15 @@ class DatabaseWrapper
 	 */
 	public function getInsertId()
 	{
-		return $this->connection()->getInsertId();
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function hasError()
-	{
-		return $this->connection()->hasError();
+		return $this->connection->getLastInsertId();
 	}
 
 	/**
 	 * @return null|string
 	 */
-	public function getError()
+	public function getLastError()
 	{
-		return $this->connection()->getError();
+		return $this->connection->getLastError();
 	}
 
 	/**
@@ -124,7 +84,7 @@ class DatabaseWrapper
 	 */
 	public function queryLog()
 	{
-		return $this->connection()->getQueryLog();
+		return $this->connection->getQueryLog();
 	}
 
 	/**
@@ -132,7 +92,7 @@ class DatabaseWrapper
 	 */
 	public function begin()
 	{
-		$this->connection()->begin();
+		$this->connection->begin();
 		return $this;
 	}
 
@@ -141,7 +101,7 @@ class DatabaseWrapper
 	 */
 	public function commit()
 	{
-		$this->connection()->commit();
+		$this->connection->commit();
 		return $this;
 	}
 
@@ -150,7 +110,7 @@ class DatabaseWrapper
 	 */
 	public function rollback()
 	{
-		$this->connection()->rollback();
+		$this->connection->rollback();
 		return $this;
 	}
 
@@ -160,6 +120,6 @@ class DatabaseWrapper
 	 */
 	public function escapeString($string)
 	{
-		return $this->connection()->escapeString($string);
+		return $this->connection->escapeString($string);
 	}
 }

@@ -1,84 +1,54 @@
 <?php
+
 namespace PHPMySql\QueryBuilder\MySql\Factory;
 
-use PHPMySql\DatabaseWrapper;
-use Database\QueryBuilder\MySql;
+use PHPMySql\Abstractory\Factory;
 
-class Query
+class Query extends Factory
 {
-	/**
-	 * @var DatabaseWrapper
-	 */
-	protected $databaseWrapper;
-
-	/**
-	 * @param DatabaseWrapper $databaseWrapper
-	 * @return Query $this
-	 */
-	public function setDatabaseWrapper(DatabaseWrapper $databaseWrapper)
-	{
-		$this->databaseWrapper = $databaseWrapper;
-		return $this;
-	}
-
-	/**
-	 * @return DatabaseWrapper
-	 */
-	public function getDatabaseWrapper()
-	{
-		return $this->databaseWrapper;
-	}
-
-	public function hasDatabaseWrapper()
-	{
-		return $this->databaseWrapper instanceof DatabaseWrapper;
-	}
-
-	/**
-	 * @return MySql\Query\Select
-	 */
 	public function select()
 	{
-		return new MySql\Query\Select();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Select();
+		$query->setConnection($this->connection);
+		return $query;
 	}
 
-	/**
-	 * @return MySql\Query\Insert
-	 */
 	public function insert()
 	{
-		return new MySql\Query\Insert();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Insert();
+		$query->setConnection($this->connection);
+		return $query;
 	}
 
-	/**
-	 * @return MySql\Query\Update
-	 */
+	public function replace()
+	{
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Insert();
+		$query->setConnection($this->connection)
+			->replaceRows();
+		return $query;
+	}
+
 	public function update()
 	{
-		return new MySql\Query\Update();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Update();
+		$query->setConnection($this->connection);
+		return $query;
 	}
 
-	/**
-	 * @return MySql\Query\Delete
-	 */
 	public function delete()
 	{
-		return new MySql\Query\Delete();
+		$query = new \PHPMySql\QueryBuilder\MySql\Query\Delete();
+		$query->setConnection($this->connection);
+		return $query;
 	}
 
-	/**
-	 * @return MySql\Query\Join
-	 */
 	public function join()
 	{
-		return new MySql\Query\Join();
+		return new \PHPMySql\QueryBuilder\MySql\Factory\Join($this->connection);
 	}
 
-	/**
-	 * @return MySql\Query\Constraint
-	 */
 	public function constraint()
 	{
-		return new MySql\Query\Constraint();
+		return new \PHPMySql\QueryBuilder\MySql\Query\Constraint();
 	}
 }

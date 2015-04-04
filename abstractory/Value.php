@@ -2,41 +2,39 @@
 
 namespace PHPMySql\Abstractory;
 
-use PHPMySql\DatabaseWrapper;
-
 abstract class Value
 {
 	/**
-	 * @var DatabaseWrapper
+	 * @var IConnection
 	 */
-	protected $databaseWrapper;
+	protected $connection;
 
 	abstract public function __toString();
 
 	/**
-	 * @param DatabaseWrapper $databaseWrapper
+	 * @param IConnection $connection
 	 * @return Value $this
 	 */
-	public function setDatabaseWrapper(DatabaseWrapper $databaseWrapper)
+	public function setConnection(IConnection $connection)
 	{
-		$this->databaseWrapper = $databaseWrapper;
+		$this->connection = $connection;
 		return $this;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function hasDatabaseWrapper()
+	public function hasConnection()
 	{
-		return $this->databaseWrapper instanceof DatabaseWrapper;
+		return $this->connection instanceof IConnection;
 	}
 
 	/**
-	 * @return DatabaseWrapper
+	 * @return IConnection
 	 */
-	public function getDatabaseWrapper()
+	public function getConnection()
 	{
-		return $this->databaseWrapper;
+		return $this->connection;
 	}
 
 	/**
@@ -45,6 +43,6 @@ abstract class Value
 	 */
 	public function escapeString($string)
 	{
-		return $this->getDatabaseWrapper()->escapeString($string);
+		return $this->getConnection()->escapeString($string);
 	}
 }
