@@ -1,9 +1,9 @@
 <?php
 namespace PHPMySql\Test\Utility\Mock;
 
-use PHPMySql;
+use PHPMySql\Abstractory\AFactory;
 
-class Factory extends PHPMySql\Factory
+class Factory extends AFactory
 {
     
 }

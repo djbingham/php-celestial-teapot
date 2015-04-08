@@ -15,7 +15,7 @@ class NumberTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new Number();
+		$this->object = new Number($this->mockBuilder()->connection());
 	}
 
 	public function testSetValueFailsIfValueIsString()

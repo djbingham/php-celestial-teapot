@@ -20,7 +20,9 @@ class ConstraintTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->mockBuilder()->queryConstraint();
+		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Constraint')
+			->disableOriginalConstructor()
+			->getMock();
 		$constraint->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($string));

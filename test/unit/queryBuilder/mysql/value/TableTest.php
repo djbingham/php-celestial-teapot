@@ -8,22 +8,14 @@ use PHPMySql\Test\Abstractory\UnitTest;
 
 class TableTest extends UnitTest
 {
-    /**
-     * @var Table
-     */
-	protected $object;
-
-	public function setup()
-	{
-		$this->object = new Table();
-	}
-
     public function testSetAndGetTableName()
 	{
 		$name = 'T1';
-		$setterOutput = $this->object->setTableName($name);
-		$this->assertEquals($this->object, $setterOutput);
-		$getterOutput = $this->object->getTableName();
+
+		$object = new Table($this->mockBuilder()->connection());
+		$setterOutput = $object->setTableName($name);
+		$this->assertEquals($object, $setterOutput);
+		$getterOutput = $object->getTableName();
 		$this->assertEquals($name, $getterOutput);
 	}
 
@@ -35,28 +27,19 @@ class TableTest extends UnitTest
 		$connection->expects($this->any())
 			->method('escapeString')
 			->will($this->onConsecutiveCalls($tableName, $fieldNames[0], $tableName, $fieldNames[1]));
-		$this->object->setConnection($connection);
-		$this->object->setTableName($tableName);
+
+		$object = new Table($connection);
+		$object->setTableName($tableName);
 		// Create two fields
-		$field0 = $this->object->field($fieldNames[0]);
-		$field1 = $this->object->field($fieldNames[1]);
+		$field0 = $object->field($fieldNames[0]);
+		$field1 = $object->field($fieldNames[1]);
 		$this->assertInstanceOf('PHPMySql\QueryBuilder\MySql\Value\Table\Field', $field0);
 		$this->assertInstanceOf('PHPMySql\QueryBuilder\MySql\Value\Table\Field', $field1);
 		// Fetch each field by name and check that the same instances are returned
-		$fetchedField0 = $this->object->field($fieldNames[0]);
-		$fetchedField1 = $this->object->field($fieldNames[1]);
+		$fetchedField0 = $object->field($fieldNames[0]);
+		$fetchedField1 = $object->field($fieldNames[1]);
 		$this->assertEquals('`'.$tableName.'`.`'.$fieldNames[0].'`', (string) $fetchedField0);
 		$this->assertEquals('`'.$tableName.'`.`'.$fieldNames[1].'`', (string) $fetchedField1);
-	}
-
-	protected function mockValueFactory()
-	{
-		$valueFactory = $this->mockBuilder()->mySqlValueFactory();
-		$valueFactory->expects($this->once())
-			->method('sqlConstant')
-			->with('NULL')
-			->will($this->returnValue($this->mockBuilder()->queryValue()));
-		return $valueFactory;
 	}
 
 	public function testData()
@@ -65,12 +48,24 @@ class TableTest extends UnitTest
 		$connection->expects($this->once())
 			->method('value')
 			->will($this->returnValue($this->mockValueFactory()));
-		$this->object->setConnection($connection);
+
+		$object = new Table($this->mockBuilder()->connection());
+
 		// Create a data instance
-		$output1 = $this->object->data();
+		$output1 = $object->data();
 		$this->assertInstanceOf('PHPMySql\QueryBuilder\MySql\Value\Table\Data', $output1);
 		// Fetch the data instance and verify that it is the same
-		$output2 = $this->object->data();
+		$output2 = $object->data();
 		$this->assertEquals($output1, $output2);
+	}
+
+	private function mockValueFactory()
+	{
+		$valueFactory = $this->mockBuilder()->mySqlValueFactory();
+		$valueFactory->expects($this->once())
+			->method('sqlConstant')
+			->with('NULL')
+			->will($this->returnValue($this->mockBuilder()->queryValue()));
+		return $valueFactory;
 	}
 }

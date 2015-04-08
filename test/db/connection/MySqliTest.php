@@ -40,7 +40,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testExecuteQueryWithThrowsExceptionIfQueryFails()
 	{
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock();
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SCHMLEEARRRRGH!'));
@@ -51,7 +51,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testGetLastError()
 	{
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock();
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SCHMLEEARRRRGH!'));
@@ -82,7 +82,7 @@ class MySqliTest extends DbTestWithMySqli
 			)
 		);
 
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock();
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SELECT * FROM guestbook'));
@@ -93,8 +93,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testGetLastResultDataReturnsFalseWhenQueryHasNoResultSet()
 	{
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')
-			->getMock();
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 
 		$query->expects($this->any())
 			->method('__toString')
@@ -106,7 +105,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testGetLastInsertIdReturnsAutoIncrementValueFromLastInsertQuery()
 	{
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock();
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -124,7 +123,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testCountAffectedRows()
 	{
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock();
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -136,7 +135,7 @@ class MySqliTest extends DbTestWithMySqli
 		$this->assertSame($this->object, $this->object->executeQuery($query));
 		$this->assertSame(1, $this->object->countAffectedRows());
 
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock();
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -153,8 +152,8 @@ class MySqliTest extends DbTestWithMySqli
 	public function testGetQueryLog()
 	{
 		$queries = array(
-			$this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock(),
-			$this->getMockBuilder('PHPMySql\Abstractory\Query')->getMock()
+			$this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock()
 		);
 
 		$queryStrings = array(

@@ -6,7 +6,7 @@ interface IConnection
 	public function begin();
 	public function commit();
 	public function rollback();
-	public function executeQuery(Query $query);
+	public function executeQuery(AQuery $query);
 	public function getLastResultData();
 	public function getQueryLog();
 	public function getLastInsertId();

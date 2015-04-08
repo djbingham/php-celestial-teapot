@@ -1,9 +1,17 @@
 <?php
 namespace PHPMySql\Test\Utility\Mock;
 
-use \PHPMySql\QueryBuilder\MySql\Factory;
+use PHPMySql\Abstractory\IQueryBuilderFactory;
 
-class QueryBuilderFactory extends Factory
+class QueryBuilderFactory implements IQueryBuilderFactory
 {
-	
+	public function query()
+	{
+		return new DatabaseQuery();
+	}
+
+	public function value()
+	{
+		return new DatabaseValue();
+	}
 }

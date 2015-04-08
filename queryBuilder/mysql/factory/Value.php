@@ -1,7 +1,8 @@
 <?php
 namespace PHPMySql\QueryBuilder\MySql\Factory;
 
-use PHPMySql\Abstractory\Factory as AbstractFactory;
+use PHPMySql\Abstractory\AFactory;
+use PHPMySql\Abstractory\IValueFactory;
 use PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue;
 use PHPMySql\QueryBuilder\MySql\Value\String;
 use PHPMySql\QueryBuilder\MySql\Value\Number;
@@ -10,7 +11,7 @@ use PHPMySql\QueryBuilder\MySql\Value\Table;
 use PHPMySql\QueryBuilder\MySql\Value\ValueList;
 use PHPMySql\QueryBuilder\MySql\Value\SqlFunction;
 
-class Value extends AbstractFactory
+class Value extends AFactory implements IValueFactory
 {
 	/**
 	 * @param string $string
@@ -18,8 +19,7 @@ class Value extends AbstractFactory
 	 */
 	public function string($string)
 	{
-		$value = new String();
-		$value->setConnection($this->connection);
+		$value = new String($this->connection);
 		$value->setValue($string);
 		return $value;
 	}
@@ -30,8 +30,7 @@ class Value extends AbstractFactory
 	 */
 	public function number($number)
 	{
-		$value = new Number();
-		$value->setConnection($this->connection);
+		$value = new Number($this->connection);
 		$value->setValue($number);
 		return $value;
 	}
@@ -42,8 +41,7 @@ class Value extends AbstractFactory
 	 */
 	public function sqlConstant($constant)
 	{
-		$value = new Constant();
-		$value->setConnection($this->connection);
+		$value = new Constant($this->connection);
 		$value->setValue($constant);
 		return $value;
 	}
@@ -55,8 +53,7 @@ class Value extends AbstractFactory
 	 */
 	public function sqlFunction($function, array $params = array())
 	{
-		$func = new SqlFunction();
-		$func->setConnection($this->connection);
+		$func = new SqlFunction($this->connection);
 		$func->setFunction($function);
 		$func->setParams($params);
 		return $func;
@@ -68,8 +65,7 @@ class Value extends AbstractFactory
 	 */
 	public function table($tableName)
 	{
-		$table = new Table();
-		$table->setConnection($this->connection);
+		$table = new Table($this->connection);
 		$table->setTableName($tableName);
 		return $table;
 	}
@@ -81,8 +77,7 @@ class Value extends AbstractFactory
 	 */
 	public function tableField($tableName, $fieldName)
 	{
-		$table = new Table();
-		$table->setConnection($this->connection);
+		$table = new Table($this->connection);
 		$table->setTableName($tableName);
 		$field = $table->field($fieldName);
 		return $field;
@@ -93,8 +88,7 @@ class Value extends AbstractFactory
 	 */
 	public function tableData()
 	{
-		$data = new Table\Data();
-		$data->setConnection($this->connection);
+		$data = new Table\Data($this->connection);
 		return $data;
 	}
 

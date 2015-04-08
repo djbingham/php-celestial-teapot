@@ -9,17 +9,21 @@ $databases = array(
 		'socket' => null
 	))
 );
-$connectionManager = new PHPMySql\Connection\Manager();
-$connectionManager->set('mysqliDefault', new PHPMySql\Connection\MySqli($databases['default']));
 
-$queryBuilderManager = new PHPMySql\QueryBuilder\Manager();
-$queryBuilderManager->set('mysql', new PHPMySql\QueryBuilder\MySql\Factory($connectionManager->get('default')));
 
-$db = new PHPMySql\DatabaseWrapper($connectionManager->get('default'), $queryBuilderManager->get('mysql'));
+// Setup a database wrapper using connection and query builder managers
+$dbManager = new PHPMySql\Manager(null, null);
+$dbManager->setConnection('default', new PHPMySql\Connection\MySqli($databases['default']));
+$dbManager->setQueryBuilder('default', new PHPMySql\QueryBuilder\MySql\Wrapper($dbManager->getConnection('default')));
+$db = new PHPMySql\DatabaseWrapper($dbManager->getConnection('default'), $dbManager->getQueryBuilder('mysql'));
 
+// Setup a database wrapper without using manager classes
+$dbConnection = new PHPMySql\Connection\MySqli($databases['default']);
+$db = new PHPMySql\DatabaseWrapper($dbConnection, new PHPMySql\QueryBuilder\MySql\Wrapper($dbConnection));
+
+// Example query construction and execution
 $table1 = $db->value()->table('MyFirstTable');
 $table2 = $db->value()->table('MySecondTable');
-
 $sampleQuery = $db->query()
 	->select()
 	->field($table1->field('firstField'))
@@ -37,12 +41,3 @@ $sampleQuery = $db->query()
 	)
 	->orderBy($table1->field('dateCreated'));
 $sampleResult = $db->execute($sampleQuery)->getData();
-
-
-
-// IGNORE BELOW
-$phpMySql = new PHPMySql\Manager($connectionManager, $queryBuilderManager);
-$phpMySql->set('default', array(
-	'connection' => 'mysqliDefault',
-	'queryBuilder' => 'mysql'
-));

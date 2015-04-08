@@ -4,30 +4,9 @@ namespace PHPMySql\Test\QueryBuilder\MySql;
 require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/bootstrap.php';
 
 use PHPMySql\Test\Abstractory\UnitTest;
-use PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue;
 
 class MySqlValueTest extends UnitTest
 {
-	/**
-	 * @var MySqlValue
-	 */
-	protected $object;
-
-	public function setup()
-	{
-		$this->object = $this->mock()->databaseValue();
-	}
-
-	public function testSetGetAndHasDatabaseWrapper()
-	{
-		$wrapper = $this->mockBuilder()->connection();
-		$setterOutput = $this->object->setConnection($wrapper);
-		$this->assertEquals($this->object, $setterOutput);
-		$getterOutput = $this->object->getConnection($wrapper);
-		$this->assertEquals($wrapper, $getterOutput);
-		$this->assertTrue($this->object->hasConnection());
-	}
-
 	public function testEscapeString()
 	{
 		$testString = 'String to escape';
@@ -37,8 +16,9 @@ class MySqlValueTest extends UnitTest
 			->method('escapeString')
 			->with($testString)
 			->will($this->returnValue($escapedString));
-		$this->object->setConnection($wrapper);
-		$output = $this->object->escapeString($testString);
+
+		$object = $this->mock()->databaseValue($wrapper);
+		$output = $object->escapeString($testString);
 		$this->assertEquals($escapedString, $output);
 	}
 }

@@ -35,19 +35,18 @@ class DatabaseWrapperTest extends UnitTest
 
 	public function testQueryReturnsQueryBuilder()
 	{
-		$queryBuilder = $this->mockBuilder()->mySqlQueryBuilder();
 		$this->queryBuilder->expects($this->once())
 			->method('query')
-			->will($this->returnValue($queryBuilder));
+			->will($this->returnValue($this->queryBuilder));
 		$result = $this->object->query();
-		$this->assertSame($queryBuilder, $result);
+		$this->assertSame($this->queryBuilder, $result);
 	}
 
 	public function testExecuteSendsQueryToConnection()
 	{
 		$this->connection->expects($this->once())
 			->method('executeQuery');
-		$query = $this->getMock('PHPMySql\Abstractory\Query');
+		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 
 
 		$output = $this->object->execute($query);

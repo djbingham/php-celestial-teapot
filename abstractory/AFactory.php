@@ -1,7 +1,7 @@
 <?php
 namespace PHPMySql\Abstractory;
 
-abstract class Factory
+abstract class AFactory
 {
 	/**
 	 * @var IConnection

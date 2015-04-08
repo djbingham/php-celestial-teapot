@@ -13,10 +13,20 @@ class Manager
 	 */
 	private $queryBuilderManager;
 
+//	/**
+//	 * @var array
+//	 */
+//	private $databaseWrappers = array();
+
 	/**
 	 * @var array
 	 */
-	private $databaseWrappers = array();
+	private $connections = array();
+
+	/**
+	 * @var array
+	 */
+	private $queryBuilders = array();
 
 	public function __construct(Connection\Manager $connectionManager, QueryBuilder\Manager $queryBuilderManager)
 	{
@@ -24,16 +34,38 @@ class Manager
 		$this->queryBuilderManager = $queryBuilderManager;
 	}
 
-	public function set($name, array $parameters)
+//	public function set($name, array $parameters)
+//	{
+//		$connection = $this->connectionManager->get($parameters['connection']);
+//		$queryBuilder = $this->queryBuilderManager->get($parameters['queryBuilder']);
+//		$this->databaseWrappers[$name] = new DatabaseWrapper($connection, $queryBuilder);
+//		return $this;
+//	}
+//
+//	public function get($name)
+//	{
+//		return $this->databaseWrappers[$name];
+//	}
+
+	public function setConnection($name, Abstractory\IConnection $connection)
 	{
-		$connection = $this->connectionManager->get($parameters['connection']);
-		$queryBuilder = $this->queryBuilderManager->get($parameters['queryBuilder']);
-		$this->databaseWrappers[$name] = new DatabaseWrapper($connection, $queryBuilder);
+		$this->connections[$name] = $connection;
 		return $this;
 	}
 
-	public function get($name)
+	public function getConnection($name)
 	{
-		return $this->databaseWrappers[$name];
+		return $this->connections[$name];
+	}
+
+	public function setQueryBuilder($name, Abstractory\IQueryBuilderFactory $queryBuilder)
+	{
+		$this->queryBuilders[$name] = $queryBuilder;
+		return $this;
+	}
+
+	public function getQueryBuilder($name)
+	{
+		return $this->queryBuilders[$name];
 	}
 }

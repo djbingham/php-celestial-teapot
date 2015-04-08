@@ -15,7 +15,7 @@ class SelectTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new Select();
+		$this->object = new Select($this->mockBuilder()->connection());
 	}
 
 	protected function mockTable($tableName)
@@ -38,7 +38,9 @@ class SelectTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->mockBuilder()->queryConstraint();
+		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Constraint')
+			->disableOriginalConstructor()
+			->getMock();
 		$constraint->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($string));
@@ -47,7 +49,9 @@ class SelectTest extends UnitTest
 
 	protected function mockJoin($string)
 	{
-		$constraint = $this->mockBuilder()->queryJoin();
+		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Join')
+			->disableOriginalConstructor()
+			->getMock();
 		$constraint->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($string));
@@ -141,12 +145,9 @@ class SelectTest extends UnitTest
 	public function testWhereAndGetConstraint()
 	{
 		$constraints = array(
-			$this->mockBuilder()->queryConstraint(),
+			$this->mockConstraint('constraint 1'),
 			$this->mockConstraint('constraint 2')
 		);
-		$constraints[0]->expects($this->any())
-			->method('__toString')
-			->will($this->returnValue('constraint 1'));
 		$constraints[0]->expects($this->once())
 			->method('andWhere')
 			->with($constraints[1])
@@ -160,12 +161,9 @@ class SelectTest extends UnitTest
 	public function testAndWhere()
 	{
 		$constraints = array(
-			$this->mockBuilder()->queryConstraint(),
+			$this->mockConstraint('constraint 1'),
 			$this->mockConstraint('constraint 2')
 		);
-		$constraints[0]->expects($this->any())
-			->method('__toString')
-			->will($this->returnValue('constraint 1'));
 		$constraints[0]->expects($this->once())
 			->method('andWhere')
 			->with($constraints[1])
@@ -178,7 +176,9 @@ class SelectTest extends UnitTest
 
 	public function testAndWhereFailsWithNoPreviousConstraint()
 	{
-		$constraint = $this->mockBuilder()->queryConstraint();
+		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Constraint')
+			->disableOriginalConstructor()
+			->getMock();
 		$constraint->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('constraint string'));
@@ -189,12 +189,9 @@ class SelectTest extends UnitTest
 	public function testOrWhere()
 	{
 		$constraints = array(
-			$this->mockBuilder()->queryConstraint(),
+			$this->mockConstraint('constraint 1'),
 			$this->mockConstraint('constraint 2')
 		);
-		$constraints[0]->expects($this->any())
-			->method('__toString')
-			->will($this->returnValue('constraint 1'));
 		$constraints[0]->expects($this->once())
 			->method('orWhere')
 			->with($constraints[1])
@@ -207,7 +204,9 @@ class SelectTest extends UnitTest
 
 	public function testOrWhereFailsWithNoPreviousConstraint()
 	{
-		$constraint = $this->mockBuilder()->queryConstraint();
+		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Constraint')
+			->disableOriginalConstructor()
+			->getMock();
 		$constraint->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('constraint string'));

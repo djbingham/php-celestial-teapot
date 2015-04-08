@@ -32,15 +32,6 @@ class ValueTest extends UnitTest
 		return $wrapper;
 	}
 
-	protected function mockDatabaseFactory($wrapper)
-	{
-		$connection = $this->mockBuilder()->connection();
-		$connection->expects($this->any())
-			->method('wrapper')
-			->will($this->returnValue($wrapper));
-		return $connection;
-	}
-
 	protected function getObject($connection)
 	{
 		return new ValueFactory($connection);
@@ -84,8 +75,8 @@ class ValueTest extends UnitTest
 		$testFunction = 'testFunc';
 		$escapedFunction = 'escapedFunc';
 		$testParams = array(
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString')),
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString'))
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$testParams[0]->expects($this->any())
 			->method('__toString')
@@ -130,8 +121,7 @@ class ValueTest extends UnitTest
 
 	public function testTableData()
 	{
-		$dbWrapper = $this->mockBuilder()->databaseWrapper();
-		$connection = $this->mockDatabaseFactory($dbWrapper);
+		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->tableData();
 		$this->assertInstanceOf('PHPMySql\QueryBuilder\MySql\Value\Table\Data', $output);
@@ -140,8 +130,8 @@ class ValueTest extends UnitTest
 	public function testValueList()
 	{
 		$testValues = array(
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString')),
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString'))
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$testValues[0]->expects($this->any())
 			->method('__toString')
@@ -160,8 +150,8 @@ class ValueTest extends UnitTest
 
 	public function testCreateValueLiteral()
 	{
-		$value = new String();
-		$connection = $this->mockDatabaseFactory($this->mockBuilder()->databaseWrapper());
+		$connection = $this->mockBuilder()->connection();
+		$value = new String($connection);
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'literal');
 		$this->assertEquals($value, $output);
@@ -170,8 +160,8 @@ class ValueTest extends UnitTest
 	public function testCreateValueList()
 	{
 		$list = array(
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString')),
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString'))
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$list[0]->expects($this->once())
 			->method('__toString')
@@ -180,7 +170,7 @@ class ValueTest extends UnitTest
 			->method('__toString')
 			->will($this->returnValue('"value 2"'));
 
-		$connection = $this->mockDatabaseFactory($this->mockBuilder()->databaseWrapper());
+		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->createValue($list, 'list');
 		$this->assertInstanceOf('PHPMySql\QueryBuilder\MySql\Value\ValueList', $output);
@@ -311,7 +301,7 @@ class ValueTest extends UnitTest
 
 	public function testCreateValueInvalidType()
 	{
-		$connection = $this->mockDatabaseFactory($this->mockBuilder()->databaseWrapper());
+		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$this->setExpectedException('\Exception');
 		$object->createValue('value', 'Not a valid type');
@@ -319,12 +309,12 @@ class ValueTest extends UnitTest
 
 	public function testGuessLiteral()
 	{
-		$mockValue = $this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString'));
+		$mockValue = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock();
 		$mockValue->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('12'));
 
-		$connection = $this->mockDatabaseFactory($this->mockBuilder()->databaseWrapper());
+		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->guess($mockValue);
 		$this->assertInstanceOf('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', $output);
@@ -343,8 +333,8 @@ class ValueTest extends UnitTest
 	public function testGuessList()
 	{
 		$mockValues = array(
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString')),
-			$this->getMock('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue', array('__toString'))
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$mockValues[0]->expects($this->any())
 			->method('__toString')
@@ -352,7 +342,7 @@ class ValueTest extends UnitTest
 		$mockValues[1]->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('2'));
-		$connection = $this->mockDatabaseFactory($this->mockBuilder()->databaseWrapper());
+		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->guess($mockValues);
 		$this->assertInstanceOf('PHPMySql\QueryBuilder\MySql\Value\ValueList', $output);

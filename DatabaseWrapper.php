@@ -21,7 +21,7 @@ class DatabaseWrapper
 	}
 
 	/**
-	 * @return Abstractory\Query
+	 * @return Abstractory\IQueryFactory
 	 */
 	public function query()
 	{
@@ -29,7 +29,7 @@ class DatabaseWrapper
 	}
 
 	/**
-	 * @return Abstractory\Value
+	 * @return Abstractory\IValueFactory
 	 */
 	public function value()
 	{
@@ -37,11 +37,11 @@ class DatabaseWrapper
 	}
 
 	/**
-	 * @param Abstractory\Query $query
+	 * @param Abstractory\AQuery $query
 	 * @return DatabaseWrapper $this
 	 * @throws \Exception If database reports error running query
 	 */
-	public function execute(Abstractory\Query $query)
+	public function execute(Abstractory\AQuery $query)
 	{
 		$this->connection->executeQuery($query);
 		return $this;

@@ -45,7 +45,7 @@ class DataTest extends UnitTest
 
 	public function testSetAndGetNullValue()
 	{
-		$value = new Constant();
+		$value = new Constant($this->mockBuilder()->connection());
 		$setterOutput = $this->object->setNullValue($value);
 		$this->assertEquals($this->object, $setterOutput);
 		$this->assertEquals($value, $this->object->getNullValue());
@@ -182,8 +182,7 @@ class DataTest extends UnitTest
 		$connection->expects($this->any())
 			->method('escapeString')
 			->will($this->returnValue('NULL'));
-		$nullValue = new Constant();
-		$nullValue->setConnection($connection);
+		$nullValue = new Constant($connection);
 		$nullValue->setValue('NULL');
 		$this->object->setNullValue($nullValue);
 		$fields = array(
@@ -228,8 +227,7 @@ class DataTest extends UnitTest
 		$connection->expects($this->any())
 			->method('escapeString')
 			->will($this->returnValue('NULL'));
-		$nullValue = new Constant();
-		$nullValue->setConnection($connection);
+		$nullValue = new Constant($connection);
 		$nullValue->setValue('NULL');
 		$this->object->setNullValue($nullValue);
 		$fields = array(

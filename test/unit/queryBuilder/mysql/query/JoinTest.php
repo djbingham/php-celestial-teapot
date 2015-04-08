@@ -15,7 +15,7 @@ class JoinTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new Join();
+		$this->object = new Join($this->mockBuilder()->connection());
 	}
 
 	protected function mockTable($tableName)
@@ -29,7 +29,9 @@ class JoinTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->mockBuilder()->queryConstraint();
+		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Constraint')
+			->disableOriginalConstructor()
+			->getMock();
 		$constraint->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($string));

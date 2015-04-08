@@ -18,37 +18,23 @@ class MockBuilder extends \PHPUnit_Framework_TestCase
 			->getMock();
 	}
 
-	public function connectionOptions()
-	{
-		return $this->getMockBuilder('PHPMySql\Connector\ConnectionOptions')
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	public function mySqlQuery($type)
-	{
-		return $this->getMockBuilder(sprintf('PHPMySql\QueryBuilder\MySql\Query\%s', $type))
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
 	public function queryConstraint()
 	{
-		return $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Constraint')
+		return $this->getMockBuilder('PHPMySql\Abstractory\Query\AConstraint')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryJoin()
 	{
-		return $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Join')
+		return $this->getMockBuilder('PHPMySql\Abstractory\Query\AJoin')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryValue($type = null)
 	{
-		$class = sprintf('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue');
+		$class = sprintf('PHPMySql\Abstractory\AValue');
 		if (!is_null($type)) {
 			$class = sprintf('PHPMySql\QueryBuilder\MySql\Value\%s', $type);
 		}
@@ -57,37 +43,16 @@ class MockBuilder extends \PHPUnit_Framework_TestCase
 			->getMock();
 	}
 
-	public function factory()
-	{
-		return $this->getMockBuilder('PHPMySql\Factory')
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
 	public function mySqlValueFactory()
 	{
-		return $this->getMockBuilder('PHPMySql\Factory\MySqli\QueryBuilder\Value')
+		return $this->getMockBuilder('PHPMySql\Abstractory\IValueFactory')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function mySqlQueryBuilderFactory()
 	{
-		return $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Factory')
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	public function mySqlQueryBuilder()
-	{
-		return $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Factory\Query')
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	public function mySqlQueryFactory()
-	{
-		return $this->getMockBuilder('PHPMySql\Factory\MySqli\QueryBuilder\Query')
+		return $this->getMockBuilder('PHPMySql\Abstractory\IQueryBuilderFactory')
 			->disableOriginalConstructor()
 			->getMock();
 	}

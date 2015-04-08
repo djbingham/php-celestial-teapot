@@ -15,7 +15,7 @@ class ConstantTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new Constant();
+		$this->object = new Constant($this->mockBuilder()->connection());
 	}
 
 	public function testSetValue()

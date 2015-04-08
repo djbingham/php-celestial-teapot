@@ -25,7 +25,7 @@ class MySqli extends \MySqli implements Abstractory\IConnection
 	 */
 	private $lastError;
 
-	public function executeQuery(Abstractory\Query $query)
+	public function executeQuery(Abstractory\AQuery $query)
 	{
 		$queryString = (string)$query;
 		$this->logQuery($queryString);

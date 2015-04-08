@@ -8,9 +8,16 @@ trait TQueryElement
 	 */
 	private $connection;
 
-	public function __construct($connection)
+	abstract public function __toString();
+
+	public function __construct(IConnection $connection)
 	{
 		$this->connection = $connection;
+	}
+
+	protected function getConnection()
+	{
+		return $this->connection;
 	}
 
 	protected function escapeString($string)

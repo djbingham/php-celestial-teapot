@@ -2,9 +2,9 @@
 
 namespace PHPMySql\QueryBuilder\MySql\Abstractory;
 
-use PHPMySql\Abstractory\Value;
+use PHPMySql\Abstractory\AValue;
 
-abstract class MySqlValue extends Value
+abstract class MySqlValue extends AValue
 {
 
 }

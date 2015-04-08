@@ -15,7 +15,7 @@ class UpdateTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new Update();
+		$this->object = new Update($this->mockBuilder()->connection());
 	}
 
 	protected function mockTable($tableName)
@@ -29,7 +29,9 @@ class UpdateTest extends UnitTest
 
 	protected function mockField($fieldName)
 	{
-		$field = $this->mockBuilder()->queryValue('Table\Field');
+		$field = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Value\Table\Field')
+			->disableOriginalConstructor()
+			->getMock();
 		$field->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($fieldName));
@@ -38,7 +40,9 @@ class UpdateTest extends UnitTest
 
 	protected function mockValue($string)
 	{
-		$value = $this->mockBuilder()->queryValue();
+		$value = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Abstractory\MySqlValue')
+			->disableOriginalConstructor()
+			->getMock();
 		$value->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($string));
@@ -47,7 +51,9 @@ class UpdateTest extends UnitTest
 
 	protected function mockData(array $fields, array $values)
 	{
-		$data = $this->mockBuilder()->queryValue('Table\Data');
+		$data = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Value\Table\Data')
+			->disableOriginalConstructor()
+			->getMock();
 		$data->expects($this->any())
 			->method('getFields')
 			->will($this->returnValue($fields));
@@ -59,7 +65,9 @@ class UpdateTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->mockBuilder()->queryConstraint();
+		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\MySql\Query\Constraint')
+			->disableOriginalConstructor()
+			->getMock();
 		$constraint->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($string));

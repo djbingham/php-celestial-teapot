@@ -29,11 +29,11 @@ class Connection extends MySqli
 	protected $nextData;
 
 	/**
-	 * @param Abstractory\Query $query
+	 * @param Abstractory\AQuery $query
 	 * @return $this
 	 * @throws \Exception if query doesn't match next expected query
 	 */
-	public function query(Abstractory\Query $query)
+	public function query(Abstractory\AQuery $query)
 	{
 		$this->assertEqualsNextExpectedQuery((string) $query);
 		array_shift($this->expectedQuerySequence);

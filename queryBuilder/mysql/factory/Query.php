@@ -2,27 +2,27 @@
 
 namespace PHPMySql\QueryBuilder\MySql\Factory;
 
-use PHPMySql\Abstractory\Factory;
+use PHPMySql\Abstractory\AFactory;
+use PHPMySql\Abstractory\IQueryFactory;
+use PHPMySql\QueryBuilder\MySql;
 
-class Query extends Factory
+class Query extends AFactory implements IQueryFactory
 {
 	public function select()
 	{
-		$query = new \PHPMySql\QueryBuilder\MySql\Query\Select();
-		$query->setConnection($this->connection);
+		$query = new MySql\Query\Select($this->connection);
 		return $query;
 	}
 
 	public function insert()
 	{
-		$query = new \PHPMySql\QueryBuilder\MySql\Query\Insert();
-		$query->setConnection($this->connection);
+		$query = new MySql\Query\Insert($this->connection);
 		return $query;
 	}
 
 	public function replace()
 	{
-		$query = new \PHPMySql\QueryBuilder\MySql\Query\Insert();
+		$query = new MySql\Query\Insert($this->connection);
 		$query->setConnection($this->connection)
 			->replaceRows();
 		return $query;
@@ -30,25 +30,23 @@ class Query extends Factory
 
 	public function update()
 	{
-		$query = new \PHPMySql\QueryBuilder\MySql\Query\Update();
-		$query->setConnection($this->connection);
+		$query = new MySql\Query\Update($this->connection);
 		return $query;
 	}
 
 	public function delete()
 	{
-		$query = new \PHPMySql\QueryBuilder\MySql\Query\Delete();
-		$query->setConnection($this->connection);
+		$query = new MySql\Query\Delete($this->connection);
 		return $query;
 	}
 
 	public function join()
 	{
-		return new \PHPMySql\QueryBuilder\MySql\Factory\Join($this->connection);
+		return new MySql\Factory\Join($this->connection);
 	}
 
 	public function constraint()
 	{
-		return new \PHPMySql\QueryBuilder\MySql\Query\Constraint();
+		return new MySql\Query\Constraint($this->connection);
 	}
 }

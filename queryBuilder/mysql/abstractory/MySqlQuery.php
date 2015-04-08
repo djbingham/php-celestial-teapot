@@ -1,9 +1,9 @@
 <?php
 namespace PHPMySql\QueryBuilder\MySql\Abstractory;
 
-use PHPMySql\Abstractory\Query;
+use PHPMySql\Abstractory\AQuery;
 
-abstract class MySqlQuery extends Query
+abstract class MySqlQuery extends AQuery
 {
 
 }

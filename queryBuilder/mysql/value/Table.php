@@ -37,8 +37,7 @@ class Table extends MySqlValue
 	public function field($fieldName)
 	{
 		if (!array_key_exists($fieldName, $this->fields)) {
-			$field = new Table\Field();
-			$field->setConnection($this->getConnection());
+			$field = new Table\Field($this->getConnection());
 			$field->setTable($this);
 			$field->setFieldName($fieldName);
 			$this->fields[$fieldName] = $field;
@@ -52,8 +51,8 @@ class Table extends MySqlValue
 	public function data()
 	{
 		if (!$this->data instanceof Table\Data) {
-			$this->data = new Table\Data();
-			$nullValue = new Constant();
+			$this->data = new Table\Data($this->getConnection());
+			$nullValue = new Constant($this->getConnection());
 			$nullValue->setValue('NULL');
 			$this->data->setNullValue($nullValue);
 		}

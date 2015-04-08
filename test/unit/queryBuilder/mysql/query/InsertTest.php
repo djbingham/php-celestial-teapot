@@ -15,7 +15,7 @@ class InsertTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new Insert();
+		$this->object = new Insert($this->mockBuilder()->connection());
 	}
 
 	protected function mockTable($tableName)

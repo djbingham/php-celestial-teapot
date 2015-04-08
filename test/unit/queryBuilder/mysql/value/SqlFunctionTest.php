@@ -15,7 +15,7 @@ class SqlFunctionTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new SqlFunction();
+		$this->object = new SqlFunction($this->mockBuilder()->connection());
 	}
 
 	public function testSetParamsFailsIfParamsContainsString()

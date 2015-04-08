@@ -4,12 +4,12 @@ namespace PHPMySql\Abstractory;
 interface IQueryBuilderFactory
 {
 	/**
-	 * @return Query
+	 * @return IQueryFactory
 	 */
 	public function query();
 
 	/**
-	 * @return Value
+	 * @return IValueFactory
 	 */
 	public function value();
 }

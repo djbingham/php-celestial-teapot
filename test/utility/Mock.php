@@ -9,7 +9,7 @@ class Mock
 	public function databaseFactory()
 	{
 		if (is_null($this->databaseFactory)) {
-			$this->databaseFactory = new Mock\Factory();
+			$this->databaseFactory = new Mock\Factory($this->connection());
 		}
 		return $this->databaseFactory;
 	}
@@ -54,13 +54,19 @@ class Mock
 		return new Mock\QueryBuilderFactory($this->connection());
 	}
 
-	public function databaseQuery()
+	public function databaseQuery($connection = null)
 	{
-		return new Mock\Query();
+		if (is_null($connection)) {
+			$connection = $this->connection();
+		}
+		return new Mock\Query($connection);
 	}
 
-	public function databaseValue()
+	public function databaseValue($connection = null)
 	{
-		return new Mock\Value();
+		if (is_null($connection)) {
+			$connection = $this->connection();
+		}
+		return new Mock\Value($connection);
 	}
 }

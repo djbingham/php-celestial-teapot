@@ -1,10 +1,11 @@
 <?php
 namespace PHPMySql\QueryBuilder\MySql;
 
+use PHPMySql\Abstractory\AQuery;
 use PHPMySql\Abstractory\IQueryBuilderFactory;
-use PHPMySql\Abstractory\Factory as AbstractFactory;
+use PHPMySql\Abstractory\AFactory;
 
-class Factory extends AbstractFactory implements IQueryBuilderFactory
+class Wrapper extends AFactory implements IQueryBuilderFactory
 {
 	public function value()
 	{
@@ -24,5 +25,11 @@ class Factory extends AbstractFactory implements IQueryBuilderFactory
 			$this->setCache('queryFactory', $queryFactory);
 		}
 		return $queryFactory;
+	}
+
+	public function execute(AQuery $query)
+	{
+		$this->connection->executeQuery($query);
+		return $this;
 	}
 }
