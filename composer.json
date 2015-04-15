@@ -1,6 +1,7 @@
 {
-	"name": "favicon/phpMySql",
+	"name": "favicon/phpmysql",
 	"description": "PHP Wrapper for MySQL",
+	"version": "0.1",
 	"minimum-stability": "stable",
 	"license": "proprietary",
 	"authors": [
