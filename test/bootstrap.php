@@ -2,6 +2,7 @@
 
 namespace PHPMySql\Test;
 
-require_once __DIR__ . '/utility/AutoLoader.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/utility/Autoload.php';
 
-new Utility\AutoLoader(dirname(__DIR__), 'PHPMySql');
+new Utility\Autoload(dirname(__DIR__), 'PHPMySql');
