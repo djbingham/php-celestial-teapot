@@ -36,7 +36,7 @@ class MockBuilder extends \PHPUnit_Framework_TestCase
 	{
 		$class = sprintf('PHPMySql\Abstractory\AValue');
 		if (!is_null($type)) {
-			$class = sprintf('PHPMySql\QueryBuilder\MySql\Value\%s', $type);
+			$class = sprintf('PHPMySql\QueryBuilder\Value\%s', $type);
 		}
 		return $this->getMockBuilder($class)
 			->disableOriginalConstructor()

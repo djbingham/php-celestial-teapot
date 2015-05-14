@@ -9,7 +9,7 @@ $database = new PHPMySql\Connection\Database(array(
 	'socket' => null
 ));
 $dbConnection = new PHPMySql\Connection\MySqli($database);
-$queryBuilder = new PHPMySql\QueryBuilder\MySql\Wrapper($dbConnection);
+$queryBuilder = new PHPMySql\QueryBuilder\Wrapper($dbConnection);
 $db = new PHPMySql\DatabaseWrapper($dbConnection, $queryBuilder);
 
 // Example query construction and execution
