@@ -1,25 +1,16 @@
 <?php
-$databases = array(
-	'default' => new PHPMySql\Connection\Database(array(
-		'host' => 'localhost',
-		'username' => 'phpMySqlDemoUser',
-		'password' => 'phpMySqlD3m0P4ss',
-		'name' => 'phpMySqlDemo',
-		'port' => null,
-		'socket' => null
-	))
-);
-
-
-// Setup a database wrapper using connection and query builder managers
-$dbManager = new PHPMySql\Manager(null, null);
-$dbManager->setConnection('default', new PHPMySql\Connection\MySqli($databases['default']));
-$dbManager->setQueryBuilder('default', new PHPMySql\QueryBuilder\MySql\Wrapper($dbManager->getConnection('default')));
-$db = new PHPMySql\DatabaseWrapper($dbManager->getConnection('default'), $dbManager->getQueryBuilder('mysql'));
-
-// Setup a database wrapper without using manager classes
-$dbConnection = new PHPMySql\Connection\MySqli($databases['default']);
-$db = new PHPMySql\DatabaseWrapper($dbConnection, new PHPMySql\QueryBuilder\MySql\Wrapper($dbConnection));
+// Setup a database wrapper
+$database = new PHPMySql\Connection\Database(array(
+	'host' => 'localhost',
+	'username' => 'phpMySqlDemoUser',
+	'password' => 'phpMySqlD3m0P4ss',
+	'name' => 'phpMySqlDemo',
+	'port' => null,
+	'socket' => null
+));
+$dbConnection = new PHPMySql\Connection\MySqli($database);
+$queryBuilder = new PHPMySql\QueryBuilder\MySql\Wrapper($dbConnection);
+$db = new PHPMySql\DatabaseWrapper($dbConnection, $queryBuilder);
 
 // Example query construction and execution
 $table1 = $db->value()->table('MyFirstTable');
