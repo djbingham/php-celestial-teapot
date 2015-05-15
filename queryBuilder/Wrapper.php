@@ -26,10 +26,4 @@ class Wrapper extends AFactory implements IQueryBuilderFactory
 		}
 		return $queryFactory;
 	}
-
-	public function execute(AQuery $query)
-	{
-		$this->connection->executeQuery($query);
-		return $this;
-	}
 }
