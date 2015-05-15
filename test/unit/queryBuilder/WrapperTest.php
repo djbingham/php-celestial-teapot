@@ -4,20 +4,26 @@ namespace SlothMySql\Test\QueryBuilder;
 
 require_once dirname(dirname(__DIR__)) . '/bootstrap.php';
 
+use SlothMySql\Abstractory\IConnection;
 use SlothMySql\Test\Abstractory\UnitTest;
-use SlothMySql\QueryBuilder\Wrapper as QueryBuilder;
+use SlothMySql\QueryBuilder\Wrapper;
 
-class FactoryTest extends UnitTest
+class WrapperTest extends UnitTest
 {
 	/**
-	 * @var QueryBuilder
+	 * @var Wrapper
 	 */
     protected $object;
 
+	/**
+	 * @var IConnection
+	 */
+	protected $connection;
+
 	public function setUp()
 	{
-		$connection = $this->mockBuilder()->connection();
-		$this->object = new QueryBuilder($connection);
+		$this->connection = $this->mockBuilder()->connection();
+		$this->object = new Wrapper($this->connection);
 	}
 
 	public function testQuery()

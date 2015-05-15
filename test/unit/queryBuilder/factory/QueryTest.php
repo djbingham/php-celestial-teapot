@@ -33,6 +33,14 @@ class QueryTest extends UnitTest
 	{
 		$output = $this->object->insert();
 		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Insert', $output);
+		$this->assertFalse($output->isReplaceQuery());
+	}
+
+	public function testReplace()
+	{
+		$output = $this->object->replace();
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Insert', $output);
+		$this->assertTrue($output->isReplaceQuery());
 	}
 
 	public function testUpdate()

@@ -23,8 +23,7 @@ class Query extends AFactory implements IQueryFactory
 	public function replace()
 	{
 		$query = new QueryBuilder\Query\Insert($this->connection);
-		$query->setConnection($this->connection)
-			->replaceRows();
+		$query->replaceRows();
 		return $query;
 	}
 

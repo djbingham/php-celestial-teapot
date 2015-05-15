@@ -53,6 +53,17 @@ class InsertTest extends UnitTest
 		$this->assertEquals($this->object, $output);
 	}
 
+	public function testisReplaceQueryReturnsFalseByDefault()
+	{
+		$this->assertFalse($this->object->isReplaceQuery());
+	}
+
+	public function testReplaceRowsMakesIsReplaceQueryTrue()
+	{
+		$this->assertSame($this->object, $this->object->replaceRows());
+		$this->assertTrue($this->object->isReplaceQuery());
+	}
+
 	public function testToString()
 	{
 		$table = $this->mockTable('`TableName`');
@@ -66,6 +77,29 @@ class InsertTest extends UnitTest
 			->data($mockData);
 		$expectedString = <<<EOT
 INSERT INTO `TableName`
+(`field1`,`field2`,`field3`)
+VALUES
+("value11","value12",NULL),
+("value21",NULL,"value23")
+EOT;
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Insert', $this->object);
+		$this->assertEquals($expectedString, (string)$this->object);
+	}
+
+	public function testReplaceRowsChangesQueryToReplace()
+	{
+		$table = $this->mockTable('`TableName`');
+		$fields = array('`TableName`.`field1`', '`TableName`.`field2`', '`TableName`.`field3`');
+		$values = array(
+			array('"value11"', '"value12"', 'NULL'),
+			array('"value21"', 'NULL', '"value23"')
+		);
+		$mockData = $this->mockData($fields, $values);
+		$this->object->into($table)
+			->data($mockData)
+			->replaceRows();
+		$expectedString = <<<EOT
+REPLACE INTO `TableName`
 (`field1`,`field2`,`field3`)
 VALUES
 ("value11","value12",NULL),

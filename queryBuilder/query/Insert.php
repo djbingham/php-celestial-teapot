@@ -63,6 +63,15 @@ class Insert extends MySqlQuery
 	}
 
 	/**
+	 * Check whether this query is set to replace rows
+	 * @return boolean
+	 */
+	public function isReplaceQuery()
+	{
+		return $this->insertType === self::REPLACE;
+	}
+
+	/**
 	 * @param Table $table
 	 * @return Insert $this
 	 */
