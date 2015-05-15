@@ -1,10 +1,10 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder\Query;
+namespace SlothMySql\Test\QueryBuilder\Query;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\QueryBuilder\Query\Insert;
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Query\Insert;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class InsertTest extends UnitTest
 {
@@ -71,7 +71,7 @@ VALUES
 ("value11","value12",NULL),
 ("value21",NULL,"value23")
 EOT;
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Query\Insert', $this->object);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Insert', $this->object);
 		$this->assertEquals($expectedString, (string)$this->object);
 	}
 }

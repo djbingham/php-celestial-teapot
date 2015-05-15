@@ -1,11 +1,11 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder\Value\Table;
+namespace SlothMySql\Test\QueryBuilder\Value\Table;
 
 require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/bootstrap.php';
 
-use PHPMySql\QueryBuilder\Value\Constant;
-use PHPMySql\QueryBuilder\Value\Table\Data;
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Value\Constant;
+use SlothMySql\QueryBuilder\Value\Table\Data;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class DataTest extends UnitTest
 {
@@ -39,7 +39,7 @@ class DataTest extends UnitTest
 
 	protected function assertNullValue($value)
 	{
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Constant', $value);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Constant', $value);
 		$this->assertEquals('NULL', (string)$value);
 	}
 

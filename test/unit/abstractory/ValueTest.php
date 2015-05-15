@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\Test\Unit\Database\Abstractory;
+namespace SlothMySql\Test\Unit\Database\Abstractory;
 
 require_once dirname(dirname(__DIR__)) . '/bootstrap.php';
 
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class ValueTest extends UnitTest
 {

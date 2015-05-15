@@ -1,16 +1,16 @@
 <?php
 // Setup a database wrapper
-$database = new PHPMySql\Connection\Database(array(
+$database = new SlothMySql\Connection\Database(array(
 	'host' => 'localhost',
-	'username' => 'phpMySqlDemoUser',
-	'password' => 'phpMySqlD3m0P4ss',
-	'name' => 'phpMySqlDemo',
+	'username' => 'slothMySqlDemoUser',
+	'password' => 'slothMySqlD3m0P4ss',
+	'name' => 'slothMySqlDemo',
 	'port' => null,
 	'socket' => null
 ));
-$dbConnection = new PHPMySql\Connection\MySqli($database);
-$queryBuilder = new PHPMySql\QueryBuilder\Wrapper($dbConnection);
-$db = new PHPMySql\DatabaseWrapper($dbConnection, $queryBuilder);
+$dbConnection = new SlothMySql\Connection\MySqli($database);
+$queryBuilder = new SlothMySql\QueryBuilder\Wrapper($dbConnection);
+$db = new SlothMySql\DatabaseWrapper($dbConnection, $queryBuilder);
 
 // Example query construction and execution
 $table1 = $db->value()->table('MyFirstTable');

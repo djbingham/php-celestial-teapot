@@ -1,8 +1,8 @@
 <?php
-namespace PHPMySql\QueryBuilder\Value\Table;
+namespace SlothMySql\QueryBuilder\Value\Table;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlValue;
-use PHPMySql\QueryBuilder\Value;
+use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\QueryBuilder\Value;
 
 class Field extends MySqlValue
 {

@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder;
+namespace SlothMySql\Test\QueryBuilder;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class MySqlQueryTest extends UnitTest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPMySql;
+namespace SlothMySql;
 
 class DatabaseWrapper
 {

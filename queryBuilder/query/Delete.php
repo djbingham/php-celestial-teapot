@@ -1,8 +1,8 @@
 <?php
-namespace PHPMySql\QueryBuilder\Query;
+namespace SlothMySql\QueryBuilder\Query;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlQuery;
-use PHPMySql\QueryBuilder\Value\Table;
+use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
+use SlothMySql\QueryBuilder\Value\Table;
 
 class Delete extends MySqlQuery
 {

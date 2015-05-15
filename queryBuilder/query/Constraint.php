@@ -1,8 +1,8 @@
 <?php
-namespace PHPMySql\QueryBuilder\Query;
+namespace SlothMySql\QueryBuilder\Query;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlValue;
-use PHPMySql\QueryBuilder\Value\ValueList;
+use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\QueryBuilder\Value\ValueList;
 
 class Constraint
 {

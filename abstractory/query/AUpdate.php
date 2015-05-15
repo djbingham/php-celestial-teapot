@@ -1,11 +1,11 @@
 <?php
-namespace PHPMySql\Abstractory\Query;
+namespace SlothMySql\Abstractory\Query;
 
-use PHPMySql\Abstractory\AQuery;
-use PHPMySql\Abstractory\AValue;
-use PHPMySql\Abstractory\Value\ATable;
-use PHPMySql\Abstractory\Value\Table\AData;
-use PHPMySql\Abstractory\Value\Table\AField;
+use SlothMySql\Abstractory\AQuery;
+use SlothMySql\Abstractory\AValue;
+use SlothMySql\Abstractory\Value\ATable;
+use SlothMySql\Abstractory\Value\Table\AData;
+use SlothMySql\Abstractory\Value\Table\AField;
 
 abstract class AUpdate extends AQuery
 {

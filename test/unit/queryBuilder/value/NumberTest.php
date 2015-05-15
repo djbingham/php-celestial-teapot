@@ -1,10 +1,10 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder\Value;
+namespace SlothMySql\Test\QueryBuilder\Value;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\QueryBuilder\Value\Number;
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Value\Number;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class NumberTest extends UnitTest
 {

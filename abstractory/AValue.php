@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPMySql\Abstractory;
+namespace SlothMySql\Abstractory;
 
 abstract class AValue
 {

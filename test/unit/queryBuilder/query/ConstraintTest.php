@@ -1,10 +1,10 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder\Query;
+namespace SlothMySql\Test\QueryBuilder\Query;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\Test\Abstractory\UnitTest;
-use PHPMySql\QueryBuilder\Query\Constraint;
+use SlothMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Query\Constraint;
 
 class ConstraintTest extends UnitTest
 {
@@ -20,7 +20,7 @@ class ConstraintTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())

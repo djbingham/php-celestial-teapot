@@ -1,10 +1,10 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder\Query;
+namespace SlothMySql\Test\QueryBuilder\Query;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\QueryBuilder\Query\Delete;
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Query\Delete;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class DeleteTest extends UnitTest
 {
@@ -29,7 +29,7 @@ class DeleteTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())

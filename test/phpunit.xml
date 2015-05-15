@@ -3,8 +3,8 @@
 	<php>
 		<var name="DB_DSN" value="mysql:host=localhost" />
 		<var name="DB_HOST" value="localhost" />
-		<var name="DB_USERNAME" value="phpMySqlTestUser" />
-		<var name="DB_PASSWORD" value="phpMySqlT3stP4ss" />
-		<var name="DB_NAME" value="phpMySqlTest" />
+		<var name="DB_USERNAME" value="slothMySqlTestUser" />
+		<var name="DB_PASSWORD" value="slothMySqlT3stP4ss" />
+		<var name="DB_NAME" value="slothMySqlTest" />
 	</php>
 </phpunit>

@@ -1,10 +1,10 @@
 <?php
-namespace PHPMySql\Test\Unit\Database\Connector;
+namespace SlothMySql\Test\Unit\Database\Connector;
 
 require_once dirname(dirname(__DIR__)) . '/bootstrap.php';
 
-use PHPMySql\Test\Abstractory\UnitTest;
-use PHPMySql\Connection\Database;
+use SlothMySql\Test\Abstractory\UnitTest;
+use SlothMySql\Connection\Database;
 
 class ConnectionOptionsTest extends UnitTest
 {

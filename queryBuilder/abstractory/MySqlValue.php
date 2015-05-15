@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPMySql\QueryBuilder\Abstractory;
+namespace SlothMySql\QueryBuilder\Abstractory;
 
-use PHPMySql\Abstractory\AValue;
+use SlothMySql\Abstractory\AValue;
 
 abstract class MySqlValue extends AValue
 {

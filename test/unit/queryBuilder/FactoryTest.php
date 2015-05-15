@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPMySql\Test\QueryBuilder;
+namespace SlothMySql\Test\QueryBuilder;
 
 require_once dirname(dirname(__DIR__)) . '/bootstrap.php';
 
-use PHPMySql\Test\Abstractory\UnitTest;
-use PHPMySql\QueryBuilder\Wrapper as QueryBuilder;
+use SlothMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Wrapper as QueryBuilder;
 
 class FactoryTest extends UnitTest
 {
@@ -23,12 +23,12 @@ class FactoryTest extends UnitTest
 	public function testQuery()
 	{
 		$output = $this->object->query();
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Factory\Query', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Factory\Query', $output);
 	}
 
 	public function testValue()
 	{
 		$output = $this->object->value();
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Factory\Value', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Factory\Value', $output);
 	}
 }

@@ -1,11 +1,11 @@
 <?php
-namespace PHPMySql\QueryBuilder\Query;
+namespace SlothMySql\QueryBuilder\Query;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlQuery;
-use PHPMySql\QueryBuilder\Abstractory\MySqlValue;
-use PHPMySql\QueryBuilder\Value\Table\Data;
-use PHPMySql\QueryBuilder\Value\Table\Field;
-use PHPMySql\QueryBuilder\Value\Table;
+use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
+use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\QueryBuilder\Value\Table\Data;
+use SlothMySql\QueryBuilder\Value\Table\Field;
+use SlothMySql\QueryBuilder\Value\Table;
 
 class Update extends MySqlQuery
 {

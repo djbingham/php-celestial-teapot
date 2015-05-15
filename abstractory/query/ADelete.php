@@ -1,8 +1,8 @@
 <?php
-namespace PHPMySql\Abstractory\Query;
+namespace SlothMySql\Abstractory\Query;
 
-use PHPMySql\Abstractory\AQuery;
-use PHPMySql\Abstractory\Value\ATable;
+use SlothMySql\Abstractory\AQuery;
+use SlothMySql\Abstractory\Value\ATable;
 
 abstract class ADelete extends AQuery
 {

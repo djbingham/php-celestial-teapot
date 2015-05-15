@@ -1,10 +1,10 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder\Query;
+namespace SlothMySql\Test\QueryBuilder\Query;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\Test\Abstractory\UnitTest;
-use PHPMySql\QueryBuilder\Query\Update;
+use SlothMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Query\Update;
 
 class UpdateTest extends UnitTest
 {
@@ -29,7 +29,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockField($fieldName)
 	{
-		$field = $this->getMockBuilder('PHPMySql\QueryBuilder\Value\Table\Field')
+		$field = $this->getMockBuilder('SlothMySql\QueryBuilder\Value\Table\Field')
 			->disableOriginalConstructor()
 			->getMock();
 		$field->expects($this->any())
@@ -40,7 +40,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockValue($string)
 	{
-		$value = $this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')
+		$value = $this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')
 			->disableOriginalConstructor()
 			->getMock();
 		$value->expects($this->any())
@@ -51,7 +51,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockData(array $fields, array $values)
 	{
-		$data = $this->getMockBuilder('PHPMySql\QueryBuilder\Value\Table\Data')
+		$data = $this->getMockBuilder('SlothMySql\QueryBuilder\Value\Table\Data')
 			->disableOriginalConstructor()
 			->getMock();
 		$data->expects($this->any())
@@ -65,7 +65,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('PHPMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())

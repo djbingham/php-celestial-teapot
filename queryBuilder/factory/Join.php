@@ -1,33 +1,33 @@
 <?php
 
-namespace PHPMySql\QueryBuilder\Factory;
+namespace SlothMySql\QueryBuilder\Factory;
 
-use PHPMySql\Abstractory\AFactory;
-use PHPMySql\Abstractory\IJoinFactory;
+use SlothMySql\Abstractory\AFactory;
+use SlothMySql\Abstractory\IJoinFactory;
 
 class Join extends AFactory implements IJoinFactory
 {
 	public function inner()
 	{
-		$join = new \PHPMySql\QueryBuilder\Query\Join($this->connection);
-		return $join->setType(\PHPMySql\QueryBuilder\Query\Join::TYPE_INNER);
+		$join = new \SlothMySql\QueryBuilder\Query\Join($this->connection);
+		return $join->setType(\SlothMySql\QueryBuilder\Query\Join::TYPE_INNER);
 	}
 
 	public function outer()
 	{
-		$join = new \PHPMySql\QueryBuilder\Query\Join($this->connection);
-		return $join->setType(\PHPMySql\QueryBuilder\Query\Join::TYPE_OUTER);
+		$join = new \SlothMySql\QueryBuilder\Query\Join($this->connection);
+		return $join->setType(\SlothMySql\QueryBuilder\Query\Join::TYPE_OUTER);
 	}
 
 	public function left()
 	{
-		$join = new \PHPMySql\QueryBuilder\Query\Join($this->connection);
-		return $join->setType(\PHPMySql\QueryBuilder\Query\Join::TYPE_LEFT);
+		$join = new \SlothMySql\QueryBuilder\Query\Join($this->connection);
+		return $join->setType(\SlothMySql\QueryBuilder\Query\Join::TYPE_LEFT);
 	}
 
 	public function right()
 	{
-		$join = new \PHPMySql\QueryBuilder\Query\Join($this->connection);
-		return $join->setType(\PHPMySql\QueryBuilder\Query\Join::TYPE_RIGHT);
+		$join = new \SlothMySql\QueryBuilder\Query\Join($this->connection);
+		return $join->setType(\SlothMySql\QueryBuilder\Query\Join::TYPE_RIGHT);
 	}
 }

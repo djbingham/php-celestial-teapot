@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPMySql\QueryBuilder\Factory;
+namespace SlothMySql\QueryBuilder\Factory;
 
-use PHPMySql\Abstractory\AFactory;
-use PHPMySql\Abstractory\IQueryFactory;
-use PHPMySql\QueryBuilder;
+use SlothMySql\Abstractory\AFactory;
+use SlothMySql\Abstractory\IQueryFactory;
+use SlothMySql\QueryBuilder;
 
 class Query extends AFactory implements IQueryFactory
 {

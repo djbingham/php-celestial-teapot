@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\QueryBuilder\Query;
+namespace SlothMySql\QueryBuilder\Query;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlQuery;
-use PHPMySql\QueryBuilder\Value;
-use PHPMySql\QueryBuilder\Query;
+use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
+use SlothMySql\QueryBuilder\Value;
+use SlothMySql\QueryBuilder\Query;
 
 class Join extends MySqlQuery
 {

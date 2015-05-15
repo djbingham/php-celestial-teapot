@@ -1,7 +1,7 @@
 <?php
-namespace PHPMySql\Abstractory\Value;
+namespace SlothMySql\Abstractory\Value;
 
-use PHPMySql\Abstractory\AValue;
+use SlothMySql\Abstractory\AValue;
 
 abstract class AValueList extends AValue
 {

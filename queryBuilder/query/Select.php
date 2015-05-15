@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\QueryBuilder\Query;
+namespace SlothMySql\QueryBuilder\Query;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlQuery;
-use PHPMySql\QueryBuilder\Abstractory\MySqlValue;
-use PHPMySql\QueryBuilder\Value\Table;
+use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
+use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\QueryBuilder\Value\Table;
 
 class Select extends MySqlQuery
 {

@@ -1,5 +1,5 @@
 <?php
-namespace PHPMySql\Connection;
+namespace SlothMySql\Connection;
 
 class Database
 {

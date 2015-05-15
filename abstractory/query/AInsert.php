@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\Abstractory\Query;
+namespace SlothMySql\Abstractory\Query;
 
-use PHPMySql\Abstractory\AQuery;
-use PHPMySql\Abstractory\Value\ATable;
-use PHPMySql\Abstractory\Value\Table\AData;
+use SlothMySql\Abstractory\AQuery;
+use SlothMySql\Abstractory\Value\ATable;
+use SlothMySql\Abstractory\Value\Table\AData;
 
 abstract class AInsert extends AQuery
 {

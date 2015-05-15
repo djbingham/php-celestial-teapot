@@ -1,7 +1,7 @@
 <?php
-namespace PHPMySql\Connection;
+namespace SlothMySql\Connection;
 
-use PHPMySql\Abstractory;
+use SlothMySql\Abstractory;
 
 class MySqli extends \MySqli implements Abstractory\IConnection
 {

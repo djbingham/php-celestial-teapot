@@ -1,13 +1,13 @@
 <?php
 
-namespace PHPMySql\Test\Unit\Database\QueryBuilder\MySql\Factory;
+namespace SlothMySql\Test\Unit\Database\QueryBuilder\MySql\Factory;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\Test\Abstractory\UnitTest;
-use PHPMySql\QueryBuilder\Value\String;
-use PHPMySql\QueryBuilder\Value\ValueList;
-use PHPMySql\QueryBuilder\Factory\Value as ValueFactory;
+use SlothMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Value\String;
+use SlothMySql\QueryBuilder\Value\ValueList;
+use SlothMySql\QueryBuilder\Factory\Value as ValueFactory;
 
 class ValueTest extends UnitTest
 {
@@ -44,7 +44,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($testValue, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->string($testValue);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\String', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\String', $output);
 		$this->assertEquals('"'.$escapedValue.'"', (string) $output);
 	}
 
@@ -55,7 +55,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($testValue, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->number($testValue);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Number', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Number', $output);
 		$this->assertEquals($escapedValue, (string) $output);
 	}
 
@@ -66,7 +66,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($testValue, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->sqlConstant($testValue);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Constant', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Constant', $output);
 		$this->assertEquals($escapedValue, (string) $output);
 	}
 
@@ -75,8 +75,8 @@ class ValueTest extends UnitTest
 		$testFunction = 'testFunc';
 		$escapedFunction = 'escapedFunc';
 		$testParams = array(
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$testParams[0]->expects($this->any())
 			->method('__toString')
@@ -88,7 +88,7 @@ class ValueTest extends UnitTest
 		$object = $this->getObject($connection);
 
 		$output = $object->sqlFunction($testFunction, $testParams);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\SqlFunction', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\SqlFunction', $output);
 		$this->assertEquals($escapedFunction.'('.implode(',', $testParams).')', (string) $output);
 	}
 
@@ -99,7 +99,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($testValue, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->table($testValue);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table', $output);
 		$this->assertEquals('`'.$escapedValue.'`', (string) $output);
 	}
 
@@ -115,7 +115,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls($escapedTable, $escapedField));
 		$object = $this->getObject($connection);
 		$output = $object->tableField($testTable, $testField);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table\Field', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $output);
 		$this->assertEquals('`'.$escapedTable.'`.`'.$escapedField.'`', (string) $output);
 	}
 
@@ -124,14 +124,14 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->tableData();
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table\Data', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Data', $output);
 	}
 
 	public function testValueList()
 	{
 		$testValues = array(
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$testValues[0]->expects($this->any())
 			->method('__toString')
@@ -160,8 +160,8 @@ class ValueTest extends UnitTest
 	public function testCreateValueList()
 	{
 		$list = array(
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$list[0]->expects($this->once())
 			->method('__toString')
@@ -173,7 +173,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->createValue($list, 'list');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\ValueList', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\ValueList', $output);
 		$this->assertEquals('("value 1","value 2")', (string) $output);
 	}
 
@@ -184,7 +184,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($value, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'number');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Number', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Number', $output);
 		$this->assertEquals($escapedValue, (string) $output);
 	}
 
@@ -195,7 +195,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($value, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'string');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\String', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\String', $output);
 		$this->assertEquals('"'.$escapedValue.'"', (string) $output);
 	}
 
@@ -205,7 +205,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'constant');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Constant', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Constant', $output);
 		$this->assertEquals($value, (string) $output);
 	}
 
@@ -219,7 +219,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls('funcName', 'param1', 'param2'));
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'function');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\SqlFunction', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\SqlFunction', $output);
 		$this->assertEquals($escapedValue, (string) $output);
 	}
 
@@ -229,7 +229,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($value, $value);
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'table');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table', $output);
 		$this->assertEquals('`'.$value.'`', (string) $output);
 	}
 
@@ -239,7 +239,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection($value, $value);
 		$object = $this->getObject($connection);
 		$output = $object->createValue('`'.$value.'`', 'table');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table', $output);
 		$this->assertEquals('`'.$value.'`', (string) $output);
 	}
 
@@ -253,7 +253,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls($table, $field));
 		$object = $this->getObject($connection);
 		$output = $object->createValue($table.'.'.$field, 'tableField');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table\Field', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $output);
 		$this->assertEquals('`'.$table.'`.`'.$field.'`', (string) $output);
 	}
 
@@ -267,7 +267,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls($table, $field));
 		$object = $this->getObject($connection);
 		$output = $object->createValue('`'.$table.'`.`'.$field.'`', 'tableField');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table\Field', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $output);
 		$this->assertEquals('`'.$table.'`.`'.$field.'`', (string) $output);
 	}
 
@@ -281,7 +281,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls($table, $field));
 		$object = $this->getObject($connection);
 		$output = $object->createValue($table.'.'.$field, 'field');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table\Field', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $output);
 		$this->assertEquals('`'.$table.'`.`'.$field.'`', (string) $output);
 	}
 
@@ -295,7 +295,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls($table, $field));
 		$object = $this->getObject($connection);
 		$output = $object->createValue('`'.$table.'`.`'.$field.'`', 'field');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table\Field', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $output);
 		$this->assertEquals('`'.$table.'`.`'.$field.'`', (string) $output);
 	}
 
@@ -309,7 +309,7 @@ class ValueTest extends UnitTest
 
 	public function testGuessLiteral()
 	{
-		$mockValue = $this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock();
+		$mockValue = $this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock();
 		$mockValue->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('12'));
@@ -317,7 +317,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->guess($mockValue);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Abstractory\MySqlValue', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Abstractory\MySqlValue', $output);
 		$this->assertEquals($mockValue, $output);
 	}
 
@@ -326,15 +326,15 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection(null, 'NULL');
 		$object = $this->getObject($connection);
 		$output = $object->guess(null);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Constant', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Constant', $output);
 		$this->assertEquals('NULL', (string) $output);
 	}
 
 	public function testGuessList()
 	{
 		$mockValues = array(
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('PHPMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
 		);
 		$mockValues[0]->expects($this->any())
 			->method('__toString')
@@ -345,7 +345,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->guess($mockValues);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\ValueList', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\ValueList', $output);
 		$this->assertEquals('(1,2)', (string) $output);
 	}
 
@@ -354,7 +354,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection(22, '22');
 		$object = $this->getObject($connection);
 		$output = $object->guess(22);
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Number', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Number', $output);
 		$this->assertEquals('22', (string) $output);
 	}
 
@@ -363,7 +363,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection('A string', 'Escaped string');
 		$object = $this->getObject($connection);
 		$output = $object->guess('A string');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\String', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\String', $output);
 		$this->assertEquals('"Escaped string"', (string) $output);
 	}
 
@@ -372,7 +372,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->guess('NULL');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Constant', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Constant', $output);
 		$this->assertEquals('NULL', (string) $output);
 	}
 
@@ -384,7 +384,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls('funcName', 'param1', 'param2'));
 		$object = $this->getObject($connection);
 		$output = $object->guess('funcName("param1", "param2")');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\SqlFunction', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\SqlFunction', $output);
 		$this->assertEquals('funcName("param1","param2")', (string) $output);
 	}
 
@@ -393,7 +393,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection('TableName', 'TableName');
 		$object = $this->getObject($connection);
 		$output = $object->guess('`TableName`');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table', $output);
 		$this->assertEquals('`TableName`', (string) $output);
 	}
 
@@ -405,7 +405,7 @@ class ValueTest extends UnitTest
 			->will($this->onConsecutiveCalls('TableName', 'fieldName'));
 		$object = $this->getObject($connection);
 		$output = $object->guess('`TableName`.`fieldName`');
-		$this->assertInstanceOf('PHPMySql\QueryBuilder\Value\Table\Field', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $output);
 		$this->assertEquals('`TableName`.`fieldName`', (string) $output);
 	}
 }

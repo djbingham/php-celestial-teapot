@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\QueryBuilder;
+namespace SlothMySql\QueryBuilder;
 
-use PHPMySql\Abstractory\AQuery;
-use PHPMySql\Abstractory\IQueryBuilderFactory;
-use PHPMySql\Abstractory\AFactory;
+use SlothMySql\Abstractory\AQuery;
+use SlothMySql\Abstractory\IQueryBuilderFactory;
+use SlothMySql\Abstractory\AFactory;
 
 class Wrapper extends AFactory implements IQueryBuilderFactory
 {

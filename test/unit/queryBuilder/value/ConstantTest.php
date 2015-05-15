@@ -1,10 +1,10 @@
 <?php
-namespace PHPMySql\Test\QueryBuilder\Value;
+namespace SlothMySql\Test\QueryBuilder\Value;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
 
-use PHPMySql\QueryBuilder\Value\Constant;
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\QueryBuilder\Value\Constant;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class ConstantTest extends UnitTest
 {

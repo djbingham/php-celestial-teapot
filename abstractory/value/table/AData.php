@@ -1,8 +1,8 @@
 <?php
-namespace PHPMySql\Abstractory\Value\Table;
+namespace SlothMySql\Abstractory\Value\Table;
 
-use PHPMySql\Abstractory\TQueryElement;
-use PHPMySql\Abstractory\AValue;
+use SlothMySql\Abstractory\TQueryElement;
+use SlothMySql\Abstractory\AValue;
 
 abstract class AData
 {

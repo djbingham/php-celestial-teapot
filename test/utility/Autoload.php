@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPMySql\Test\Utility;
+namespace SlothMySql\Test\Utility;
 
 use Favicon;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace PHPMySql\Test\Unit\Database;
+namespace SlothMySql\Test\Unit\Database;
 
 require_once dirname(__DIR__) . '/bootstrap.php';
 
-use PHPMySql\Abstractory\IConnection;
-use PHPMySql\Abstractory\IQueryBuilderFactory;
-use PHPMySql\DatabaseWrapper;
-use PHPMySql\Test\Abstractory\UnitTest;
+use SlothMySql\Abstractory\IConnection;
+use SlothMySql\Abstractory\IQueryBuilderFactory;
+use SlothMySql\DatabaseWrapper;
+use SlothMySql\Test\Abstractory\UnitTest;
 
 class DatabaseWrapperTest extends UnitTest
 {
@@ -46,7 +46,7 @@ class DatabaseWrapperTest extends UnitTest
 	{
 		$this->connection->expects($this->once())
 			->method('executeQuery');
-		$query = $this->getMockBuilder('PHPMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
 
 
 		$output = $this->object->execute($query);

@@ -1,8 +1,8 @@
 <?php
-namespace PHPMySql\Abstractory\Value\Table;
+namespace SlothMySql\Abstractory\Value\Table;
 
-use PHPMySql\Abstractory\AValue;
-use PHPMySql\Abstractory\Value\ATable;
+use SlothMySql\Abstractory\AValue;
+use SlothMySql\Abstractory\Value\ATable;
 
 abstract class AField extends AValue
 {

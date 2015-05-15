@@ -1,7 +1,7 @@
 <?php
-namespace PHPMySql\QueryBuilder\Abstractory;
+namespace SlothMySql\QueryBuilder\Abstractory;
 
-use PHPMySql\Abstractory\AQuery;
+use SlothMySql\Abstractory\AQuery;
 
 abstract class MySqlQuery extends AQuery
 {

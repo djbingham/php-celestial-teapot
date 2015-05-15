@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\Abstractory\Query;
+namespace SlothMySql\Abstractory\Query;
 
-use PHPMySql\Abstractory\AValue;
-use PHPMySql\Abstractory\Value\AValueList;
-use PHPMySql\Abstractory\TQueryElement;
+use SlothMySql\Abstractory\AValue;
+use SlothMySql\Abstractory\Value\AValueList;
+use SlothMySql\Abstractory\TQueryElement;
 
 abstract class AConstraint
 {

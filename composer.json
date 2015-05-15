@@ -1,5 +1,5 @@
 {
-	"name": "favicon/phpmysql",
+	"name": "favicon/slothmysql",
 	"description": "PHP Wrapper for MySQL",
 	"version": "0.1",
 	"minimum-stability": "stable",
@@ -20,5 +20,10 @@
 		"favicon/autoload": "dev-master",
 		"phpunit/phpunit": "4.6.4",
 		"phpunit/dbunit": "1.3.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"SlothMySql\\": "/"
+		}
 	}
 }

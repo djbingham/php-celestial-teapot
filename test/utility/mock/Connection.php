@@ -1,12 +1,12 @@
 <?php
-namespace PHPMySql\Test\Utility\Mock;
+namespace SlothMySql\Test\Utility\Mock;
 
-use PHPMySql\Connection\MySqli;
-use PHPMySql\Abstractory;
+use SlothMySql\Connection\MySqli;
+use SlothMySql\Abstractory;
 
 /**
  * Class Connection
- * @package PHPMySql\Test\Utility\Mock
+ * @package SlothMySql\Test\Utility\Mock
  *
  * This Connection will not interact with an actual database, instead tracking queries sent to it and enabling
  * assertions on what those queries are.

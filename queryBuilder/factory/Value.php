@@ -1,15 +1,15 @@
 <?php
-namespace PHPMySql\QueryBuilder\Factory;
+namespace SlothMySql\QueryBuilder\Factory;
 
-use PHPMySql\Abstractory\AFactory;
-use PHPMySql\Abstractory\IValueFactory;
-use PHPMySql\QueryBuilder\Abstractory\MySqlValue;
-use PHPMySql\QueryBuilder\Value\String;
-use PHPMySql\QueryBuilder\Value\Number;
-use PHPMySql\QueryBuilder\Value\Constant;
-use PHPMySql\QueryBuilder\Value\Table;
-use PHPMySql\QueryBuilder\Value\ValueList;
-use PHPMySql\QueryBuilder\Value\SqlFunction;
+use SlothMySql\Abstractory\AFactory;
+use SlothMySql\Abstractory\IValueFactory;
+use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\QueryBuilder\Value\String;
+use SlothMySql\QueryBuilder\Value\Number;
+use SlothMySql\QueryBuilder\Value\Constant;
+use SlothMySql\QueryBuilder\Value\Table;
+use SlothMySql\QueryBuilder\Value\ValueList;
+use SlothMySql\QueryBuilder\Value\SqlFunction;
 
 class Value extends AFactory implements IValueFactory
 {

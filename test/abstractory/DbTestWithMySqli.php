@@ -1,5 +1,5 @@
 <?php
-namespace PHPMySql\Test\Abstractory;
+namespace SlothMySql\Test\Abstractory;
 
 use PDO;
 
@@ -23,8 +23,8 @@ abstract class DbTestWithMySqli extends \PHPUnit_Extensions_Database_TestCase
 
 				self::$pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USERNAME'], $GLOBALS['DB_PASSWORD']);
 
-				$this->executeDbQuery('CREATE DATABASE IF NOT EXISTS `phpMySqlTest`')
-					->executeDbQuery('USE `phpMySqlTest`');
+				$this->executeDbQuery('CREATE DATABASE IF NOT EXISTS `slothMySqlTest`')
+					->executeDbQuery('USE `slothMySqlTest`');
 
 				$this->prepareTables();
 			}

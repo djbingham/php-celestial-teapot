@@ -1,8 +1,8 @@
 <?php
-namespace PHPMySql\QueryBuilder\Value\Table;
+namespace SlothMySql\QueryBuilder\Value\Table;
 
-use PHPMySql\Abstractory\IConnection;
-use PHPMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Abstractory\IConnection;
+use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
 
 class Data
 {

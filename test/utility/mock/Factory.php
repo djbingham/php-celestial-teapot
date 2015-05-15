@@ -1,7 +1,7 @@
 <?php
-namespace PHPMySql\Test\Utility\Mock;
+namespace SlothMySql\Test\Utility\Mock;
 
-use PHPMySql\Abstractory\AFactory;
+use SlothMySql\Abstractory\AFactory;
 
 class Factory extends AFactory
 {

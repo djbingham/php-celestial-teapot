@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\Test\Utility\Mock;
+namespace SlothMySql\Test\Utility\Mock;
 
-use PHPMySql;
+use SlothMySql;
 
-class DatabaseWrapper extends PHPMySql\DatabaseWrapper
+class DatabaseWrapper extends SlothMySql\DatabaseWrapper
 {
     public function escapeString($string)
 	{

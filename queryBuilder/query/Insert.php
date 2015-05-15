@@ -1,9 +1,9 @@
 <?php
-namespace PHPMySql\QueryBuilder\Query;
+namespace SlothMySql\QueryBuilder\Query;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlQuery;
-use PHPMySql\QueryBuilder\Value\Table\Data;
-use PHPMySql\QueryBuilder\Value\Table;
+use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
+use SlothMySql\QueryBuilder\Value\Table\Data;
+use SlothMySql\QueryBuilder\Value\Table;
 
 class Insert extends MySqlQuery
 {

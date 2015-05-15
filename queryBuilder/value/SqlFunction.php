@@ -1,7 +1,7 @@
 <?php
-namespace PHPMySql\QueryBuilder\Value;
+namespace SlothMySql\QueryBuilder\Value;
 
-use PHPMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
 
 class SqlFunction extends MySqlValue
 {
