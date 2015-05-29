@@ -42,13 +42,13 @@ interface IValueFactory
 	public function tableField($tableName, $fieldName);
 
 	/**
-	 * @return AValue
+	 * @return Value\Table\AData
 	 */
 	public function tableData();
 
 	/**
 	 * @param array $values
-	 * @return AValueList
+	 * @return Value\AValueList
 	 */
 	public function valueList(array $values);
 
