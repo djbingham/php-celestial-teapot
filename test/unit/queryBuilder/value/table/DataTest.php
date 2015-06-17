@@ -272,7 +272,7 @@ class DataTest extends UnitTest
 		$this->assertNullValue($outputRows[0][(string)$fields[2]]);
 	}
 
-	public function testSetAndGetDatabaseWrapper()
+	public function testSetAndGetConnection()
 	{
 		$connection = $this->mockBuilder()->connection();
 		$setterOutput = $this->object->setConnection($connection);

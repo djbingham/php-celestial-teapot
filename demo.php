@@ -17,7 +17,7 @@ $table1 = $db->value()->table('MyFirstTable');
 $table2 = $db->value()->table('MySecondTable');
 $sampleQuery = $db->query()
 	->select()
-	->field($table1->field('firstField'))
+	->field($table1->field('firstField')->setAlias('firstTableField'))
 	->from($table1)
 	->join($db->query()->join()->inner()
 		->table($table2)

@@ -17,4 +17,10 @@ abstract class AField extends AValue
 	 * @return $this
 	 */
 	abstract public function setFieldName($fieldName);
+
+    /**
+     * @param $alias
+     * @return $this
+     */
+    abstract public function setAlias($alias);
 }

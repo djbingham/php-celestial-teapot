@@ -8,6 +8,7 @@ class Field extends MySqlValue
 {
 	protected $table;
 	protected $fieldName;
+    protected $alias;
 
 	public function __toString()
 	{
@@ -16,6 +17,9 @@ class Field extends MySqlValue
 			$field .= (string)$this->table . '.';
 		}
 		$field .= '`'.$this->escapeString($this->fieldName).'`';
+        if ($this->alias) {
+            $field .= sprintf(' AS `%s`', $this->alias);
+        }
 		return $field;
 	}
 
@@ -30,7 +34,7 @@ class Field extends MySqlValue
 	}
 
 	/**
-	 * @param $fieldName
+	 * @param string $fieldName
 	 * @return Field $this
 	 */
 	public function setFieldName($fieldName)
@@ -38,4 +42,14 @@ class Field extends MySqlValue
 		$this->fieldName = $fieldName;
 		return $this;
 	}
+
+    /**
+     * @param string $alias
+     * @return Field $this
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+        return $this;
+    }
 }
