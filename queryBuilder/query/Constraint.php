@@ -198,6 +198,17 @@ class Constraint
 		return $this;
 	}
 
+    /**
+     * @param MySqlValue $value
+     * @return $this
+     */
+    public function like(MySqlValue $value)
+    {
+        $this->setComparator('LIKE');
+        $this->setValue($value);
+        return $this;
+    }
+
 	/**
 	 * @param $operator
 	 * @return Constraint $this
@@ -205,7 +216,7 @@ class Constraint
 	 */
 	public function setComparator($operator)
 	{
-		if (!in_array($operator, array('=', '!=', '>', '>=', '<', '<=', 'IN', 'NOT IN'))) {
+		if (!in_array($operator, array('=', '!=', '>', '>=', '<', '<=', 'IN', 'NOT IN', 'LIKE'))) {
 			throw new \Exception('Invalid comparison operator in MySql constraint');
 		}
 		$this->comparator = $operator;
