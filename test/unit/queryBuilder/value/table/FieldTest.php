@@ -25,7 +25,7 @@ class FieldTest extends UnitTest
         $this->assertEquals('`testTable`.`testField`', (string)$this->object);
     }
 
-    public function testWithTableFieldAndAlias()
+    public function testWithTableAndFieldAndAlias()
     {
         $this->assertEquals($this->object, $this->object->setTable($this->mockTable('testTable')));
         $this->assertEquals($this->object, $this->object->setFieldName('testField'));
@@ -51,8 +51,8 @@ class FieldTest extends UnitTest
     {
         $table = $this->mockBuilder()->queryValue('table');
         $table->expects($this->once())
-            ->method('__toString')
-            ->will($this->returnValue(sprintf('`%s`', $tableName)));
+            ->method('getAlias')
+            ->will($this->returnValue(sprintf('%s', $tableName)));
         return $table;
     }
 }

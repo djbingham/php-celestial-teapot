@@ -112,7 +112,10 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$connection->expects($this->any())
 			->method('escapeString')
-			->will($this->onConsecutiveCalls($escapedTable, $escapedField));
+			->will($this->returnValueMap(array(
+				array($testTable, $escapedTable),
+				array($testField, $escapedField)
+			)));
 		$object = $this->getObject($connection);
 		$output = $object->tableField($testTable, $testField);
 		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $output);

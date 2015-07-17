@@ -6,12 +6,17 @@ use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
 class Table extends MySqlValue
 {
 	protected $tableName;
+	protected $alias;
 	protected $fields = array();
 	protected $data;
 
 	public function __toString()
 	{
-		return sprintf('`%s`', $this->escapeString($this->tableName));
+		$table = sprintf('`%s`', $this->escapeString($this->tableName));
+		if (isset($this->alias) && $this->alias !== null) {
+			$table .= sprintf(' AS `%s`', $this->escapeString($this->alias));
+		}
+		return $table;
 	}
 
 	/**
@@ -24,9 +29,35 @@ class Table extends MySqlValue
 		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getTableName()
 	{
 		return $this->tableName;
+	}
+
+	/**
+	 * @param string $alias
+	 * @return $this
+	 */
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAlias()
+	{
+		if ($this->alias === null) {
+			$alias = $this->tableName;
+		} else {
+			$alias = $this->alias;
+		}
+		return $alias;
 	}
 
 	/**

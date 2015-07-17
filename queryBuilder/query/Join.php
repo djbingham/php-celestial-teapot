@@ -14,11 +14,16 @@ class Join extends MySqlQuery
 
 	protected $type;
 	protected $table;
+	protected $alias;
 	protected $constraint;
 
     public function __toString()
 	{
-		return sprintf('%s JOIN %s ON (%s)', $this->type, $this->table, $this->constraint);
+		$tableString = (string)$this->table;
+		if (isset($this->alias) && $this->alias !== null) {
+			$tableString = sprintf('%s AS `%s`', $tableString, $this->alias);
+		}
+		return sprintf('%s JOIN %s ON (%s)', $this->type, $tableString, $this->constraint);
 	}
 
 	/**
@@ -51,6 +56,16 @@ class Join extends MySqlQuery
 	public function table(Value\Table $table)
 	{
 		$this->table = $table;
+		return $this;
+	}
+
+	/**
+	 * @param string $alias
+	 * @return Join $this
+	 */
+	public function withAlias($alias)
+	{
+		$this->alias = $alias;
 		return $this;
 	}
 

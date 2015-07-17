@@ -79,6 +79,7 @@ class Select extends MySqlQuery
 	/**
 	 * @param array $tables
 	 * @return Select $this
+	 * @throws \Exception if a table is given in an array without an alias
 	 */
 	public function setTables(array $tables)
 	{

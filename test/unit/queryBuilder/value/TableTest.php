@@ -11,10 +11,11 @@ class TableTest extends UnitTest
     public function testSetAndGetTableName()
 	{
 		$name = 'T1';
-
 		$object = new Table($this->mockBuilder()->connection());
+
 		$setterOutput = $object->setTableName($name);
 		$this->assertEquals($object, $setterOutput);
+
 		$getterOutput = $object->getTableName();
 		$this->assertEquals($name, $getterOutput);
 	}
@@ -24,9 +25,13 @@ class TableTest extends UnitTest
 		$tableName = 'T1';
 		$fieldNames = array('F1', 'F2');
 		$connection = $this->mockBuilder()->connection();
-		$connection->expects($this->any())
+		$connection->expects($this->exactly(4))
 			->method('escapeString')
-			->will($this->onConsecutiveCalls($tableName, $fieldNames[0], $tableName, $fieldNames[1]));
+			->will($this->returnValueMap(array(
+				array($tableName, $tableName),
+				array($fieldNames[0], $fieldNames[0]),
+				array($fieldNames[1], $fieldNames[1])
+			)));
 
 		$object = new Table($connection);
 		$object->setTableName($tableName);
@@ -57,6 +62,37 @@ class TableTest extends UnitTest
 		// Fetch the data instance and verify that it is the same
 		$output2 = $object->data();
 		$this->assertEquals($output1, $output2);
+	}
+
+	public function testToStringWithoutAlias()
+	{
+		$connection = $this->mockBuilder()->connection();
+		$connection->expects($this->once())
+			->method('escapeString')
+			->with('TableName')
+			->will($this->returnValue('TableName'));
+
+		$object = new Table($connection);
+		$object->setTableName('TableName');
+
+		$this->assertEquals('`TableName`', (string)$object);
+	}
+
+	public function testToStringWithAlias()
+	{
+		$connection = $this->mockBuilder()->connection();
+		$connection->expects($this->exactly(2))
+			->method('escapeString')
+			->will($this->returnValueMap(array(
+				array('TableName', 'TableName'),
+				array('TableAlias', 'TableAlias')
+			)));
+
+		$object = new Table($connection);
+		$object->setTableName('TableName')
+			->setAlias('TableAlias');
+
+		$this->assertEquals('`TableName` AS `TableAlias`', (string)$object);
 	}
 
 	private function mockValueFactory()

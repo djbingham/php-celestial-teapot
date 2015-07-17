@@ -19,6 +19,12 @@ abstract class ATable extends AValue
 	abstract public function getTableName();
 
 	/**
+	 * @param string $alias
+	 * @return $this
+	 */
+	abstract public function withAlias($alias);
+
+	/**
 	 * @param string $fieldName
 	 * @return AField
 	 */

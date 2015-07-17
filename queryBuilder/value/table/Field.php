@@ -14,7 +14,7 @@ class Field extends MySqlValue
 	{
 		$field = '';
 		if ($this->table instanceof Value\Table) {
-			$field .= (string)$this->table . '.';
+			$field .= sprintf('`%s`.', $this->escapeString($this->table->getAlias()));
 		}
 		$field .= '`'.$this->escapeString($this->fieldName).'`';
         if ($this->alias) {

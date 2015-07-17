@@ -52,25 +52,43 @@ class JoinTest extends UnitTest
 		$this->object->setType('Not a join type');
 	}
 
-	public function testTableAcceptsTableAndReturnsUpdateInstance()
+	public function testTableAcceptsTableAndReturnsJoinInstance()
 	{
 		$output = $this->object->table($this->mockTable('`TableName`'));
 		$this->assertEquals($this->object, $output);
 	}
 
-	public function testOnAcceptsConstraintInstanceAndReturnsUpdateInstance()
+	public function testWithAliasAcceptsStringAndReturnsJoinInstance()
+	{
+		$output = $this->object->withAlias('TableAlias');
+		$this->assertEquals($this->object, $output);
+	}
+
+	public function testOnAcceptsConstraintInstanceAndReturnsJoinInstance()
 	{
 		$output = $this->object->on($this->mockConstraint('constraint string'));
 		$this->assertEquals($this->object, $output);
 	}
 
-	public function testToStringReturnsCorrectSqlQuery()
+	public function testToStringReturnsCorrectSqlQueryWithoutAlias()
 	{
 		$this->object->setType(Join::TYPE_INNER)
 			->table($this->mockTable('`TableName`'))
 			->on($this->mockConstraint('constraint string'));
 		$expectedSql = <<<EOT
 INNER JOIN `TableName` ON (constraint string)
+EOT;
+		$this->assertEquals($expectedSql, (string)$this->object);
+	}
+
+	public function testToStringReturnsCorrectSqlQueryWithAlias()
+	{
+		$this->object->setType(Join::TYPE_INNER)
+			->table($this->mockTable('`TableName`'))
+			->withAlias('TableAlias')
+			->on($this->mockConstraint('constraint string'));
+		$expectedSql = <<<EOT
+INNER JOIN `TableName` AS `TableAlias` ON (constraint string)
 EOT;
 		$this->assertEquals($expectedSql, (string)$this->object);
 	}
