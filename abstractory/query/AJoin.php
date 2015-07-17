@@ -30,6 +30,12 @@ abstract class AJoin extends AQuery
 	abstract public function table(ATable $table);
 
 	/**
+	 * @param string $alias
+	 * @return AJoin $this
+	 */
+	abstract public function withAlias($alias);
+
+	/**
 	 * @param AConstraint $constraint
 	 * @return AJoin $this
 	 */

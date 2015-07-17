@@ -23,6 +23,9 @@ class JoinTest extends UnitTest
 		$table = $this->mockBuilder()->queryValue('Table');
 		$table->expects($this->any())
 			->method('__toString')
+			->will($this->returnValue(sprintf('`%s`', $tableName)));
+		$table->expects($this->any())
+			->method('getTableName')
 			->will($this->returnValue($tableName));
 		return $table;
 	}
@@ -54,7 +57,7 @@ class JoinTest extends UnitTest
 
 	public function testTableAcceptsTableAndReturnsJoinInstance()
 	{
-		$output = $this->object->table($this->mockTable('`TableName`'));
+		$output = $this->object->table($this->mockTable('TableName'));
 		$this->assertEquals($this->object, $output);
 	}
 
@@ -73,7 +76,7 @@ class JoinTest extends UnitTest
 	public function testToStringReturnsCorrectSqlQueryWithoutAlias()
 	{
 		$this->object->setType(Join::TYPE_INNER)
-			->table($this->mockTable('`TableName`'))
+			->table($this->mockTable('TableName'))
 			->on($this->mockConstraint('constraint string'));
 		$expectedSql = <<<EOT
 INNER JOIN `TableName` ON (constraint string)
@@ -84,7 +87,7 @@ EOT;
 	public function testToStringReturnsCorrectSqlQueryWithAlias()
 	{
 		$this->object->setType(Join::TYPE_INNER)
-			->table($this->mockTable('`TableName`'))
+			->table($this->mockTable('TableName'))
 			->withAlias('TableAlias')
 			->on($this->mockConstraint('constraint string'));
 		$expectedSql = <<<EOT

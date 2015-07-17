@@ -12,16 +12,32 @@ class Join extends MySqlQuery
 	const TYPE_LEFT = 'LEFT';
 	const TYPE_RIGHT = 'RIGHT';
 
+	/**
+	 * @var string
+	 */
 	protected $type;
+
+	/**
+	 * @var Value\Table
+	 */
 	protected $table;
+
+	/**
+	 * @var string
+	 */
 	protected $alias;
+
+	/**
+	 * @var Query\Constraint
+	 */
 	protected $constraint;
 
     public function __toString()
 	{
-		$tableString = (string)$this->table;
-		if (isset($this->alias) && $this->alias !== null) {
-			$tableString = sprintf('%s AS `%s`', $tableString, $this->alias);
+		if ($this->alias !== null) {
+			$tableString = sprintf('`%s` AS `%s`', $this->table->getTableName(), $this->alias);
+		} else {
+			$tableString = (string)$this->table;
 		}
 		return sprintf('%s JOIN %s ON (%s)', $this->type, $tableString, $this->constraint);
 	}
