@@ -20,6 +20,30 @@ class TableTest extends UnitTest
 		$this->assertEquals($name, $getterOutput);
 	}
 
+	public function testSetAndGetAlias()
+	{
+		$alias = 'T1';
+		$object = new Table($this->mockBuilder()->connection());
+
+		$setterOutput = $object->setAlias($alias);
+		$this->assertEquals($object, $setterOutput);
+
+		$getterOutput = $object->getAlias();
+		$this->assertEquals($alias, $getterOutput);
+	}
+
+	public function testGetAliasFallsBackToTableName()
+	{
+		$name = 'T1';
+		$object = new Table($this->mockBuilder()->connection());
+
+		$setterOutput = $object->setTableName($name);
+		$this->assertEquals($object, $setterOutput);
+
+		$getterOutput = $object->getAlias();
+		$this->assertEquals($name, $getterOutput);
+	}
+
 	public function testField()
 	{
 		$tableName = 'T1';

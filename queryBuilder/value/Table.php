@@ -52,10 +52,10 @@ class Table extends MySqlValue
 	 */
 	public function getAlias()
 	{
-		if ($this->alias === null) {
-			$alias = $this->tableName;
-		} else {
+		if ($this->alias !== null) {
 			$alias = $this->alias;
+		} else {
+			$alias = $this->tableName;
 		}
 		return $alias;
 	}
