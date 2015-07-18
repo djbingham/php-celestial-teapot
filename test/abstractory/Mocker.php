@@ -1,16 +1,10 @@
 <?php
 namespace SlothMySql\Test\Abstractory;
 
-use SlothMySql\Test\Utility\Mock;
 use SlothMySql\Test\Utility\MockBuilder;
 
 trait Mocker
 {
-	/**
-	 * @var Mock
-	 */
-	private $sample;
-
 	/**
 	 * @var MockBuilder
 	 */
@@ -25,17 +19,6 @@ trait Mocker
 			$this->mockBuilder = new MockBuilder();
 		}
 		return $this->mockBuilder;
-	}
-
-	/**
-	 * @return Mock
-	 */
-	public function mock()
-	{
-		if (!isset($this->sample)) {
-			$this->sample = new Mock();
-		}
-		return $this->sample;
 	}
 
 	/**
