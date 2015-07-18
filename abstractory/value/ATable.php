@@ -22,7 +22,7 @@ abstract class ATable extends AValue
 	 * @param string $alias
 	 * @return $this
 	 */
-	abstract public function withAlias($alias);
+	abstract public function setAlias($alias);
 
 	/**
 	 * @param string $fieldName
