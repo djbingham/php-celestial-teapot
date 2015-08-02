@@ -12,7 +12,7 @@ $dbConnection = new SlothMySql\Connection\MySqli($database);
 $queryBuilder = new SlothMySql\QueryBuilder\Wrapper($dbConnection);
 $db = new SlothMySql\DatabaseWrapper($dbConnection, $queryBuilder);
 
-// Example query construction and execution
+// Example query construction
 $table1 = $db->value()->table('MyFirstTable');
 $table2 = $db->value()->table('MySecondTable');
 $sampleQuery = $db->query()
@@ -32,4 +32,6 @@ $sampleQuery = $db->query()
 		->greaterThan($db->value()->sqlFunction('NOW'))
 	)
 	->orderBy($table1->field('dateCreated'));
+
+// Example query execution
 $sampleResult = $db->execute($sampleQuery)->getData();

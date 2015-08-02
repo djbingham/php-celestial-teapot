@@ -22,57 +22,53 @@ class Constraint
 	 * @var bool
 	 */
 	protected $wrap; // Whether to wrap this constraint in braces during __toString
-	protected $simultaneousConstraints = array(); // Conditions to append with 'AND'
-	protected $alternativeConstraints = array(); // Conditions to append with 'OR'
 	/**
-	 * @var string
+	 * @var array
 	 */
-	protected $string; // Used to build constraint string
+	protected $simultaneousConstraints = array(); // Conditions to append with 'AND'
+	/**
+	 * @var array
+	 */
+	protected $alternativeConstraints = array(); // Conditions to append with 'OR'
 
 	/**
 	 * @return mixed
 	 */
 	public function __toString()
 	{
-		$this->buildConstraintString()
-			->applySimultaneousToString()
-			->applyAlternativesToString();
+		$queryString = $this->buildConstraintString();
+		$queryString = $this->applySimultaneousToString($queryString);
+		$queryString = $this->applyAlternativesToString($queryString);
 		if ($this->wrap) {
-			return sprintf('(%s)', $this->string);
+			return sprintf('(%s)', $queryString);
 		}
-		return $this->string;
+		return $queryString;
 	}
 
-	/**
-	 * @return Constraint $this
-	 */
 	protected function buildConstraintString()
 	{
-		$this->string = sprintf('%s %s %s', $this->subject, $this->comparator, $this->value);
-		return $this;
+		$queryString = sprintf('%s %s %s', $this->subject, $this->comparator, $this->value);
+		return $queryString;
 	}
 
-	/**
-	 * @return Constraint $this
-	 */
-	protected function applySimultaneousToString()
+	protected function applySimultaneousToString($queryString)
 	{
 		if (!empty($this->simultaneousConstraints)) {
 			foreach ($this->simultaneousConstraints as $constraint) {
-				$this->string .= "\nAND " . (string) $constraint;
+				$queryString .= "\nAND " . (string) $constraint;
 			}
 		}
-		return $this;
+		return $queryString;
 	}
 
-	protected function applyAlternativesToString()
+	protected function applyAlternativesToString($queryString)
 	{
 		if (!empty($this->alternativeConstraints)) {
 			foreach ($this->alternativeConstraints as $constraint) {
-				$this->string .= "\nOR " . (string) $constraint;
+				$queryString .= "\nOR " . (string) $constraint;
 			}
 		}
-		return $this;
+		return $queryString;
 	}
 
 	/**
