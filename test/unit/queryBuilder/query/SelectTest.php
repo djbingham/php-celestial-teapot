@@ -336,7 +336,7 @@ class SelectTest extends UnitTest
 			->setOrders($orders)
 			->setGroups($groups);
 		$expectedQuery = <<<EOT
-SELECT Table1.field1 AS alias1,Table1.field2,Table2.field1,Table2.field2
+SELECT Table1.field1 AS `alias1`,Table1.field2,Table2.field1,Table2.field2
 FROM Table1,Table2
 JOIN 1
 JOIN 2

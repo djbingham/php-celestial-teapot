@@ -52,7 +52,7 @@ class Select extends MySqlQuery
 		$fieldString = (string)$field;
 		$fieldAlias = $field->getAlias();
 		if (!empty($fieldAlias)) {
-			$fieldString .= ' AS ' . $fieldAlias;
+			$fieldString .= sprintf(' AS `%s`', $fieldAlias);
 		}
 		return $fieldString;
 	}
