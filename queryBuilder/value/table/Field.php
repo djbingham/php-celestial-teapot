@@ -12,15 +12,12 @@ class Field extends MySqlValue
 
 	public function __toString()
 	{
-		$field = '';
+		$fieldString = '';
 		if ($this->table instanceof Value\Table) {
-			$field .= sprintf('`%s`.', $this->escapeString($this->table->getAlias()));
+			$fieldString .= sprintf('`%s`.', $this->escapeString($this->table->getAlias()));
 		}
-		$field .= '`'.$this->escapeString($this->fieldName).'`';
-		if ($this->alias) {
-			$field .= sprintf(' AS `%s`', $this->alias);
-		}
-		return $field;
+		$fieldString .= sprintf('`%s`', $this->escapeString($this->fieldName));
+		return $fieldString;
 	}
 
 	/**
@@ -51,5 +48,13 @@ class Field extends MySqlValue
 	{
 		$this->alias = $alias;
 		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAlias()
+	{
+		return $this->alias;
 	}
 }

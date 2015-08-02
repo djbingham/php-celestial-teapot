@@ -27,12 +27,17 @@ class SelectTest extends UnitTest
 		return $table;
 	}
 
-	protected function mockField($fieldName)
+	protected function mockField($fieldName, $alias = null)
 	{
 		$field = $this->mockBuilder()->queryValue('Table\Field');
 		$field->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($fieldName));
+		if ($alias !== null) {
+			$field->expects($this->any())
+				->method('getAlias')
+				->will($this->returnValue($alias));
+		}
 		return $field;
 	}
 
@@ -301,7 +306,7 @@ class SelectTest extends UnitTest
 	public function testToStringReturnsCorrectQueryString()
 	{
 		$fields = array(
-			$this->mockField('Table1.field1'),
+			$this->mockField('Table1.field1', 'alias1'),
 			$this->mockField('Table1.field2'),
 			$this->mockField('Table2.field1'),
 			$this->mockField('Table2.field2')
@@ -331,7 +336,7 @@ class SelectTest extends UnitTest
 			->setOrders($orders)
 			->setGroups($groups);
 		$expectedQuery = <<<EOT
-SELECT Table1.field1,Table1.field2,Table2.field1,Table2.field2
+SELECT Table1.field1 AS alias1,Table1.field2,Table2.field1,Table2.field2
 FROM Table1,Table2
 JOIN 1
 JOIN 2

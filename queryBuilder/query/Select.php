@@ -19,7 +19,7 @@ class Select extends MySqlQuery
 
 	public function __toString()
 	{
-		$queryString = sprintf("SELECT %s", implode(',', $this->fields));
+		$queryString = sprintf("SELECT %s", implode(',', $this->getFieldStrings()));
 		if (!empty($this->tables)) {
 			$queryString .= sprintf("\nFROM %s", implode(',', $this->tables));
 		}
@@ -36,6 +36,25 @@ class Select extends MySqlQuery
 			$queryString .= sprintf("\nGROUP BY %s", implode(', ', $this->groups));
 		}
 		return $queryString;
+	}
+
+	private function getFieldStrings()
+	{
+		$fieldStrings = array();
+		foreach ($this->fields as $field) {
+			$fieldStrings[] = $this->getFieldStringWithAlias($field);
+		}
+		return $fieldStrings;
+	}
+
+	private function getFieldStringWithAlias(Table\Field $field)
+	{
+		$fieldString = (string)$field;
+		$fieldAlias = $field->getAlias();
+		if (!empty($fieldAlias)) {
+			$fieldString .= ' AS ' . $fieldAlias;
+		}
+		return $fieldString;
 	}
 
 	/**
@@ -79,7 +98,6 @@ class Select extends MySqlQuery
 	/**
 	 * @param array $tables
 	 * @return Select $this
-	 * @throws \Exception if a table is given in an array without an alias
 	 */
 	public function setTables(array $tables)
 	{

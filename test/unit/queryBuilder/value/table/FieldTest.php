@@ -29,25 +29,24 @@ class FieldTest extends UnitTest
 		$this->assertEquals('`testTable`.`testField`', (string)$this->object);
 	}
 
-	public function testWithTableAndFieldAndAlias()
-	{
-		$this->assertEquals($this->object, $this->object->setTable($this->mockTable('testTable')));
-		$this->assertEquals($this->object, $this->object->setFieldName('testField'));
-		$this->assertEquals($this->object, $this->object->setAlias('testAlias'));
-		$this->assertEquals('`testTable`.`testField` AS `testAlias`', (string)$this->object);
-	}
-
 	public function testWithFieldOnly()
 	{
 		$this->assertEquals($this->object, $this->object->setFieldName('testField'));
 		$this->assertEquals('`testField`', (string)$this->object);
 	}
 
-	public function testWithFieldAndAlias()
+	public function testAliasIsNotInsertedIntoDefaultString()
 	{
+		$this->assertEquals($this->object, $this->object->setTable($this->mockTable('testTable')));
 		$this->assertEquals($this->object, $this->object->setFieldName('testField'));
 		$this->assertEquals($this->object, $this->object->setAlias('testAlias'));
-		$this->assertEquals('`testField` AS `testAlias`', (string)$this->object);
+		$this->assertEquals('`testTable`.`testField`', (string)$this->object);
+	}
+
+	public function testGetAlias()
+	{
+		$this->assertEquals($this->object, $this->object->setAlias('testAlias'));
+		$this->assertEquals('testAlias', $this->object->getAlias());
 	}
 
 	private function mockTable($tableName)
