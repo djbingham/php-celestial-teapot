@@ -75,22 +75,22 @@ class MySqli extends \MySqli implements Abstractory\IConnection
 		return $this->queryLog;
 	}
 
-	public function begin()
+	public function begin($flags = null, $name = null)
 	{
 		$this->autocommit(false);
 		$this->logQuery('BEGIN');
 		return $this;
 	}
 
-	public function commit()
+	public function commit($flags = null, $name = null)
 	{
-		parent::commit();
+		parent::commit($flags, $name);
 		$this->autocommit(true);
 		$this->logQuery('COMMIT');
 		return $this;
 	}
 
-	public function rollback()
+	public function rollback($flags = null, $name = null)
 	{
 		$this->autocommit(true);
 		$this->logQuery('ROLLBACK');

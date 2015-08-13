@@ -3,9 +3,9 @@ namespace SlothMySql\Abstractory;
 
 interface IConnection
 {
-	public function begin();
-	public function commit();
-	public function rollback();
+	public function begin($flags = null, $name = null);
+	public function commit($flags = null, $name = null);
+	public function rollback($flags = null, $name = null);
 	public function executeQuery(AQuery $query);
 	public function getLastResultData();
 	public function getQueryLog();
