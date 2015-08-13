@@ -143,8 +143,7 @@ class ValueTest extends UnitTest
 			->method('__toString')
 			->will($this->returnValue('2'));
 
-		$wrapper = $this->mockBuilder()->databaseWrapper();
-		$connection = $this->mockConnection($testValue, $escapedValue);
+		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->valueList($testValues);
 		$this->assertTrue($output instanceof ValueList);
