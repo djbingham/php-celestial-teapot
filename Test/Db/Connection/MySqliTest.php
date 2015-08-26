@@ -1,8 +1,6 @@
 <?php
 namespace SlothMySql\Test\Db\Connection;
 
-require_once dirname(dirname(__DIR__)) . '/bootstrap.php';
-
 use SlothMySql\Test\Abstractory\DbTestWithMySqli;
 use SlothMySql\Connection\MySqli as MySqliConnection;
 

@@ -1,8 +1,6 @@
 <?php
 namespace SlothMySql\Test\QueryBuilder\Value;
 
-require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
-
 use SlothMySql\QueryBuilder\Value\Number;
 use SlothMySql\Test\Abstractory\UnitTest;
 

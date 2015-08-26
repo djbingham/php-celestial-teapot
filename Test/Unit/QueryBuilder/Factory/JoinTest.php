@@ -2,8 +2,6 @@
 
 namespace SlothMySql\Test\QueryBuilder\Factory;
 
-require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
-
 use SlothMySql\Test\Abstractory\UnitTest;
 use SlothMySql\QueryBuilder\Query;
 use SlothMySql\QueryBuilder\Factory\Join as JoinFactory;

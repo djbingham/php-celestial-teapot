@@ -1,8 +1,6 @@
 <?php
 namespace SlothMySql\Test\QueryBuilder\Query;
 
-require_once dirname(dirname(dirname(__DIR__))) . '/bootstrap.php';
-
 use SlothMySql\Test\Abstractory\UnitTest;
 use SlothMySql\QueryBuilder\Query\Update;
 

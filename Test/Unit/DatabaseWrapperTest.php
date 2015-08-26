@@ -2,8 +2,6 @@
 
 namespace SlothMySql\Test\Unit\Database;
 
-require_once dirname(__DIR__) . '/bootstrap.php';
-
 use SlothMySql\Abstractory\IConnection;
 use SlothMySql\Abstractory\IQueryBuilderFactory;
 use SlothMySql\DatabaseWrapper;

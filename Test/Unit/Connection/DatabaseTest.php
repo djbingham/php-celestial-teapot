@@ -1,8 +1,6 @@
 <?php
 namespace SlothMySql\Test\Unit\Database\Connector;
 
-require_once dirname(dirname(__DIR__)) . '/bootstrap.php';
-
 use SlothMySql\Test\Abstractory\UnitTest;
 use SlothMySql\Connection\Database;
 
