@@ -1,13 +1,15 @@
 <?php
 namespace SlothMySql\QueryBuilder\Value\Table;
 
-use SlothMySql\Abstractory\IConnection;
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Face\ConnectionInterface;
+use SlothMySql\Face\Value\Table\DataInterface;
+use SlothMySql\Face\Value\Table\FieldInterface;
+use SlothMySql\Face\ValueInterface;
 
-class Data
+class Data implements DataInterface
 {
 	/**
-	 * @var IConnection
+	 * @var ConnectionInterface
 	 */
 	protected $connection;
 	protected $nullValue = null;
@@ -18,7 +20,7 @@ class Data
 	protected $currentRowFields = array();
 	protected $currentRowValues = array();
 
-	public function setConnection(IConnection $connection)
+	public function setConnection(ConnectionInterface $connection)
 	{
 		$this->connection = $connection;
 		return $this;
@@ -29,7 +31,7 @@ class Data
 		return $this->connection;
 	}
 
-	public function setNullValue(MySqlValue $value)
+	public function setNullValue(ValueInterface $value)
 	{
 		$this->nullValue = $value;
 		return $this;
@@ -65,7 +67,7 @@ class Data
 		return $this->currentRowIndex;
 	}
 
-	public function set(Field $field, MySqlValue $value)
+	public function set(FieldInterface $field, ValueInterface $value)
 	{
 		$columnIndex = $this->indexOfCurrentRowField($field);
 		$this->currentRowFields[$columnIndex] = $field;
@@ -78,7 +80,7 @@ class Data
 		return array_combine($this->currentRowFields, $this->currentRowValues);
 	}
 
-	protected function indexOfCurrentRowField(Field $field)
+	protected function indexOfCurrentRowField(FieldInterface $field)
 	{
 		foreach ($this->currentRowFields as $index => $currentField) {
 			if ((string)$field == (string)$currentField) {

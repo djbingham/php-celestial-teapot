@@ -27,7 +27,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockField($fieldName)
 	{
-		$field = $this->getMockBuilder('SlothMySql\QueryBuilder\Value\Table\Field')
+		$field = $this->getMockBuilder('SlothMySql\Face\Value\Table\FieldInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$field->expects($this->any())
@@ -38,7 +38,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockValue($string)
 	{
-		$value = $this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')
+		$value = $this->getMockBuilder('SlothMySql\Face\ValueInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$value->expects($this->any())
@@ -49,7 +49,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockData(array $fields, array $values)
 	{
-		$data = $this->getMockBuilder('SlothMySql\QueryBuilder\Value\Table\Data')
+		$data = $this->getMockBuilder('SlothMySql\Face\Value\Table\DataInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$data->expects($this->any())
@@ -63,7 +63,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('SlothMySql\Face\Query\ConstraintInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())

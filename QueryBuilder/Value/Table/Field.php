@@ -1,11 +1,15 @@
 <?php
 namespace SlothMySql\QueryBuilder\Value\Table;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Value\Table\FieldInterface;
+use SlothMySql\Face\Value\TableInterface;
 use SlothMySql\QueryBuilder\Value;
 
-class Field extends MySqlValue
+class Field implements FieldInterface
 {
+	use QueryElementTrait;
+
 	protected $table;
 	protected $fieldName;
 	protected $alias;
@@ -21,10 +25,10 @@ class Field extends MySqlValue
 	}
 
 	/**
-	 * @param Value\Table $table
+	 * @param TableInterface $table
 	 * @return Field $this
 	 */
-	public function setTable(Value\Table $table)
+	public function setTable(TableInterface $table)
 	{
 		$this->table = $table;
 		return $this;

@@ -1,14 +1,19 @@
 <?php
 namespace SlothMySql\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
-use SlothMySql\QueryBuilder\Value\Table\Data;
-use SlothMySql\QueryBuilder\Value\Table\Field;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Query\ConstraintInterface;
+use SlothMySql\Face\Query\UpdateInterface;
+use SlothMySql\Face\Value\Table\DataInterface;
+use SlothMySql\Face\Value\Table\FieldInterface;
+use SlothMySql\Face\Value\TableInterface;
+use SlothMySql\Face\ValueInterface;
 use SlothMySql\QueryBuilder\Value\Table;
 
-class Update extends MySqlQuery
+class Update implements UpdateInterface
 {
+	use QueryElementTrait;
+
 	protected $table;
 	protected $fields = array();
 	protected $values = array();
@@ -29,21 +34,21 @@ class Update extends MySqlQuery
 	}
 
 	/**
-	 * @param Table $table
+	 * @param TableInterface $table
 	 * @return Update $this
 	 */
-	public function table(Table $table)
+	public function table(TableInterface $table)
 	{
 		$this->table = $table;
 		return $this;
 	}
 
 	/**
-	 * @param Field $field
-	 * @param MySqlValue $value
+	 * @param FieldInterface $field
+	 * @param ValueInterface $value
 	 * @return Update $this
 	 */
-	public function set(Field $field, MySqlValue $value)
+	public function set(FieldInterface $field, ValueInterface $value)
 	{
 		$fieldIndex = $this->getFieldIndex($field);
 		$this->fields[$fieldIndex] = $field;
@@ -51,7 +56,7 @@ class Update extends MySqlQuery
 		return $this;
 	}
 
-	protected function getFieldIndex(Field $testField)
+	protected function getFieldIndex(FieldInterface $testField)
 	{
 		foreach ($this->fields as $i => $field) {
 			if ((string)$field == (string)$testField) {
@@ -78,11 +83,11 @@ class Update extends MySqlQuery
 	}
 
 	/**
-	 * @param Data $tableData
-	 * @return Update $this
+	 * @param DataInterface $tableData
+	 * @return UpdateInterface $this
 	 * @throws \Exception
 	 */
-	public function data(Data $tableData)
+	public function data(DataInterface $tableData)
 	{
 		$fields = $tableData->getFields();
 		$rows = $tableData->getRows();
@@ -95,10 +100,10 @@ class Update extends MySqlQuery
 	}
 
 	/**
-	 * @param Constraint $constraint
+	 * @param ConstraintInterface $constraint
 	 * @return Update $this
 	 */
-	public function where(Constraint $constraint)
+	public function where(ConstraintInterface $constraint)
 	{
 		$this->constraint = $constraint;
 		return $this;

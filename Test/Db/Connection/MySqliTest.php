@@ -38,7 +38,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testExecuteQueryWithThrowsExceptionIfQueryFails()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SCHMLEEARRRRGH!'));
@@ -49,7 +49,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testGetLastError()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SCHMLEEARRRRGH!'));
@@ -80,7 +80,7 @@ class MySqliTest extends DbTestWithMySqli
 			)
 		);
 
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SELECT * FROM guestbook'));
@@ -91,7 +91,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testGetLastResultDataReturnsFalseWhenQueryHasNoResultSet()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 
 		$query->expects($this->any())
 			->method('__toString')
@@ -103,7 +103,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testGetLastInsertIdReturnsAutoIncrementValueFromLastInsertQuery()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -121,7 +121,7 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testCountAffectedRows()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -133,7 +133,7 @@ class MySqliTest extends DbTestWithMySqli
 		$this->assertSame($this->object, $this->object->executeQuery($query));
 		$this->assertSame(1, $this->object->countAffectedRows());
 
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -150,8 +150,8 @@ class MySqliTest extends DbTestWithMySqli
 	public function testGetQueryLog()
 	{
 		$queries = array(
-			$this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock()
 		);
 
 		$queryStrings = array(

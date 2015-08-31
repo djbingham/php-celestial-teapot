@@ -3,9 +3,9 @@
 namespace SlothMySql\QueryBuilder\Factory;
 
 use SlothMySql\Abstractory\AFactory;
-use SlothMySql\Abstractory\IJoinFactory;
+use SlothMySql\Face\JoinFactoryInterface;
 
-class Join extends AFactory implements IJoinFactory
+class Join extends AFactory implements JoinFactoryInterface
 {
 	public function inner()
 	{

@@ -2,20 +2,20 @@
 
 namespace SlothMySql\Test\Unit\Database;
 
-use SlothMySql\Abstractory\IConnection;
-use SlothMySql\Abstractory\IQueryBuilderFactory;
+use SlothMySql\Face\ConnectionInterface;
+use SlothMySql\Face\QueryBuilderFactoryInterface;
 use SlothMySql\DatabaseWrapper;
 use SlothMySql\Test\Abstractory\UnitTest;
 
 class DatabaseWrapperTest extends UnitTest
 {
 	/**
-	 * @var IConnection
+	 * @var ConnectionInterface
 	 */
 	private $connection;
 
 	/**
-	 * @var IQueryBuilderFactory
+	 * @var QueryBuilderFactoryInterface
 	 */
 	private $queryBuilder;
 
@@ -44,7 +44,7 @@ class DatabaseWrapperTest extends UnitTest
 	{
 		$this->connection->expects($this->once())
 			->method('executeQuery');
-		$query = $this->getMockBuilder('SlothMySql\Abstractory\AQuery')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 
 
 		$output = $this->object->execute($query);

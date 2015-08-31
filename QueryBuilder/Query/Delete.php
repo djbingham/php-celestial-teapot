@@ -1,17 +1,28 @@
 <?php
 namespace SlothMySql\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
-use SlothMySql\QueryBuilder\Value\Table;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Query\ConstraintInterface;
+use SlothMySql\Face\Query\DeleteInterface;
+use SlothMySql\Face\Value\TableInterface;
 
-class Delete extends MySqlQuery
+class Delete implements DeleteInterface
 {
+	use QueryElementTrait;
+
+	/**
+	 * @var TableInterface
+	 */
 	protected $table;
+
+	/**
+	 * @var ConstraintInterface
+	 */
 	protected $constraint;
 
 	public function __toString()
 	{
-		$str = sprintf("DELETE FROM %s", (string)$this->table);
+		$str = "DELETE FROM {$this->table}";
 		if (!empty($this->constraint)) {
 			$str .= sprintf("\nWHERE %s", (string)$this->constraint);
 		}
@@ -19,20 +30,20 @@ class Delete extends MySqlQuery
 	}
 
 	/**
-	 * @param Table $table
+	 * @param TableInterface $table
 	 * @return Delete $this
 	 */
-	public function from(Table $table)
+	public function from(TableInterface $table)
 	{
 		$this->table = $table;
 		return $this;
 	}
 
 	/**
-	 * @param Constraint $constraint
+	 * @param ConstraintInterface $constraint
 	 * @return Delete $this
 	 */
-	public function where(Constraint $constraint)
+	public function where(ConstraintInterface $constraint)
 	{
 		$this->constraint = $constraint;
 		return $this;

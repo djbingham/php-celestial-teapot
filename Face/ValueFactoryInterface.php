@@ -1,67 +1,67 @@
 <?php
-namespace SlothMySql\Abstractory;
+namespace SlothMySql\Face;
 
-interface IValueFactory
+interface ValueFactoryInterface
 {
 	/**
 	 * @param $string
-	 * @return AValue
+	 * @return ValueInterface
 	 */
 	public function string($string);
 
 	/**
 	 * @param $number
-	 * @return AValue
+	 * @return ValueInterface
 	 */
 	public function number($number);
 
 	/**
 	 * @param $constant
-	 * @return AValue
+	 * @return ValueInterface
 	 */
 	public function sqlConstant($constant);
 
 	/**
 	 * @param $function
 	 * @param array $params
-	 * @return AValue
+	 * @return ValueInterface
 	 */
 	public function sqlFunction($function, array $params = array());
 
 	/**
 	 * @param $tableName
-	 * @return Value\ATable
+	 * @return \SlothMySql\Face\Value\TableInterface
 	 */
 	public function table($tableName);
 
 	/**
 	 * @param $tableName
 	 * @param $fieldName
-	 * @return Value\Table\AField
+	 * @return \SlothMySql\Face\Value\Table\FieldInterface
 	 */
 	public function tableField($tableName, $fieldName);
 
 	/**
-	 * @return Value\Table\AData
+	 * @return \SlothMySql\Face\Value\Table\DataInterface
 	 */
 	public function tableData();
 
 	/**
 	 * @param array $values
-	 * @return Value\AValueList
+	 * @return \SlothMySql\Face\Value\ValueListInterface
 	 */
 	public function valueList(array $values);
 
 	/**
 	 * @param $value
-	 * @return AValue
+	 * @return ValueInterface
 	 */
 	public function guess($value);
 
 	/**
 	 * @param $value
 	 * @param $type
-	 * @return AValue
+	 * @return ValueInterface
 	 */
 	public function createValue($value, $type);
 }

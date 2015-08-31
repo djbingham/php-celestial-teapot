@@ -1,11 +1,11 @@
 <?php
 namespace SlothMySql\QueryBuilder;
 
-use SlothMySql\Abstractory\AQuery;
-use SlothMySql\Abstractory\IQueryBuilderFactory;
+use SlothMySql\Face\QueryInterface;
+use SlothMySql\Face\QueryBuilderFactoryInterface;
 use SlothMySql\Abstractory\AFactory;
 
-class Wrapper extends AFactory implements IQueryBuilderFactory
+class Wrapper extends AFactory implements QueryBuilderFactoryInterface
 {
 	public function value()
 	{

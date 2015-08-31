@@ -13,7 +13,7 @@ class ConstraintTest extends UnitTest
 
 	public function setup()
 	{
-		$this->object = new Constraint();
+		$this->object = new Constraint($this->mockBuilder()->connection());
 	}
 
 	protected function mockConstraint($string)

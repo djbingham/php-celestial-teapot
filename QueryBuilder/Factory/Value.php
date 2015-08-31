@@ -2,8 +2,8 @@
 namespace SlothMySql\QueryBuilder\Factory;
 
 use SlothMySql\Abstractory\AFactory;
-use SlothMySql\Abstractory\IValueFactory;
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Face\ValueFactoryInterface;
+use SlothMySql\Face\ValueInterface;
 use SlothMySql\QueryBuilder\Value\String;
 use SlothMySql\QueryBuilder\Value\Number;
 use SlothMySql\QueryBuilder\Value\Constant;
@@ -11,7 +11,7 @@ use SlothMySql\QueryBuilder\Value\Table;
 use SlothMySql\QueryBuilder\Value\ValueList;
 use SlothMySql\QueryBuilder\Value\SqlFunction;
 
-class Value extends AFactory implements IValueFactory
+class Value extends AFactory implements ValueFactoryInterface
 {
 	/**
 	 * @param string $string
@@ -104,9 +104,9 @@ class Value extends AFactory implements IValueFactory
 	}
 
 	/**
-	 * Guess the best type of MySqlValue and return an instance of that
-	 * @param mixed $value Value to turn into a MySqlValue instance
-	 * @return MySqlValue
+	 * Guess the best type of value and return an instance of that
+	 * @param mixed $value Value to turn into a value instance
+	 * @return ValueInterface
 	 */
 	public function guess($value)
 	{
@@ -116,7 +116,7 @@ class Value extends AFactory implements IValueFactory
 
 	protected function guessValueType($value)
 	{
-		if ($value instanceof MySqlValue) {
+		if ($value instanceof ValueInterface) {
 			return 'literal';
 		} elseif (is_null($value)) {
 			return 'null';
@@ -138,10 +138,10 @@ class Value extends AFactory implements IValueFactory
 	}
 
 	/**
-	 * Create a MySqlValue instance of give type, with given value
+	 * Create a ValueInterface instance of give type, with given value
 	 * @param mixed $value
 	 * @param string $type
-	 * @return MySqlValue
+	 * @return ValueInterface
 	 * @throws \Exception
 	 */
 	public function createValue($value, $type)

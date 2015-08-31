@@ -5,23 +5,23 @@ namespace SlothMySql;
 class DatabaseWrapper
 {
 	/**
-	 * @var Abstractory\IConnection
+	 * @var Face\ConnectionInterface
 	 */
 	protected $connection;
 
 	/**
-	 * @var Abstractory\IQueryBuilderFactory
+	 * @var Face\QueryBuilderFactoryInterface
 	 */
 	protected $queryBuilderFactory;
 
-	public function __construct(Abstractory\IConnection $connection, Abstractory\IQueryBuilderFactory $queryBuilderFactory)
+	public function __construct(Face\ConnectionInterface $connection, Face\QueryBuilderFactoryInterface $queryBuilderFactory)
 	{
 		$this->connection = $connection;
 		$this->queryBuilderFactory = $queryBuilderFactory;
 	}
 
 	/**
-	 * @return Abstractory\IQueryFactory
+	 * @return Face\QueryFactoryInterface
 	 */
 	public function query()
 	{
@@ -29,7 +29,7 @@ class DatabaseWrapper
 	}
 
 	/**
-	 * @return Abstractory\IValueFactory
+	 * @return Face\ValueFactoryInterface
 	 */
 	public function value()
 	{
@@ -37,11 +37,11 @@ class DatabaseWrapper
 	}
 
 	/**
-	 * @param Abstractory\AQuery $query
+	 * @param Face\QueryInterface $query
 	 * @return DatabaseWrapper $this
 	 * @throws \Exception If database reports error running query
 	 */
-	public function execute(Abstractory\AQuery $query)
+	public function execute(Face\QueryInterface $query)
 	{
 		$this->connection->executeQuery($query);
 		return $this;

@@ -1,16 +1,14 @@
 <?php
 namespace SlothMySql\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
-use SlothMySql\QueryBuilder\Value;
-use SlothMySql\QueryBuilder\Query;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Query\ConstraintInterface;
+use SlothMySql\Face\Query\JoinInterface;
+use SlothMySql\Face\Value\TableInterface;
 
-class Join extends MySqlQuery
+class Join implements JoinInterface
 {
-	const TYPE_INNER = 'INNER';
-	const TYPE_OUTER = 'OUTER';
-	const TYPE_LEFT = 'LEFT';
-	const TYPE_RIGHT = 'RIGHT';
+	use QueryElementTrait;
 
 	/**
 	 * @var string
@@ -18,7 +16,7 @@ class Join extends MySqlQuery
 	protected $type;
 
 	/**
-	 * @var Value\Table
+	 * @var TableInterface
 	 */
 	protected $table;
 
@@ -28,7 +26,7 @@ class Join extends MySqlQuery
 	protected $alias;
 
 	/**
-	 * @var Query\Constraint
+	 * @var ConstraintInterface
 	 */
 	protected $constraint;
 
@@ -44,7 +42,7 @@ class Join extends MySqlQuery
 
 	/**
 	 * @param $type
-	 * @return Join $this
+	 * @return JoinInterface $this
 	 * @throws \Exception
 	 */
 	public function setType($type)
@@ -66,10 +64,10 @@ class Join extends MySqlQuery
 	}
 
 	/**
-	 * @param Value\Table $table
-	 * @return Join $this
+	 * @param TableInterface $table
+	 * @return JoinInterface $this
 	 */
-	public function table(Value\Table $table)
+	public function table(TableInterface $table)
 	{
 		$this->table = $table;
 		return $this;
@@ -77,7 +75,7 @@ class Join extends MySqlQuery
 
 	/**
 	 * @param string $alias
-	 * @return Join $this
+	 * @return JoinInterface $this
 	 */
 	public function withAlias($alias)
 	{
@@ -86,10 +84,10 @@ class Join extends MySqlQuery
 	}
 
 	/**
-	 * @param Query\Constraint $constraint
-	 * @return Join $this
+	 * @param ConstraintInterface $constraint
+	 * @return JoinInterface $this
 	 */
-	public function on(Query\Constraint $constraint)
+	public function on(ConstraintInterface $constraint)
 	{
 		$this->constraint = $constraint;
 		return $this;

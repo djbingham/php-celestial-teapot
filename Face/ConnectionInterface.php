@@ -1,12 +1,12 @@
 <?php
-namespace SlothMySql\Abstractory;
+namespace SlothMySql\Face;
 
-interface IConnection
+interface ConnectionInterface
 {
 	public function begin($flags = null, $name = null);
 	public function commit($flags = null, $name = null);
 	public function rollback($flags = null, $name = null);
-	public function executeQuery(AQuery $query);
+	public function executeQuery(QueryInterface $query);
 	public function getLastResultData();
 	public function getQueryLog();
 	public function getLastInsertId();

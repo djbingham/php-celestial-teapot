@@ -1,13 +1,17 @@
 <?php
 namespace SlothMySql\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
-use SlothMySql\QueryBuilder\Value\ValueList;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Query\ConstraintInterface;
+use SlothMySql\Face\Value\ValueListInterface;
+use SlothMySql\Face\ValueInterface;
 
-class Constraint
+class Constraint implements ConstraintInterface
 {
+	use QueryElementTrait;
+
 	/**
-	 * @var MySqlValue
+	 * @var ValueInterface
 	 */
 	protected $subject;
 	/**
@@ -15,7 +19,7 @@ class Constraint
 	 */
 	protected $comparator;
 	/**
-	 * @var MySqlValue
+	 * @var ValueInterface
 	 */
 	protected $value;
 	/**
@@ -36,7 +40,7 @@ class Constraint
 	 */
 	public function __toString()
 	{
-		$queryString = $this->buildConstraintString();
+		$queryString = $this->buildConstraintInterfaceString();
 		$queryString = $this->applySimultaneousToString($queryString);
 		$queryString = $this->applyAlternativesToString($queryString);
 		if ($this->wrap) {
@@ -45,7 +49,7 @@ class Constraint
 		return $queryString;
 	}
 
-	protected function buildConstraintString()
+	protected function buildConstraintInterfaceString()
 	{
 		$queryString = sprintf('%s %s %s', $this->subject, $this->comparator, $this->value);
 		return $queryString;
@@ -72,7 +76,7 @@ class Constraint
 	}
 
 	/**
-	 * @return Constraint
+	 * @return ConstraintInterface
 	 */
 	public function wrap()
 	{
@@ -89,17 +93,17 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $subject
-	 * @return Constraint $this
+	 * @param ValueInterface $subject
+	 * @return ConstraintInterface $this
 	 */
-	public function setSubject(MySqlValue $subject)
+	public function setSubject(ValueInterface $subject)
 	{
 		$this->subject = $subject;
 		return $this;
 	}
 
 	/**
-	 * @return MySqlValue
+	 * @return ValueInterface
 	 */
 	public function getSubject()
 	{
@@ -107,10 +111,10 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $value
-	 * @return Constraint $this
+	 * @param ValueInterface $value
+	 * @return ConstraintInterface $this
 	 */
-	public function equals(MySqlValue $value)
+	public function equals(ValueInterface $value)
 	{
 		$this->setComparator('=');
 		$this->setValue($value);
@@ -118,10 +122,10 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $value
-	 * @return Constraint $this
+	 * @param ValueInterface $value
+	 * @return ConstraintInterface $this
 	 */
-	public function notEquals(MySqlValue $value)
+	public function notEquals(ValueInterface $value)
 	{
 		$this->setComparator('!=');
 		$this->setValue($value);
@@ -129,10 +133,10 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $value
-	 * @return Constraint $this
+	 * @param ValueInterface $value
+	 * @return ConstraintInterface $this
 	 */
-	public function greaterThan(MySqlValue $value)
+	public function greaterThan(ValueInterface $value)
 	{
 		$this->setComparator('>');
 		$this->setValue($value);
@@ -140,10 +144,10 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $value
-	 * @return Constraint $this
+	 * @param ValueInterface $value
+	 * @return ConstraintInterface $this
 	 */
-	public function greaterThanOrEquals(MySqlValue $value)
+	public function greaterThanOrEquals(ValueInterface $value)
 	{
 		$this->setComparator('>=');
 		$this->setValue($value);
@@ -151,10 +155,10 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $value
-	 * @return Constraint $this
+	 * @param ValueInterface $value
+	 * @return ConstraintInterface $this
 	 */
-	public function lessThan(MySqlValue $value)
+	public function lessThan(ValueInterface $value)
 	{
 		$this->setComparator('<');
 		$this->setValue($value);
@@ -162,10 +166,10 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $value
-	 * @return Constraint $this
+	 * @param ValueInterface $value
+	 * @return ConstraintInterface $this
 	 */
-	public function lessThanOrEquals(MySqlValue $value)
+	public function lessThanOrEquals(ValueInterface $value)
 	{
 		$this->setComparator('<=');
 		$this->setValue($value);
@@ -173,10 +177,10 @@ class Constraint
 	}
 
 	/**
-	 * @param ValueList $values
-	 * @return Constraint $this
+	 * @param ValueListInterface $values
+	 * @return ConstraintInterface $this
 	 */
-	public function in(ValueList $values)
+	public function in(ValueListInterface $values)
 	{
 		$this->setComparator('IN');
 		$this->setValue($values);
@@ -184,10 +188,10 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $values
-	 * @return Constraint $this
+	 * @param ValueInterface $values
+	 * @return ConstraintInterface $this
 	 */
-	public function notIn(MySqlValue $values)
+	public function notIn(ValueInterface $values)
 	{
 		$this->setComparator('NOT IN');
 		$this->setValue($values);
@@ -195,10 +199,10 @@ class Constraint
 	}
 
     /**
-     * @param MySqlValue $value
+     * @param ValueInterface $value
      * @return $this
      */
-    public function like(MySqlValue $value)
+    public function like(ValueInterface $value)
     {
         $this->setComparator('LIKE');
         $this->setValue($value);
@@ -207,7 +211,7 @@ class Constraint
 
 	/**
 	 * @param $operator
-	 * @return Constraint $this
+	 * @return ConstraintInterface $this
 	 * @throws \Exception
 	 */
 	public function setComparator($operator)
@@ -228,17 +232,17 @@ class Constraint
 	}
 
 	/**
-	 * @param MySqlValue $value
-	 * @return Constraint $this
+	 * @param ValueInterface $value
+	 * @return ConstraintInterface $this
 	 */
-	public function setValue(MySqlValue $value)
+	public function setValue(ValueInterface $value)
 	{
 		$this->value = $value;
 		return $this;
 	}
 
 	/**
-	 * @return MySqlValue
+	 * @return ValueInterface
 	 */
 	public function getValue()
 	{
@@ -246,46 +250,46 @@ class Constraint
 	}
 
 	/**
-	 * @param Constraint $condition
-	 * @return Constraint $this
+	 * @param ConstraintInterface $condition
+	 * @return ConstraintInterface $this
 	 */
-	public function andWhere(Constraint $condition)
+	public function andWhere(ConstraintInterface $condition)
 	{
 		$this->simultaneousConstraints[] = $condition;
 		return $this;
 	}
 
 	/**
-	 * @param Constraint $condition
-	 * @return Constraint $this
+	 * @param ConstraintInterface $condition
+	 * @return ConstraintInterface $this
 	 */
-	public function andOn(Constraint $condition)
+	public function andOn(ConstraintInterface $condition)
 	{
 		return $this->andWhere($condition);
 	}
 
 	/**
-	 * @param Constraint $condition
-	 * @return Constraint $this
+	 * @param ConstraintInterface $condition
+	 * @return ConstraintInterface $this
 	 */
-	public function orWhere(Constraint $condition)
+	public function orWhere(ConstraintInterface $condition)
 	{
 		$this->alternativeConstraints[] = $condition;
 		return $this;
 	}
 
 	/**
-	 * @param Constraint $condition
-	 * @return Constraint $this
+	 * @param ConstraintInterface $condition
+	 * @return ConstraintInterface $this
 	 */
-	public function orOn(Constraint $condition)
+	public function orOn(ConstraintInterface $condition)
 	{
 		return $this->orWhere($condition);
 	}
 
 	/**
 	 * @param array $simultaneousConstraints
-	 * @return Constraint $this
+	 * @return ConstraintInterface $this
 	 */
 	public function setSimultaneousConstraints($simultaneousConstraints)
 	{
@@ -311,7 +315,7 @@ class Constraint
 
 	/**
 	 * @param array $alternativeConstraints
-	 * @return Constraint $this
+	 * @return ConstraintInterface $this
 	 */
 	public function setAlternativeConstraints($alternativeConstraints)
 	{

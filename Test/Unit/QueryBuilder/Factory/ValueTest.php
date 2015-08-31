@@ -73,8 +73,8 @@ class ValueTest extends UnitTest
 		$testFunction = 'testFunc';
 		$escapedFunction = 'escapedFunc';
 		$testParams = array(
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock()
 		);
 		$testParams[0]->expects($this->any())
 			->method('__toString')
@@ -131,8 +131,8 @@ class ValueTest extends UnitTest
 	public function testValueList()
 	{
 		$testValues = array(
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock()
 		);
 		$testValues[0]->expects($this->any())
 			->method('__toString')
@@ -160,8 +160,8 @@ class ValueTest extends UnitTest
 	public function testCreateValueList()
 	{
 		$list = array(
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock()
 		);
 		$list[0]->expects($this->once())
 			->method('__toString')
@@ -309,7 +309,7 @@ class ValueTest extends UnitTest
 
 	public function testGuessLiteral()
 	{
-		$mockValue = $this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock();
+		$mockValue = $this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock();
 		$mockValue->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('12'));
@@ -317,8 +317,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockBuilder()->connection();
 		$object = $this->getObject($connection);
 		$output = $object->guess($mockValue);
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Abstractory\MySqlValue', $output);
-		$this->assertEquals($mockValue, $output);
+		$this->assertSame($mockValue, $output);
 	}
 
 	public function testGuessNull()
@@ -333,8 +332,8 @@ class ValueTest extends UnitTest
 	public function testGuessList()
 	{
 		$mockValues = array(
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\QueryBuilder\Abstractory\MySqlValue')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('SlothMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock()
 		);
 		$mockValues[0]->expects($this->any())
 			->method('__toString')

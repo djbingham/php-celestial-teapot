@@ -1,24 +1,24 @@
 <?php
 namespace SlothMySql\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
-use SlothMySql\QueryBuilder\Value\Table\Data;
-use SlothMySql\QueryBuilder\Value\Table;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Query\InsertInterface;
+use SlothMySql\Face\Value\Table\DataInterface;
+use SlothMySql\Face\Value\TableInterface;
 
-class Insert extends MySqlQuery
+class Insert implements InsertInterface
 {
-	const INSERT = 'INSERT';
-	const REPLACE = 'REPLACE';
+	use QueryElementTrait;
 
 	protected $insertType = self::INSERT;
 
 	/**
-	 * @var Table
+	 * @var TableInterface
 	 */
 	protected $table;
 
 	/**
-	 * @var Data
+	 * @var DataInterface
 	 */
 	protected $data;
 
@@ -72,20 +72,20 @@ class Insert extends MySqlQuery
 	}
 
 	/**
-	 * @param Table $table
-	 * @return Insert $this
+	 * @param TableInterface $table
+	 * @return InsertInterface $this
 	 */
-	public function into(Table $table)
+	public function into(TableInterface $table)
 	{
 		$this->table = $table;
 		return $this;
 	}
 
 	/**
-	 * @param Data $data
-	 * @return Insert $this
+	 * @param DataInterface $data
+	 * @return InsertInterface $this
 	 */
-	public function data(Data $data)
+	public function data(DataInterface $data)
 	{
 		$this->data = $data;
 		return $this;

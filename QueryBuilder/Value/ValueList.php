@@ -2,10 +2,14 @@
 
 namespace SlothMySql\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Value\ValueListInterface;
+use SlothMySql\Face\ValueInterface;
 
-class ValueList extends MySqlValue
+class ValueList implements ValueListInterface
 {
+	use QueryElementTrait;
+
 	protected $values;
 
 	public function __toString()
@@ -26,10 +30,10 @@ class ValueList extends MySqlValue
 	}
 
 	/**
-	 * @param MySqlValue $value
+	 * @param ValueInterface $value
 	 * @return ValueList $this
 	 */
-	public function appendValue(MySqlValue $value)
+	public function appendValue(ValueInterface $value)
 	{
 		$this->values[] = $value;
 		return $this;

@@ -2,8 +2,9 @@
 namespace SlothMySql\Connection;
 
 use SlothMySql\Abstractory;
+use SlothMySql\Face;
 
-class MySqli extends \MySqli implements Abstractory\IConnection
+class MySqli extends \MySqli implements Face\ConnectionInterface
 {
 	/**
 	 * @var array
@@ -25,7 +26,7 @@ class MySqli extends \MySqli implements Abstractory\IConnection
 	 */
 	private $lastError;
 
-	public function executeQuery(Abstractory\AQuery $query)
+	public function executeQuery(Face\QueryInterface $query)
 	{
 		$queryString = (string)$query;
 		$this->logQuery($queryString);

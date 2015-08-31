@@ -2,7 +2,7 @@
 
 namespace SlothMySql\Test\QueryBuilder;
 
-use SlothMySql\Abstractory\IConnection;
+use SlothMySql\Face\ConnectionInterface;
 use SlothMySql\Test\Abstractory\UnitTest;
 use SlothMySql\QueryBuilder\Wrapper;
 
@@ -14,7 +14,7 @@ class WrapperTest extends UnitTest
     protected $object;
 
 	/**
-	 * @var IConnection
+	 * @var ConnectionInterface
 	 */
 	protected $connection;
 

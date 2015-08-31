@@ -2,10 +2,13 @@
 
 namespace SlothMySql\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\ValueInterface;
 
-class Constant extends MySqlValue
+class Constant implements ValueInterface
 {
+	use QueryElementTrait;
+
 	public static $constants = array('NULL', 'CURRENT_TIMESTAMP');
 
 	protected $value;

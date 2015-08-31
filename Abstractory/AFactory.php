@@ -1,43 +1,20 @@
 <?php
 namespace SlothMySql\Abstractory;
 
+use SlothMySql\Base\InternalCache;
+use SlothMySql\Face\ConnectionInterface;
+
 abstract class AFactory
 {
+	use InternalCache;
+
 	/**
-	 * @var IConnection
+	 * @var ConnectionInterface
 	 */
 	protected $connection;
 
-	/**
-	 * @var array
-	 */
-	private $cache = array();
-
-	public function __construct(IConnection $connection)
+	public function __construct(ConnectionInterface $connection)
 	{
 		$this->connection = $connection;
-	}
-
-	/**
-	 * @param string $name
-	 * @param mixed $value
-	 * @return $this
-	 */
-	public function setCache($name, $value)
-	{
-		$this->cache[$name] = $value;
-		return $this;
-	}
-
-	/**
-	 * @param string $name
-	 * @return mixed
-	 */
-	public function getCache($name = null)
-	{
-		if (!array_key_exists($name, $this->cache)) {
-			return null;
-		}
-		return $this->cache[$name];
 	}
 }

@@ -1,10 +1,13 @@
 <?php
 namespace SlothMySql\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\ValueInterface;
 
-class String extends MySqlValue
+class String implements ValueInterface
 {
+	use QueryElementTrait;
+
 	protected $value;
 
 	public function __toString()

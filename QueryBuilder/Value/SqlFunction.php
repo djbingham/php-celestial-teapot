@@ -1,10 +1,13 @@
 <?php
 namespace SlothMySql\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\ValueInterface;
 
-class SqlFunction extends MySqlValue
+class SqlFunction implements ValueInterface
 {
+	use QueryElementTrait;
+
 	protected $function;
 	protected $params;
 
@@ -32,8 +35,10 @@ class SqlFunction extends MySqlValue
 	{
 		// Make sure only valid values are passed in as params
 		foreach ($params as $param) {
-			if (!$param instanceof MySqlValue) {
-				throw new \Exception('Invalid parameter value');
+			if (!$param instanceof ValueInterface) {
+				throw new \Exception(
+					sprintf('Invalid parameter value for SQL function: %s', print_r($param, true))
+				);
 			}
 		}
 		$this->params = $params;

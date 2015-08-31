@@ -1,16 +1,18 @@
 <?php
-namespace SlothMySql\Abstractory;
+namespace SlothMySql\Base;
 
-trait TQueryElement
+use SlothMySql\Face\ConnectionInterface;
+
+trait QueryElementTrait
 {
 	/**
-	 * @var IConnection
+	 * @var ConnectionInterface
 	 */
 	private $connection;
 
 	abstract public function __toString();
 
-	public function __construct(IConnection $connection)
+	public function __construct(ConnectionInterface $connection)
 	{
 		$this->connection = $connection;
 	}

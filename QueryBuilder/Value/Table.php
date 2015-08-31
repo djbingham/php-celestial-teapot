@@ -1,10 +1,13 @@
 <?php
 namespace SlothMySql\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Value\TableInterface;
 
-class Table extends MySqlValue
+class Table implements TableInterface
 {
+	use QueryElementTrait;
+
 	protected $tableName;
 	protected $alias;
 	protected $fields = array();

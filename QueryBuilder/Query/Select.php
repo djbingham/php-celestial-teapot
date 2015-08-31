@@ -1,17 +1,24 @@
 <?php
 namespace SlothMySql\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Abstractory\MySqlQuery;
-use SlothMySql\QueryBuilder\Abstractory\MySqlValue;
+use SlothMySql\Base\QueryElementTrait;
+use SlothMySql\Face\Query\ConstraintInterface;
+use SlothMySql\Face\Query\JoinInterface;
+use SlothMySql\Face\Query\SelectInterface;
+use SlothMySql\Face\Value\Table\FieldInterface;
+use SlothMySql\Face\Value\TableInterface;
+use SlothMySql\Face\ValueInterface;
 use SlothMySql\QueryBuilder\Value\Table;
 
-class Select extends MySqlQuery
+class Select implements SelectInterface
 {
+	use QueryElementTrait;
+
 	protected $fields = array();
 	protected $tables = array();
 	protected $joins = array();
 	/**
-	 * @var Constraint
+	 * @var ConstraintInterface
 	 */
 	protected $constraint;
 	protected $orders = array();
@@ -47,7 +54,7 @@ class Select extends MySqlQuery
 		return $fieldStrings;
 	}
 
-	private function getFieldStringWithAlias(Table\Field $field)
+	private function getFieldStringWithAlias(FieldInterface $field)
 	{
 		$fieldString = (string)$field;
 		$fieldAlias = $field->getAlias();
@@ -58,10 +65,10 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param MySqlValue $field
+	 * @param ValueInterface $field
 	 * @return Select $this
 	 */
-	public function field(MySqlValue $field)
+	public function field(ValueInterface $field)
 	{
 		$this->fields[] = $field;
 		return $this;
@@ -69,7 +76,7 @@ class Select extends MySqlQuery
 
 	/**
 	 * @param array $fields
-	 * @return Select $this
+	 * @return SelectInterface $this
 	 */
 	public function setFields(array $fields)
 	{
@@ -86,10 +93,10 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param Table $table
+	 * @param TableInterface $table
 	 * @return Select $this
 	 */
-	public function from(Table $table)
+	public function from(TableInterface $table)
 	{
 		$this->tables[] = $table;
 		return $this;
@@ -97,7 +104,7 @@ class Select extends MySqlQuery
 
 	/**
 	 * @param array $tables
-	 * @return Select $this
+	 * @return SelectInterface $this
 	 */
 	public function setTables(array $tables)
 	{
@@ -117,10 +124,10 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param Join $join
-	 * @return Select $this
+	 * @param JoinInterface $join
+	 * @return SelectInterface $this
 	 */
-	public function join(Join $join)
+	public function join(JoinInterface $join)
 	{
 		$this->joins[] = $join;
 		return $this;
@@ -128,7 +135,7 @@ class Select extends MySqlQuery
 
 	/**
 	 * @param array $joins
-	 * @return Select $this
+	 * @return SelectInterface $this
 	 */
 	public function setJoins(array $joins)
 	{
@@ -148,12 +155,12 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param Constraint $constraint
-	 * @return Select $this
+	 * @param ConstraintInterface $constraint
+	 * @return SelectInterface $this
 	 */
-	public function where(Constraint $constraint)
+	public function where(ConstraintInterface $constraint)
 	{
-		if ($this->constraint instanceof Constraint) {
+		if ($this->constraint instanceof ConstraintInterface) {
 			$this->constraint->andWhere($constraint);
 		}
 		else {
@@ -163,12 +170,12 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param Constraint $constraint
-	 * @return Select $this
+	 * @param ConstraintInterface $constraint
+	 * @return SelectInterface $this
 	 * @throws \Exception
 	 */
-	public function andWhere(Constraint $constraint) {
-		if ($this->constraint instanceof Constraint) {
+	public function andWhere(ConstraintInterface $constraint) {
+		if ($this->constraint instanceof ConstraintInterface) {
 			$this->constraint->andWhere($constraint);
 		}
 		else {
@@ -178,13 +185,13 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param Constraint $constraint
-	 * @return Select $this
+	 * @param ConstraintInterface $constraint
+	 * @return SelectInterface $this
 	 * @throws \Exception
 	 */
-	public function orWhere(Constraint $constraint)
+	public function orWhere(ConstraintInterface $constraint)
 	{
-		if ($this->constraint instanceof Constraint) {
+		if ($this->constraint instanceof ConstraintInterface) {
 			$this->constraint->orWhere($constraint);
 		}
 		else {
@@ -194,17 +201,17 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param Constraint $constraint
-	 * @return Select $this
+	 * @param ConstraintInterface $constraint
+	 * @return SelectInterface $this
 	 */
-	public function setConstraint(Constraint $constraint)
+	public function setConstraint(ConstraintInterface $constraint)
 	{
 		$this->constraint = $constraint;
 		return $this;
 	}
 
 	/**
-	 * @return Constraint
+	 * @return ConstraintInterface
 	 */
 	public function getConstraint()
 	{
@@ -212,12 +219,12 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param MySqlValue $clause
+	 * @param ValueInterface $clause
 	 * @param bool $prioritise
-	 * @return Select $this
+	 * @return SelectInterface $this
 	 * @throws \Exception
 	 */
-	public function orderBy(MySqlValue $clause, $prioritise = FALSE)
+	public function orderBy(ValueInterface $clause, $prioritise = FALSE)
 	{
 		if ($prioritise) {
 			array_unshift($this->orders, $clause);
@@ -250,12 +257,12 @@ class Select extends MySqlQuery
 	}
 
 	/**
-	 * @param MySqlValue $clause
+	 * @param ValueInterface $clause
 	 * @param bool $prioritise
 	 * @return Select $this
 	 * @throws \Exception
 	 */
-	public function groupBy(MySqlValue $clause, $prioritise = FALSE)
+	public function groupBy(ValueInterface $clause, $prioritise = FALSE)
 	{
 		if ($prioritise) {
 			array_unshift($this->groups, $clause);

@@ -3,10 +3,10 @@
 namespace SlothMySql\QueryBuilder\Factory;
 
 use SlothMySql\Abstractory\AFactory;
-use SlothMySql\Abstractory\IQueryFactory;
+use SlothMySql\Face\QueryFactoryInterface;
 use SlothMySql\QueryBuilder;
 
-class Query extends AFactory implements IQueryFactory
+class Query extends AFactory implements QueryFactoryInterface
 {
 	public function select()
 	{

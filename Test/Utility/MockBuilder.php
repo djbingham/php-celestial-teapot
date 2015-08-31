@@ -13,28 +13,28 @@ class MockBuilder extends \PHPUnit_Framework_TestCase
 
     public function connection()
 	{
-		return $this->getMockBuilder('SlothMySql\Abstractory\IConnection')
+		return $this->getMockBuilder('SlothMySql\Face\ConnectionInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryConstraint()
 	{
-		return $this->getMockBuilder('SlothMySql\Abstractory\Query\AConstraint')
+		return $this->getMockBuilder('SlothMySql\Face\Query\ConstraintInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryJoin()
 	{
-		return $this->getMockBuilder('SlothMySql\Abstractory\Query\AJoin')
+		return $this->getMockBuilder('SlothMySql\Face\Query\JoinInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryValue($type = null)
 	{
-		$class = sprintf('SlothMySql\Abstractory\AValue');
+		$class = sprintf('SlothMySql\Face\ValueInterface');
 		if (!is_null($type)) {
 			$class = sprintf('SlothMySql\QueryBuilder\Value\%s', $type);
 		}
@@ -45,14 +45,14 @@ class MockBuilder extends \PHPUnit_Framework_TestCase
 
 	public function mySqlValueFactory()
 	{
-		return $this->getMockBuilder('SlothMySql\Abstractory\IValueFactory')
+		return $this->getMockBuilder('SlothMySql\Face\ValueFactoryInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function mySqlQueryBuilderFactory()
 	{
-		return $this->getMockBuilder('SlothMySql\Abstractory\IQueryBuilderFactory')
+		return $this->getMockBuilder('SlothMySql\Face\QueryBuilderFactoryInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
