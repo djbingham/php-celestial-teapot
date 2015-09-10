@@ -24,15 +24,29 @@ class WrapperTest extends UnitTest
 		$this->object = new Wrapper($this->connection);
 	}
 
-	public function testQuery()
+	public function testQueryReturnsQueryFactory()
 	{
 		$output = $this->object->query();
 		$this->assertInstanceOf('SlothMySql\QueryBuilder\Factory\Query', $output);
 	}
 
-	public function testValue()
+	public function testQueryFactoryIsCached()
+	{
+		$firstFactory = $this->object->query();
+		$secondFactory = $this->object->query();
+		$this->assertSame($firstFactory, $secondFactory);
+	}
+
+	public function testValueReturnsValueFactory()
 	{
 		$output = $this->object->value();
 		$this->assertInstanceOf('SlothMySql\QueryBuilder\Factory\Value', $output);
+	}
+
+	public function testValueFactoryIsCached()
+	{
+		$firstFactory = $this->object->value();
+		$secondFactory = $this->object->value();
+		$this->assertSame($firstFactory, $secondFactory);
 	}
 }
