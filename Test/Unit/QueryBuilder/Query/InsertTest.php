@@ -51,6 +51,13 @@ class InsertTest extends UnitTest
 		$this->assertEquals($this->object, $output);
 	}
 
+	public function testGetDataReturnsDataInstance()
+	{
+		$data = $this->mockData(array('`TableName`.`field1`'), array(array('"value1"')));
+		$this->object->data($data);
+		$this->assertSame($data, $this->object->getData());
+	}
+
 	public function testisReplaceQueryReturnsFalseByDefault()
 	{
 		$this->assertFalse($this->object->isReplaceQuery());

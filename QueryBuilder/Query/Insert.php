@@ -90,4 +90,12 @@ class Insert implements InsertInterface
 		$this->data = $data;
 		return $this;
 	}
+
+	/**
+	 * @return DataInterface
+	 */
+	public function getData()
+	{
+		return $this->data;
+	}
 }
