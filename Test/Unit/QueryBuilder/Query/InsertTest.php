@@ -44,6 +44,13 @@ class InsertTest extends UnitTest
 		$this->assertEquals($this->object, $output);
 	}
 
+	public function testGetTableReturnsTableInstance()
+	{
+		$table = $this->mockTable('`TableName`');
+		$this->object->into($table);
+		$this->assertSame($table, $this->object->getTable());
+	}
+
 	public function testDataReturnsInsertInstance()
 	{
 		$data = $this->mockData(array('`TableName`.`field1`'), array(array('"value1"')));

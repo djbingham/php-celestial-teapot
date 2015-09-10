@@ -29,6 +29,11 @@ interface InsertInterface extends QueryInterface
 	public function data(DataInterface $data);
 
 	/**
+	 * @return TableInterface
+	 */
+	public function getTable();
+
+	/**
 	 * @return DataInterface
 	 */
 	public function getData();

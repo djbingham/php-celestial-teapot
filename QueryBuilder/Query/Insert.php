@@ -92,6 +92,14 @@ class Insert implements InsertInterface
 	}
 
 	/**
+	 * @return TableInterface
+	 */
+	public function getTable()
+	{
+		return $this->table;
+	}
+
+	/**
 	 * @return DataInterface
 	 */
 	public function getData()
