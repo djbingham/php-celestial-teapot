@@ -17,7 +17,7 @@ trait QueryElementTrait
 		$this->connection = $connection;
 	}
 
-	protected function getConnection()
+	public function getConnection()
 	{
 		return $this->connection;
 	}
