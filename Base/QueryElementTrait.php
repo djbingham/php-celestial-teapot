@@ -22,7 +22,7 @@ trait QueryElementTrait
 		return $this->connection;
 	}
 
-	protected function escapeString($string)
+	public function escapeString($string)
 	{
 		return $this->connection->escapeString($string);
 	}
