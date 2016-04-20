@@ -219,6 +219,12 @@ class DataTest extends UnitTest
 		$this->assertEquals($values[1][1], $outputRows[1][(string)$fields[2]]);
 	}
 
+	public function testBeginAndEndRowCanBeCalledWithNoDataSet()
+	{
+		$this->assertSame($this->object, $this->object->beginRow());
+		$this->assertSame($this->object, $this->object->endRow());
+	}
+
 	public function testCanSetRowValuesForExistingRow()
 	{
 		$connection = $this->mockBuilder()->connection();

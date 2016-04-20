@@ -101,11 +101,13 @@ class Data implements DataInterface
 	protected function fillCurrentRow()
 	{
 		$filledRow = array();
-		for ($i = 0; $i <= max(array_keys($this->currentRowValues)); $i++) {
-			if (array_key_exists($i, $this->currentRowValues)) {
-				$filledRow[] = $this->currentRowValues[$i];
-			} else {
-				$filledRow[] = $this->nullValue;
+		if (count($this->currentRowValues) > 0) {
+			for ($i = 0; $i <= max(array_keys($this->currentRowValues)); $i++) {
+				if (array_key_exists($i, $this->currentRowValues)) {
+					$filledRow[] = $this->currentRowValues[$i];
+				} else {
+					$filledRow[] = $this->nullValue;
+				}
 			}
 		}
 		$this->currentRowValues = $filledRow;
