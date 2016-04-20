@@ -72,10 +72,11 @@ class UpdateTest extends UnitTest
 		return $constraint;
 	}
 
-	public function testTableAcceptsTableAndReturnsUpdateInstance()
+	public function testSetAndGetTable()
 	{
-		$output = $this->object->table($this->mockTable('`TableName`'));
-		$this->assertEquals($this->object, $output);
+		$table = $this->mockTable('`TableName`');
+		$this->assertSame($this->object, $this->object->table($table));
+		$this->assertSame($table, $this->object->getTable());
 	}
 
 	public function testSetAndGetFieldsAndGetValues()
@@ -128,6 +129,51 @@ class UpdateTest extends UnitTest
 		$values = array(array($this->mockValue('"value string"')));
 		$output = $this->object->data($this->mockData($fields, $values));
 		$this->assertEquals($this->object, $output);
+	}
+
+	public function testGetDataReturnsNewDataInstanceWithDataSetByDataMethod()
+	{
+		$fields = array(
+			$this->mockField('`TableName`.`Field1`'),
+			$this->mockField('`TableName`.`Field2`')
+		);
+		$values = array(
+			array(
+				'`TableName`.`Field1`' => $this->mockValue('value 1'),
+				'`TableName`.`Field2`' => $this->mockValue('value 2')
+			)
+		);
+		$this->object->data($this->mockData($fields, $values));
+
+		$output = $this->object->getData();
+
+		$this->assertInstanceOf('SlothMySql\Face\Value\Table\DataInterface', $output);
+		$rows = $output->getRows();
+		$this->assertTrue(is_array($rows));
+		$this->assertEquals($values, $rows);
+	}
+
+	public function testGetDataReturnsNewDataInstanceWithDataSetBySetMethod()
+	{
+		$fields = array(
+			$this->mockField('`TableName`.`Field1`'),
+			$this->mockField('`TableName`.`Field2`')
+		);
+		$values = array(
+			array(
+				'`TableName`.`Field1`' => $this->mockValue('value 1'),
+				'`TableName`.`Field2`' => $this->mockValue('value 2')
+			)
+		);
+		$this->object->set($fields[0], $values[0]['`TableName`.`Field1`']);
+		$this->object->set($fields[1], $values[0]['`TableName`.`Field2`']);
+
+		$output = $this->object->getData();
+
+		$this->assertInstanceOf('SlothMySql\Face\Value\Table\DataInterface', $output);
+		$rows = $output->getRows();
+		$this->assertTrue(is_array($rows));
+		$this->assertEquals($values, $rows);
 	}
 
 	public function testWhereAcceptsConstraintInstanceAndReturnsUpdateInstance()

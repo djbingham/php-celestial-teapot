@@ -14,23 +14,29 @@ class Update implements UpdateInterface
 {
 	use QueryElementTrait;
 
+	/**
+	 * @var TableInterface
+	 */
 	protected $table;
+
+	/**
+	 * @var array
+	 */
 	protected $fields = array();
+
+	/**
+	 * @var array
+	 */
 	protected $values = array();
+
+	/**
+	 * @var ConstraintInterface
+	 */
 	protected $constraint;
 
 	public function __toString()
 	{
-		return sprintf("UPDATE %s\nSET %s\nWHERE %s", $this->table, $this->dataString(), $this->constraint);
-	}
-
-	protected function dataString()
-	{
-		$assignmentStrings = array();
-		foreach ($this->fields as $i => $field) {
-			$assignmentStrings[] = sprintf('%s = %s', (string)$field, (string)$this->values[$i]);
-		}
-		return implode(",\n\t", $assignmentStrings);
+		return sprintf("UPDATE %s\nSET %s\nWHERE %s", $this->table, $this->buildDataString(), $this->constraint);
 	}
 
 	/**
@@ -44,6 +50,14 @@ class Update implements UpdateInterface
 	}
 
 	/**
+	 * @return TableInterface
+	 */
+	public function getTable()
+	{
+		return $this->table;
+	}
+
+	/**
 	 * @param FieldInterface $field
 	 * @param ValueInterface $value
 	 * @return Update $this
@@ -54,16 +68,6 @@ class Update implements UpdateInterface
 		$this->fields[$fieldIndex] = $field;
 		$this->values[$fieldIndex] = $value;
 		return $this;
-	}
-
-	protected function getFieldIndex(FieldInterface $testField)
-	{
-		foreach ($this->fields as $i => $field) {
-			if ((string)$field == (string)$testField) {
-				return $i;
-			}
-		}
-		return count($this->fields);
 	}
 
 	/**
@@ -100,6 +104,22 @@ class Update implements UpdateInterface
 	}
 
 	/**
+	 * @return DataInterface
+	 */
+	public function getData()
+	{
+		$fields = $this->getFields();
+		$values = $this->getValues();
+		$data = new Table\Data();
+		$data->beginRow();
+		foreach ($values as $index => $value) {
+		    $data->set($fields[$index], $value);
+		}
+		$data->endRow();
+		return $data;
+	}
+
+	/**
 	 * @param ConstraintInterface $constraint
 	 * @return Update $this
 	 */
@@ -107,5 +127,24 @@ class Update implements UpdateInterface
 	{
 		$this->constraint = $constraint;
 		return $this;
+	}
+
+	protected function buildDataString()
+	{
+		$assignmentStrings = array();
+		foreach ($this->fields as $i => $field) {
+			$assignmentStrings[] = sprintf('%s = %s', (string)$field, (string)$this->values[$i]);
+		}
+		return implode(",\n\t", $assignmentStrings);
+	}
+
+	protected function getFieldIndex(FieldInterface $testField)
+	{
+		foreach ($this->fields as $i => $field) {
+			if ((string)$field == (string)$testField) {
+				return $i;
+			}
+		}
+		return count($this->fields);
 	}
 }
