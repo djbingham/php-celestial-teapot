@@ -12,7 +12,7 @@ interface DataInterface
 	function setNullValue(ValueInterface $value);
 
 	/**
-	 * @return $this
+	 * @return mixed
 	 */
 	function getNullValue();
 
@@ -23,7 +23,7 @@ interface DataInterface
 	function beginRow($index = null);
 
 	/**
-	 * @return $this
+	 * @return integer
 	 */
 	function getCurrentRowIndex();
 
@@ -35,7 +35,7 @@ interface DataInterface
 	function set(FieldInterface $field, ValueInterface $value);
 
 	/**
-	 * @return $this
+	 * @return array
 	 */
 	function getCurrentRow();
 
@@ -45,12 +45,12 @@ interface DataInterface
 	function endRow();
 
 	/**
-	 * @return $this
+	 * @return array
 	 */
 	function getFields();
 
 	/**
-	 * @return $this
+	 * @return array
 	 */
 	function getRows();
 }
