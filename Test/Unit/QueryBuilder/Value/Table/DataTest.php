@@ -276,6 +276,26 @@ class DataTest extends UnitTest
 		$this->assertNullValue($outputRows[0][(string)$fields[2]]);
 	}
 
+	public function testNumRowsReturnsCorrectCountOfDataRows()
+	{
+		$field = $this->mockField('TableName', 'FieldName1');
+		$value = $this->mockValue('"value string 1 1"');
+
+		$this->assertEquals(0, $this->object->numRows());
+
+		$this->object->beginRow();
+		$this->object->set($field, $value);
+		$this->object->endRow();
+
+		$this->assertEquals(1, $this->object->numRows());
+
+		$this->object->beginRow();
+		$this->object->set($field, $value);
+		$this->object->endRow();
+
+		$this->assertEquals(2, $this->object->numRows());
+	}
+
 	public function testSetAndGetConnection()
 	{
 		$connection = $this->mockBuilder()->connection();

@@ -140,4 +140,9 @@ class Data implements DataInterface
 		}
 		return $allValues;
 	}
+
+	public function numRows()
+	{
+		return count($this->rows);
+	}
 }

@@ -53,4 +53,9 @@ interface DataInterface
 	 * @return array
 	 */
 	function getRows();
+
+	/**
+	 * @return integer
+	 */
+	function numRows();
 }
