@@ -36,8 +36,13 @@ class SqlFunction implements ValueInterface
 		// Make sure only valid values are passed in as params
 		foreach ($params as $param) {
 			if (!$param instanceof ValueInterface) {
+				if (is_array($param) || is_object($param)) {
+					$paramString = json_encode($param);
+				} else {
+					$paramString = (string) $param;
+				}
 				throw new \Exception(
-					sprintf('Invalid parameter value for SQL function: %s', print_r($param, true))
+					sprintf('Invalid parameter value for SQL function: %s', $paramString)
 				);
 			}
 		}
