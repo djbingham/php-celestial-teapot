@@ -3,7 +3,7 @@
 namespace SlothMySql\Test\Unit\Database\QueryBuilder\MySql\Factory;
 
 use SlothMySql\Test\Abstractory\UnitTest;
-use SlothMySql\QueryBuilder\Value\String;
+use SlothMySql\QueryBuilder\Value\Text;
 use SlothMySql\QueryBuilder\Value\ValueList;
 use SlothMySql\QueryBuilder\Factory\Value as ValueFactory;
 
@@ -37,12 +37,12 @@ class ValueTest extends UnitTest
 
 	public function testString()
 	{
-		$testValue = 'String to be escaped';
+		$testValue = 'Text to be escaped';
 		$escapedValue = 'Escaped string';
 		$connection = $this->mockConnection($testValue, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->string($testValue);
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\String', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Text', $output);
 		$this->assertEquals('"'.$escapedValue.'"', (string) $output);
 	}
 
@@ -151,7 +151,7 @@ class ValueTest extends UnitTest
 	public function testCreateValueLiteral()
 	{
 		$connection = $this->mockBuilder()->connection();
-		$value = new String($connection);
+		$value = new Text($connection);
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'literal');
 		$this->assertEquals($value, $output);
@@ -190,12 +190,12 @@ class ValueTest extends UnitTest
 
 	public function testCreateValueString()
 	{
-		$value = 'String value';
+		$value = 'Text value';
 		$escapedValue = 'Escaped value';
 		$connection = $this->mockConnection($value, $escapedValue);
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'string');
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\String', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Text', $output);
 		$this->assertEquals('"'.$escapedValue.'"', (string) $output);
 	}
 
@@ -362,7 +362,7 @@ class ValueTest extends UnitTest
 		$connection = $this->mockConnection('A string', 'Escaped string');
 		$object = $this->getObject($connection);
 		$output = $object->guess('A string');
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\String', $output);
+		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Text', $output);
 		$this->assertEquals('"Escaped string"', (string) $output);
 	}
 

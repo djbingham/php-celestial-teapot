@@ -4,7 +4,7 @@ namespace SlothMySql\QueryBuilder\Value;
 use SlothMySql\Base\QueryElementTrait;
 use SlothMySql\Face\ValueInterface;
 
-class String implements ValueInterface
+class Text implements ValueInterface
 {
 	use QueryElementTrait;
 

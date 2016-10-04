@@ -29,7 +29,7 @@ class ConstraintTest extends UnitTest
 
 	protected function mockField($string)
 	{
-		$field = $this->mockBuilder()->queryValue('String');
+		$field = $this->mockBuilder()->queryValue('Text');
 		$field->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue($string));

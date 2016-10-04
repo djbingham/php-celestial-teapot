@@ -4,7 +4,7 @@ namespace SlothMySql\QueryBuilder\Factory;
 use SlothMySql\Abstractory\AFactory;
 use SlothMySql\Face\ValueFactoryInterface;
 use SlothMySql\Face\ValueInterface;
-use SlothMySql\QueryBuilder\Value\String;
+use SlothMySql\QueryBuilder\Value\Text;
 use SlothMySql\QueryBuilder\Value\Number;
 use SlothMySql\QueryBuilder\Value\Constant;
 use SlothMySql\QueryBuilder\Value\Table;
@@ -19,7 +19,7 @@ class Value extends AFactory implements ValueFactoryInterface
 	 */
 	public function string($string)
 	{
-		$value = new String($this->connection);
+		$value = new Text($this->connection);
 		$value->setValue($string);
 		return $value;
 	}
