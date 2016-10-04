@@ -19,8 +19,6 @@ abstract class DbTestWithMySqli extends \PHPUnit_Extensions_Database_TestCase
 	{
 		if ($this->conn === null) {
 			if (self::$pdo == null) {
-//				self::$pdo = new PDO('sqlite::memory');
-
 				self::$pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USERNAME'], $GLOBALS['DB_PASSWORD']);
 
 				$this->executeDbQuery('CREATE DATABASE IF NOT EXISTS `slothMySqlTest`')
