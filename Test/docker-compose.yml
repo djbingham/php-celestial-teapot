@@ -1,0 +1,25 @@
+version: "2.0"
+services:
+  unit-test:
+    image: phpunit/phpunit
+    volumes:
+      - "../:/app"
+    working_dir: /app
+    command: --configuration=Test/phpunit.xml --bootstrap=Test/bootstrap.php Test/Unit
+
+  integration-test:
+    image: phpunit/phpunit
+    volumes:
+      - "../:/app"
+    working_dir: /app
+    command: --configuration=Test/phpunit.xml --bootstrap=Test/bootstrap.php Test/Db
+    links:
+      - database
+
+  database:
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=test_user
+      - MYSQL_PASSWORD=test_pass
+      - MYSQL_ROOT_PASSWORD=root_pass
