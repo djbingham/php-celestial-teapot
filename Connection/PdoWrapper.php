@@ -3,7 +3,7 @@ namespace SlothMySql\Connection;
 
 use SlothMySql\Face;
 
-class PdoConnection implements Face\ConnectionInterface
+class PdoWrapper implements Face\ConnectionInterface
 {
 	/**
 	 * @var \PDO

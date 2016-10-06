@@ -1,10 +1,10 @@
 <?php
-namespace SlothMySql\Test\Db\Connection;
+namespace SlothMySql\Test\Integration\Connection;
 
 use SlothMySql\Test\Abstractory\DatabaseTest;
-use SlothMySql\Connection\PdoConnection;
+use SlothMySql\Connection\PdoWrapper;
 
-class PdoTest extends DatabaseTest
+class PdoConnectionTest extends DatabaseTest
 {
 	/**
 	 * @var \PDO
@@ -12,7 +12,7 @@ class PdoTest extends DatabaseTest
 	private $pdoHandle;
 
 	/**
-	 * @var PdoConnection
+	 * @var PdoWrapper
 	 */
 	private $object;
 
@@ -25,7 +25,7 @@ class PdoTest extends DatabaseTest
 	{
 		parent::setUp();
 		$this->pdoHandle = new \PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USERNAME'], $GLOBALS['DB_PASSWORD']);
-		$this->object = new PdoConnection($this->pdoHandle);
+		$this->object = new PdoWrapper($this->pdoHandle);
 	}
 
 	protected function prepareTables()
