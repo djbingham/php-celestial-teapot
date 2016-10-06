@@ -1,13 +1,18 @@
 <?php
 namespace SlothMySql\Test\Db\Connection;
 
-use SlothMySql\Test\Abstractory\DbTestWithMySqli;
-use SlothMySql\Connection\MySqli as MySqliConnection;
+use SlothMySql\Test\Abstractory\DatabaseTest;
+use SlothMySql\Connection\PdoConnection;
 
-class MySqliTest extends DbTestWithMySqli
+class PdoTest extends DatabaseTest
 {
 	/**
-	 * @var MySqliConnection
+	 * @var \PDO
+	 */
+	private $pdoHandle;
+
+	/**
+	 * @var PdoConnection
 	 */
 	private $object;
 
@@ -19,7 +24,8 @@ class MySqliTest extends DbTestWithMySqli
 	public function setUp()
 	{
 		parent::setUp();
-		$this->object = new MySqliConnection($GLOBALS['DB_HOST'], $GLOBALS['DB_USERNAME'], $GLOBALS['DB_PASSWORD'], $GLOBALS['DB_NAME']);
+		$this->pdoHandle = new \PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USERNAME'], $GLOBALS['DB_PASSWORD']);
+		$this->object = new PdoConnection($this->pdoHandle);
 	}
 
 	protected function prepareTables()
@@ -58,7 +64,7 @@ class MySqliTest extends DbTestWithMySqli
 		try {
 			$this->object->executeQuery($query);
 		} catch (\Exception $e) {
-			$this->assertSame(mysqli_error($this->object), $this->object->getLastError());
+			$this->assertSame($this->pdoHandle->errorInfo(), $this->object->getLastError());
 			throw $e;
 		}
 	}
@@ -113,10 +119,10 @@ class MySqliTest extends DbTestWithMySqli
 
 		$this->assertSame($this->object, $this->object->executeQuery($query));
 		$this->assertSame(array(), $this->object->getLastResultData());
-		$this->assertSame(3, $this->object->getLastInsertId());
+		$this->assertSame('3', $this->object->getLastInsertId());
 
 		$this->assertSame($this->object, $this->object->executeQuery($query));
-		$this->assertSame(4, $this->object->getLastInsertId());
+		$this->assertSame('4', $this->object->getLastInsertId());
 	}
 
 	public function testCountAffectedRows()
@@ -145,6 +151,19 @@ class MySqliTest extends DbTestWithMySqli
 				'));
 		$this->assertSame($this->object, $this->object->executeQuery($query));
 		$this->assertSame(2, $this->object->countAffectedRows());
+	}
+
+	public function testCountAffectedRowsReturnsZeroWhenLastQueryDidNotAffectRows()
+	{
+		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query->expects($this->any())
+			->method('__toString')
+			->will($this->returnValue('
+				SELECT * FROM guestbook
+				WHERE id = NULL
+				'));
+		$this->assertSame($this->object, $this->object->executeQuery($query));
+		$this->assertSame(0, $this->object->countAffectedRows());
 	}
 
 	public function testGetQueryLog()
@@ -188,18 +207,20 @@ class MySqliTest extends DbTestWithMySqli
 
 	public function testCommit()
 	{
+		$this->object->begin();
 		$output = $this->object->commit();
 		$this->assertSame($this->object, $output);
 		$log = $this->object->getQueryLog();
-		$this->assertSame(array('COMMIT'), $log);
+		$this->assertSame(array('BEGIN', 'COMMIT'), $log);
 	}
 
 	public function testRollback()
 	{
+		$this->object->begin();
 		$output = $this->object->rollback();
 		$this->assertSame($this->object, $output);
 		$log = $this->object->getQueryLog();
-		$this->assertSame(array('ROLLBACK'), $log);
+		$this->assertSame(array('BEGIN', 'ROLLBACK'), $log);
 	}
 
 	public function testEscapeString()

@@ -3,7 +3,7 @@ namespace SlothMySql\Test\Abstractory;
 
 use PDO;
 
-abstract class DbTestWithMySqli extends \PHPUnit_Extensions_Database_TestCase
+abstract class DatabaseTest extends \PHPUnit_Extensions_Database_TestCase
 {
 	use Mocker;
 
@@ -21,8 +21,8 @@ abstract class DbTestWithMySqli extends \PHPUnit_Extensions_Database_TestCase
 			if (self::$pdo == null) {
 				self::$pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USERNAME'], $GLOBALS['DB_PASSWORD']);
 
-				$this->executeDbQuery('CREATE DATABASE IF NOT EXISTS `slothMySqlTest`')
-					->executeDbQuery('USE `slothMySqlTest`');
+				$this->executeDbQuery(sprintf('CREATE DATABASE IF NOT EXISTS `%s`', $GLOBALS['DB_NAME']))
+					->executeDbQuery(sprintf('USE `%s`', $GLOBALS['DB_NAME']));
 
 				$this->prepareTables();
 			}
