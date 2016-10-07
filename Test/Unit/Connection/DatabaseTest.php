@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\Unit\Database\Connector;
+namespace Test\Unit\Database\Connector;
 
-use SlothMySql\Test\Abstractory\UnitTest;
-use SlothMySql\Connection\Database;
+use Test\Abstractory\UnitTest;
+use PhpMySql\Connection\Database;
 
 class ConnectionOptionsTest extends UnitTest
 {

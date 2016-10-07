@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\Integration\Connection;
+namespace Test\Integration\Connection;
 
-use SlothMySql\Test\Abstractory\DatabaseTest;
-use SlothMySql\Connection\PdoWrapper;
+use Test\Abstractory\DatabaseTest;
+use PhpMySql\Connection\PdoWrapper;
 
 class PdoConnectionTest extends DatabaseTest
 {
@@ -44,7 +44,7 @@ class PdoConnectionTest extends DatabaseTest
 
 	public function testExecuteQueryWithThrowsExceptionIfQueryFails()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SCHMLEEARRRRGH!'));
@@ -55,7 +55,7 @@ class PdoConnectionTest extends DatabaseTest
 
 	public function testGetLastError()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SCHMLEEARRRRGH!'));
@@ -86,7 +86,7 @@ class PdoConnectionTest extends DatabaseTest
 			)
 		);
 
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SELECT * FROM guestbook'));
@@ -97,7 +97,7 @@ class PdoConnectionTest extends DatabaseTest
 
 	public function testGetLastResultDataReturnsFalseWhenQueryHasNoResultSet()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 
 		$query->expects($this->any())
 			->method('__toString')
@@ -109,7 +109,7 @@ class PdoConnectionTest extends DatabaseTest
 
 	public function testGetLastInsertIdReturnsAutoIncrementValueFromLastInsertQuery()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -127,7 +127,7 @@ class PdoConnectionTest extends DatabaseTest
 
 	public function testCountAffectedRows()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -139,7 +139,7 @@ class PdoConnectionTest extends DatabaseTest
 		$this->assertSame($this->object, $this->object->executeQuery($query));
 		$this->assertSame(1, $this->object->countAffectedRows());
 
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -155,7 +155,7 @@ class PdoConnectionTest extends DatabaseTest
 
 	public function testCountAffectedRowsReturnsZeroWhenLastQueryDidNotAffectRows()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('
@@ -169,8 +169,8 @@ class PdoConnectionTest extends DatabaseTest
 	public function testGetQueryLog()
 	{
 		$queries = array(
-			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock()
 		);
 
 		$queryStrings = array(

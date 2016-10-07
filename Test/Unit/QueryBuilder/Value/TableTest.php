@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Value;
+namespace Test\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Value\Table;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Value\Table;
+use Test\Abstractory\UnitTest;
 
 class TableTest extends UnitTest
 {
@@ -60,8 +60,8 @@ class TableTest extends UnitTest
 		// Create two fields
 		$field0 = $object->field($fieldNames[0]);
 		$field1 = $object->field($fieldNames[1]);
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $field0);
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Field', $field1);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\Table\Field', $field0);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\Table\Field', $field1);
 		// Fetch each field by name and check that the same instances are returned
 		$fetchedField0 = $object->field($fieldNames[0]);
 		$fetchedField1 = $object->field($fieldNames[1]);
@@ -80,7 +80,7 @@ class TableTest extends UnitTest
 
 		// Create a data instance
 		$output1 = $object->data();
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Value\Table\Data', $output1);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\Table\Data', $output1);
 		// Fetch the data instance and verify that it is the same
 		$output2 = $object->data();
 		$this->assertEquals($output1, $output2);

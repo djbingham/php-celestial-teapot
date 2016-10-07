@@ -1,5 +1,5 @@
 <?php
-namespace SlothMySql\Test\Mock;
+namespace Test\Mock;
 
 class PDOStatement extends \PDOStatement
 {

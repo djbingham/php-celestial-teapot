@@ -1,11 +1,13 @@
 <?php
 
-namespace SlothMySql\Test\Unit\Database;
+namespace Test\Unit\Database;
 
-use SlothMySql\Face\ConnectionInterface;
-use SlothMySql\Face\QueryBuilderFactoryInterface;
-use SlothMySql\DatabaseWrapper;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\Face\ConnectionInterface;
+use PhpMySql\Face\QueryBuilderFactoryInterface;
+use PhpMySql\DatabaseWrapper;
+use PhpMySql\Face\QueryFactoryInterface;
+use PhpMySql\Face\ValueFactoryInterface;
+use Test\Abstractory\UnitTest;
 
 class DatabaseWrapperTest extends UnitTest
 {
@@ -17,7 +19,17 @@ class DatabaseWrapperTest extends UnitTest
 	/**
 	 * @var QueryBuilderFactoryInterface
 	 */
+	private $queryBuilderFactory;
+
+	/**
+	 * @var QueryFactoryInterface
+	 */
 	private $queryBuilder;
+
+	/**
+	 * @var ValueFactoryInterface
+	 */
+	private $valueBuilder;
 
 	/**
 	 * @var DatabaseWrapper
@@ -27,24 +39,35 @@ class DatabaseWrapperTest extends UnitTest
 	public function setUp()
 	{
 		$this->connection = $this->mockBuilder()->connection();
-		$this->queryBuilder = $this->mockBuilder()->mySqlQueryBuilderFactory();
-		$this->object = new DatabaseWrapper($this->connection, $this->queryBuilder);
+		$this->queryBuilderFactory = $this->mockBuilder()->mySqlQueryBuilderFactory();
+		$this->queryBuilder = $this->mockBuilder()->mySqlQueryFactory();
+		$this->valueBuilder = $this->mockBuilder()->mySqlValueFactory();
+		$this->object = new DatabaseWrapper($this->connection, $this->queryBuilderFactory);
 	}
 
 	public function testQueryReturnsQueryBuilder()
 	{
-		$this->queryBuilder->expects($this->once())
+		$this->queryBuilderFactory->expects($this->once())
 			->method('query')
 			->will($this->returnValue($this->queryBuilder));
 		$result = $this->object->query();
 		$this->assertSame($this->queryBuilder, $result);
 	}
 
+	public function testValueReturnsValueBuilder()
+	{
+		$this->queryBuilderFactory->expects($this->once())
+			->method('value')
+			->will($this->returnValue($this->valueBuilder));
+		$result = $this->object->value();
+		$this->assertSame($this->valueBuilder, $result);
+	}
+
 	public function testExecuteSendsQueryToConnection()
 	{
 		$this->connection->expects($this->once())
 			->method('executeQuery');
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 
 
 		$output = $this->object->execute($query);

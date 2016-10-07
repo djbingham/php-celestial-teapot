@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\Unit\Connection;
+namespace Test\Unit\Connection;
 
-use SlothMySql\Test\Abstractory\UnitTest;
-use SlothMySql\Connection\PdoWrapper;
+use Test\Abstractory\UnitTest;
+use PhpMySql\Connection\PdoWrapper;
 
 class PdoWrapperTest extends UnitTest
 {
@@ -19,13 +19,13 @@ class PdoWrapperTest extends UnitTest
 	public function setUp()
 	{
 		parent::setUp();
-		$this->mockPdoHandle = $this->getMockBuilder('SlothMySql\Test\Mock\PDO')->getMock();
+		$this->mockPdoHandle = $this->getMockBuilder('Test\Mock\PDO')->getMock();
 		$this->object = new PdoWrapper($this->mockPdoHandle);
 	}
 
 	public function testExecuteQueryThrowsExceptionWithErrorDetailsIfQueryFails()
 	{
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 
 		$this->mockPdoHandle->expects($this->once())
 			->method('query')
@@ -41,7 +41,7 @@ class PdoWrapperTest extends UnitTest
 
 	public function testGetLastError()
 	{
-		$query = $this->getMock('SlothMySql\Face\QueryInterface');
+		$query = $this->getMock('PhpMySql\Face\QueryInterface');
 		$query->expects($this->any())
 			->method('__toString')
 			->will($this->returnValue('SCHMLEEARRRRGH!'));
@@ -84,12 +84,12 @@ class PdoWrapperTest extends UnitTest
 
 		$queryString = 'SELECT * FROM guestbook';
 
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->once())
 			->method('__toString')
 			->will($this->returnValue($queryString));
 
-		$queryResult = $this->getMock('SlothMySql\Test\Mock\PDOStatement');
+		$queryResult = $this->getMock('Test\Mock\PDOStatement');
 
 		$queryResult->expects($this->once())
 			->method('fetchAll')
@@ -109,12 +109,12 @@ class PdoWrapperTest extends UnitTest
 	{
 		$queryString = 'TRUNCATE guestbook';
 
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->once())
 			->method('__toString')
 			->will($this->returnValue($queryString));
 
-		$queryResult = $this->getMock('SlothMySql\Test\Mock\PDOStatement');
+		$queryResult = $this->getMock('Test\Mock\PDOStatement');
 
 		$queryResult->expects($this->once())
 			->method('fetchAll')
@@ -137,12 +137,12 @@ class PdoWrapperTest extends UnitTest
 			VALUES("Testing insert ID", "Jack", "2010-04-28 17:45:07")
 		';
 
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->exactly(2))
 			->method('__toString')
 			->will($this->returnValue($queryString));
 
-		$queryResult = $this->getMock('SlothMySql\Test\Mock\PDOStatement');
+		$queryResult = $this->getMock('Test\Mock\PDOStatement');
 
 		$queryResult->expects($this->exactly(2))
 			->method('fetchAll')
@@ -185,13 +185,13 @@ class PdoWrapperTest extends UnitTest
 		];
 
 		$queries = [
-			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock()
 		];
 
 		$queryResults = [
-			$this->getMock('SlothMySql\Test\Mock\PDOStatement'),
-			$this->getMock('SlothMySql\Test\Mock\PDOStatement')
+			$this->getMock('Test\Mock\PDOStatement'),
+			$this->getMock('Test\Mock\PDOStatement')
 		];
 
 		$queries[0]->expects($this->once())
@@ -242,12 +242,12 @@ class PdoWrapperTest extends UnitTest
 	{
 		$queryString = 'SELECT * FROM guestbook WHERE id = NULL';
 
-		$query = $this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
+		$query = $this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock();
 		$query->expects($this->once())
 			->method('__toString')
 			->will($this->returnValue($queryString));
 
-		$queryResult = $this->getMock('SlothMySql\Test\Mock\PDOStatement');
+		$queryResult = $this->getMock('Test\Mock\PDOStatement');
 
 		$queryResult->expects($this->once())
 			->method('fetchAll')
@@ -276,13 +276,13 @@ class PdoWrapperTest extends UnitTest
 		);
 
 		$queries = array(
-			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock(),
-			$this->getMockBuilder('SlothMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock()
+			$this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock(),
+			$this->getMockBuilder('PhpMySql\Face\QueryInterface')->disableOriginalConstructor()->getMock()
 		);
 
 		$queryResults = [
-			$this->getMock('SlothMySql\Test\Mock\PDOStatement'),
-			$this->getMock('SlothMySql\Test\Mock\PDOStatement')
+			$this->getMock('Test\Mock\PDOStatement'),
+			$this->getMock('Test\Mock\PDOStatement')
 		];
 
 		$queries[0]->expects($this->any())

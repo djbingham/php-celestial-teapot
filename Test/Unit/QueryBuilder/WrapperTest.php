@@ -1,10 +1,10 @@
 <?php
 
-namespace SlothMySql\Test\QueryBuilder;
+namespace Test\QueryBuilder;
 
-use SlothMySql\Face\ConnectionInterface;
-use SlothMySql\Test\Abstractory\UnitTest;
-use SlothMySql\QueryBuilder\Wrapper;
+use PhpMySql\Face\ConnectionInterface;
+use Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Wrapper;
 
 class WrapperTest extends UnitTest
 {
@@ -27,7 +27,7 @@ class WrapperTest extends UnitTest
 	public function testQueryReturnsQueryFactory()
 	{
 		$output = $this->object->query();
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Factory\Query', $output);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Factory\Query', $output);
 	}
 
 	public function testQueryFactoryIsCached()
@@ -40,7 +40,7 @@ class WrapperTest extends UnitTest
 	public function testValueReturnsValueFactory()
 	{
 		$output = $this->object->value();
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Factory\Value', $output);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Factory\Value', $output);
 	}
 
 	public function testValueFactoryIsCached()

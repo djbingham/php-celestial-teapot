@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Query;
+namespace Test\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Query\Select;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Query\Select;
+use Test\Abstractory\UnitTest;
 
 class SelectTest extends UnitTest
 {
@@ -41,7 +41,7 @@ class SelectTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('PhpMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())
@@ -52,7 +52,7 @@ class SelectTest extends UnitTest
 
 	protected function mockJoin($string)
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Join')
+		$constraint = $this->getMockBuilder('PhpMySql\QueryBuilder\Query\Join')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())
@@ -179,7 +179,7 @@ class SelectTest extends UnitTest
 
 	public function testAndWhereFailsWithNoPreviousConstraint()
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('PhpMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())
@@ -207,7 +207,7 @@ class SelectTest extends UnitTest
 
 	public function testOrWhereFailsWithNoPreviousConstraint()
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('PhpMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())

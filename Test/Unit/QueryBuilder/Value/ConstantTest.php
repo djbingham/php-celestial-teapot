@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Value;
+namespace Test\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Value\Constant;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Value\Constant;
+use Test\Abstractory\UnitTest;
 
 class ConstantTest extends UnitTest
 {

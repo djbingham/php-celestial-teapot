@@ -1,0 +1,127 @@
+<?php
+namespace PhpMySql\Connection;
+
+use PhpMySql\Face;
+
+class PdoWrapper implements Face\ConnectionInterface
+{
+	/**
+	 * @var \PDO
+	 */
+	private $pdoHandle;
+
+	/**
+	 * @var array
+	 */
+	private $queryLog = array();
+
+	/**
+	 * @var \PDOStatement
+	 */
+	private $lastResult;
+
+	/**
+	 * @var array
+	 */
+	private $lastResultData = array();
+
+	/**
+	 * @var string
+	 */
+	private $lastError;
+
+	public function __construct(\PDO $pdoHandle)
+	{
+		$this->pdoHandle = $pdoHandle;
+	}
+
+	public function begin($flags = null, $name = null)
+	{
+		$this->pdoHandle->beginTransaction();
+		$this->logQuery('BEGIN');
+		return $this;
+	}
+
+	public function commit($flags = null, $name = null)
+	{
+		$this->pdoHandle->commit();
+		$this->logQuery('COMMIT');
+		return $this;
+	}
+
+	public function rollback($flags = null, $name = null)
+	{
+		$this->pdoHandle->rollBack();
+		$this->logQuery('ROLLBACK');
+		return $this;
+	}
+
+	public function executeQuery(Face\QueryInterface $query)
+	{
+		$queryString = (string)$query;
+
+		$this->lastResult = $this->pdoHandle->query($queryString);
+		$this->logQuery($queryString);
+
+		if ($this->lastResult instanceof \PDOStatement) {
+			$this->lastResultData = $this->lastResult->fetchAll(\PDO::FETCH_ASSOC);
+			$this->lastResult->closeCursor();
+			$this->lastError = false;
+		} else {
+			$this->lastResultData = array();
+			$this->lastError = $this->pdoHandle->errorInfo();
+			throw new \Exception(
+				sprintf(
+					'An error occurred executing a MySQL query: %s',
+					json_encode(array(
+						'Error' => $this->lastError,
+						'Query' => $queryString
+					))
+				)
+			);
+		}
+
+		return $this;
+	}
+
+	public function getLastResultData()
+	{
+		return $this->lastResultData;
+	}
+
+	public function getLastInsertId()
+	{
+		return $this->pdoHandle->lastInsertId();
+	}
+
+	public function countAffectedRows()
+	{
+		$rowCount = 0;
+		if ($this->lastResult instanceof \PDOStatement) {
+			$rowCount = $this->lastResult->rowCount();
+		}
+		return $rowCount;
+	}
+
+	public function getQueryLog()
+	{
+		return $this->queryLog;
+	}
+
+	public function getLastError()
+	{
+		return $this->lastError;
+	}
+
+	public function escapeString($string)
+	{
+		// @todo: Remove the trim here and update the rest of the project to not wrap escaped strings in quotes.
+		return trim($this->pdoHandle->quote($string), '\'');
+	}
+
+	protected function logQuery($queryString)
+	{
+		$this->queryLog[] = $queryString;
+		return $this;
+	}
+}

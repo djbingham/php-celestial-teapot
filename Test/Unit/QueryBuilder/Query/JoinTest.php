@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Query;
+namespace Test\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Query\Join;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Query\Join;
+use Test\Abstractory\UnitTest;
 
 class JoinTest extends UnitTest
 {
@@ -30,7 +30,7 @@ class JoinTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('PhpMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())

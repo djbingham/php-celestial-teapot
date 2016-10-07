@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Value\Table;
+namespace Test\QueryBuilder\Value\Table;
 
-use SlothMySql\QueryBuilder\Value\Table\Field;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Value\Table\Field;
+use Test\Abstractory\UnitTest;
 
 class FieldTest extends UnitTest
 {

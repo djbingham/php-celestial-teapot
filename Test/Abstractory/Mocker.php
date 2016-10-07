@@ -1,7 +1,7 @@
 <?php
-namespace SlothMySql\Test\Abstractory;
+namespace Test\Abstractory;
 
-use SlothMySql\Test\Utility\MockBuilder;
+use Test\Utility\MockBuilder;
 
 trait Mocker
 {

@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Query;
+namespace Test\QueryBuilder\Query;
 
-use SlothMySql\Test\Abstractory\UnitTest;
-use SlothMySql\QueryBuilder\Query\Update;
+use Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Query\Update;
 
 class UpdateTest extends UnitTest
 {
@@ -27,7 +27,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockField($fieldName)
 	{
-		$field = $this->getMockBuilder('SlothMySql\Face\Value\Table\FieldInterface')
+		$field = $this->getMockBuilder('PhpMySql\Face\Value\Table\FieldInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$field->expects($this->any())
@@ -38,7 +38,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockValue($string)
 	{
-		$value = $this->getMockBuilder('SlothMySql\Face\ValueInterface')
+		$value = $this->getMockBuilder('PhpMySql\Face\ValueInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$value->expects($this->any())
@@ -49,7 +49,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockData(array $fields, array $values)
 	{
-		$data = $this->getMockBuilder('SlothMySql\Face\Value\Table\DataInterface')
+		$data = $this->getMockBuilder('PhpMySql\Face\Value\Table\DataInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$data->expects($this->any())
@@ -63,7 +63,7 @@ class UpdateTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\Face\Query\ConstraintInterface')
+		$constraint = $this->getMockBuilder('PhpMySql\Face\Query\ConstraintInterface')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())
@@ -147,7 +147,7 @@ class UpdateTest extends UnitTest
 
 		$output = $this->object->getData();
 
-		$this->assertInstanceOf('SlothMySql\Face\Value\Table\DataInterface', $output);
+		$this->assertInstanceOf('PhpMySql\Face\Value\Table\DataInterface', $output);
 		$rows = $output->getRows();
 		$this->assertTrue(is_array($rows));
 		$this->assertEquals($values, $rows);
@@ -170,7 +170,7 @@ class UpdateTest extends UnitTest
 
 		$output = $this->object->getData();
 
-		$this->assertInstanceOf('SlothMySql\Face\Value\Table\DataInterface', $output);
+		$this->assertInstanceOf('PhpMySql\Face\Value\Table\DataInterface', $output);
 		$rows = $output->getRows();
 		$this->assertTrue(is_array($rows));
 		$this->assertEquals($values, $rows);

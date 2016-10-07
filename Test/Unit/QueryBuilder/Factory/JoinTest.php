@@ -1,10 +1,10 @@
 <?php
 
-namespace SlothMySql\Test\QueryBuilder\Factory;
+namespace Test\QueryBuilder\Factory;
 
-use SlothMySql\Test\Abstractory\UnitTest;
-use SlothMySql\QueryBuilder\Query;
-use SlothMySql\QueryBuilder\Factory\Join as JoinFactory;
+use Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Query;
+use PhpMySql\QueryBuilder\Factory\Join as JoinFactory;
 
 class JoinTest extends UnitTest
 {
@@ -21,28 +21,28 @@ class JoinTest extends UnitTest
 	public function testInner()
 	{
 		$output = $this->object->inner();
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Join', $output);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Query\Join', $output);
 		$this->assertEquals(Query\Join::TYPE_INNER, $output->getType());
 	}
 
 	public function testOuter()
 	{
 		$output = $this->object->outer();
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Join', $output);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Query\Join', $output);
 		$this->assertEquals(Query\Join::TYPE_OUTER, $output->getType());
 	}
 
 	public function testLeft()
 	{
 		$output = $this->object->left();
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Join', $output);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Query\Join', $output);
 		$this->assertEquals(Query\Join::TYPE_LEFT, $output->getType());
 	}
 
 	public function testRight()
 	{
 		$output = $this->object->right();
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Join', $output);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Query\Join', $output);
 		$this->assertEquals(Query\Join::TYPE_RIGHT, $output->getType());
 	}
 }

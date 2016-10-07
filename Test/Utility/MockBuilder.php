@@ -1,58 +1,65 @@
 <?php
 
-namespace SlothMySql\Test\Utility;
+namespace Test\Utility;
 
 class MockBuilder extends \PHPUnit_Framework_TestCase
 {
 	public function databaseWrapper()
 	{
-		return $this->getMockBuilder('SlothMySql\DatabaseWrapper')
+		return $this->getMockBuilder('PhpMySql\DatabaseWrapper')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
     public function connection()
 	{
-		return $this->getMockBuilder('SlothMySql\Face\ConnectionInterface')
+		return $this->getMockBuilder('PhpMySql\Face\ConnectionInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryConstraint()
 	{
-		return $this->getMockBuilder('SlothMySql\Face\Query\ConstraintInterface')
+		return $this->getMockBuilder('PhpMySql\Face\Query\ConstraintInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryJoin()
 	{
-		return $this->getMockBuilder('SlothMySql\Face\Query\JoinInterface')
+		return $this->getMockBuilder('PhpMySql\Face\Query\JoinInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function queryValue($type = null)
 	{
-		$class = sprintf('SlothMySql\Face\ValueInterface');
+		$class = sprintf('PhpMySql\Face\ValueInterface');
 		if (!is_null($type)) {
-			$class = sprintf('SlothMySql\QueryBuilder\Value\%s', $type);
+			$class = sprintf('PhpMySql\QueryBuilder\Value\%s', $type);
 		}
 		return $this->getMockBuilder($class)
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
+	public function mySqlQueryFactory()
+	{
+		return $this->getMockBuilder('PhpMySql\Face\QueryFactoryInterface')
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
 	public function mySqlValueFactory()
 	{
-		return $this->getMockBuilder('SlothMySql\Face\ValueFactoryInterface')
+		return $this->getMockBuilder('PhpMySql\Face\ValueFactoryInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}
 
 	public function mySqlQueryBuilderFactory()
 	{
-		return $this->getMockBuilder('SlothMySql\Face\QueryBuilderFactoryInterface')
+		return $this->getMockBuilder('PhpMySql\Face\QueryBuilderFactoryInterface')
 			->disableOriginalConstructor()
 			->getMock();
 	}

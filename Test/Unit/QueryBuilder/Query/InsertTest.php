@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Query;
+namespace Test\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Query\Insert;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Query\Insert;
+use Test\Abstractory\UnitTest;
 
 class InsertTest extends UnitTest
 {
@@ -94,7 +94,7 @@ VALUES
 ("value11","value12",NULL),
 ("value21",NULL,"value23")
 EOT;
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Insert', $this->object);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Query\Insert', $this->object);
 		$this->assertEquals($expectedString, (string)$this->object);
 	}
 
@@ -117,7 +117,7 @@ VALUES
 ("value11","value12",NULL),
 ("value21",NULL,"value23")
 EOT;
-		$this->assertInstanceOf('SlothMySql\QueryBuilder\Query\Insert', $this->object);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Query\Insert', $this->object);
 		$this->assertEquals($expectedString, (string)$this->object);
 	}
 }

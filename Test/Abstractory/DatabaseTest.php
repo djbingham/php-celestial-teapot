@@ -1,5 +1,5 @@
 <?php
-namespace SlothMySql\Test\Abstractory;
+namespace Test\Abstractory;
 
 use PDO;
 

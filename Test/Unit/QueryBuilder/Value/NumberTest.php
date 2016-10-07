@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Value;
+namespace Test\QueryBuilder\Value;
 
-use SlothMySql\QueryBuilder\Value\Number;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Value\Number;
+use Test\Abstractory\UnitTest;
 
 class NumberTest extends UnitTest
 {

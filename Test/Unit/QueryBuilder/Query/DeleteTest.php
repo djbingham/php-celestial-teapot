@@ -1,8 +1,8 @@
 <?php
-namespace SlothMySql\Test\QueryBuilder\Query;
+namespace Test\QueryBuilder\Query;
 
-use SlothMySql\QueryBuilder\Query\Delete;
-use SlothMySql\Test\Abstractory\UnitTest;
+use PhpMySql\QueryBuilder\Query\Delete;
+use Test\Abstractory\UnitTest;
 
 class DeleteTest extends UnitTest
 {
@@ -27,7 +27,7 @@ class DeleteTest extends UnitTest
 
 	protected function mockConstraint($string)
 	{
-		$constraint = $this->getMockBuilder('SlothMySql\QueryBuilder\Query\Constraint')
+		$constraint = $this->getMockBuilder('PhpMySql\QueryBuilder\Query\Constraint')
 			->disableOriginalConstructor()
 			->getMock();
 		$constraint->expects($this->any())
