@@ -60,28 +60,50 @@ class PdoWrapper implements Face\ConnectionInterface
 	{
 		$queryString = (string)$query;
 
-		$this->lastResult = $this->pdoHandle->query($queryString);
 		$this->logQuery($queryString);
 
-		if ($this->lastResult instanceof \PDOStatement) {
-			$this->lastResultData = $this->lastResult->fetchAll(\PDO::FETCH_ASSOC);
-			$this->lastResult->closeCursor();
-			$this->lastError = false;
-		} else {
-			$this->lastResultData = array();
-			$this->lastError = $this->pdoHandle->errorInfo();
-			throw new \Exception(
-				sprintf(
-					'An error occurred executing a MySQL query: %s',
-					json_encode(array(
-						'Error' => $this->lastError,
-						'Query' => $queryString
-					))
-				)
-			);
+		try {
+			$result = $this->pdoHandle->query($queryString);
+
+			if ($result instanceof \PDOStatement) {
+				$this->handlePdoResult($result);
+			} else {
+				$this->handlePdoFail();
+			}
+		} catch (\PDOException $e) {
+			$this->handlePdoFail();
 		}
 
 		return $this;
+	}
+
+	protected function handlePdoResult(\PDOStatement $result)
+	{
+		$this->lastError = false;
+		$this->lastResult = $result;
+		$this->lastResultData = $this->lastResult->fetchAll(\PDO::FETCH_ASSOC);
+		$this->lastResult->closeCursor();
+	}
+
+
+	protected function handlePdoFail()
+	{
+		$this->lastError = $this->pdoHandle->errorInfo();
+		$this->lastResult = false;
+		$this->lastResultData = array();
+
+		$queryLog = $this->getQueryLog();
+		$lastQuery = $queryLog[count($queryLog) - 1];
+
+		throw new \Exception(
+			sprintf(
+				'An error occurred executing a MySQL query: %s',
+				json_encode(array(
+					'Error' => $this->lastError,
+					'Query' => $lastQuery
+				))
+			)
+		);
 	}
 
 	public function getLastResultData()

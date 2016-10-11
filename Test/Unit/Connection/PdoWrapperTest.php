@@ -39,7 +39,7 @@ class PdoWrapperTest extends UnitTest
 		$this->object->executeQuery($query);
 	}
 
-	public function testGetLastError()
+	public function testGetLastErrorWhenPdoReturnsError()
 	{
 		$query = $this->getMock('PhpMySql\Face\QueryInterface');
 		$query->expects($this->any())
@@ -51,6 +51,32 @@ class PdoWrapperTest extends UnitTest
 		$this->mockPdoHandle->expects($this->once())
 			->method('query')
 			->willReturn(false);
+
+		$this->mockPdoHandle->expects($this->once())
+			->method('errorInfo')
+			->willReturn($expectedError);
+
+		$this->setExpectedException('\Exception');
+		try {
+			$this->object->executeQuery($query);
+		} catch (\Exception $e) {
+			$this->assertSame($expectedError, $this->object->getLastError());
+			throw $e;
+		}
+	}
+
+	public function testGetLastErrorWhenPdoThrowsException()
+	{
+		$query = $this->getMock('PhpMySql\Face\QueryInterface');
+		$query->expects($this->any())
+			->method('__toString')
+			->will($this->returnValue('SCHMLEEARRRRGH!'));
+
+		$expectedError = ['001', 'ABC', 'SQL syntax error'];
+
+		$this->mockPdoHandle->expects($this->once())
+			->method('query')
+			->willThrowException(new \PDOException('Some SQL error'));
 
 		$this->mockPdoHandle->expects($this->once())
 			->method('errorInfo')
