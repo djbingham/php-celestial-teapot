@@ -35,6 +35,12 @@ interface ValueFactoryInterface
 	public function table($tableName);
 
 	/**
+	 * @param $fieldName
+	 * @return \PhpMySql\Face\Value\Table\FieldInterface
+	 */
+	public function field($fieldName);
+
+	/**
 	 * @param $tableName
 	 * @param $fieldName
 	 * @return \PhpMySql\Face\Value\Table\FieldInterface

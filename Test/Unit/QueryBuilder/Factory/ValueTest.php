@@ -101,6 +101,17 @@ class ValueTest extends UnitTest
 		$this->assertEquals('`'.$escapedValue.'`', (string) $output);
 	}
 
+	public function testFieldTable()
+	{
+		$testValue = 'FieldName';
+		$escapedValue = 'EscapedFieldName';
+		$connection = $this->mockConnection($testValue, $escapedValue);
+		$object = $this->getObject($connection);
+		$output = $object->field($testValue);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\Table\Field', $output);
+		$this->assertEquals('`'.$escapedValue.'`', (string) $output);
+	}
+
 	public function testTableField()
 	{
 		$testTable = 'TableName';

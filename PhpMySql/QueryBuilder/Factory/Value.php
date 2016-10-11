@@ -60,7 +60,7 @@ class Value extends AFactory implements ValueFactoryInterface
 	}
 
 	/**
-	 * @param $tableName
+	 * @param string $tableName
 	 * @return Table
 	 */
 	public function table($tableName)
@@ -71,8 +71,19 @@ class Value extends AFactory implements ValueFactoryInterface
 	}
 
 	/**
-	 * @param $tableName
-	 * @param $fieldName
+	 * @param string $fieldName
+	 * @return Table\Field
+	 */
+	public function field($fieldName)
+	{
+		$field = new Table\Field($this->connection);
+		$field->setFieldName($fieldName);
+		return $field;
+	}
+
+	/**
+	 * @param string $tableName
+	 * @param string $fieldName
 	 * @return Table\Field
 	 */
 	public function tableField($tableName, $fieldName)
