@@ -1,5 +1,5 @@
 {
-	"name": "favicon/slothmysql",
+	"name": "djbingham/php-celestial-mysql",
 	"description": "PHP Wrapper for MySQL",
 	"version": "0.1",
 	"minimum-stability": "stable",
@@ -7,7 +7,7 @@
 	"authors": [
 		{
 			"name": "David Bingham",
-			"email": "david.favicon@gmail.com"
+			"email": "git@davidjbingham.co.uk"
 		}
 	],
 	"repositories": [
