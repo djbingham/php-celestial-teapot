@@ -5,14 +5,14 @@ services:
     volumes:
       - "../:/app"
     working_dir: /app
-    command: --configuration=Test/phpunit.xml --bootstrap=Test/bootstrap.php Test/Unit
+    command: --bootstrap=Test/bootstrap.php Test/Unit
 
   integration-test:
-    image: phpunit/phpunit
+    image: djbingham/phpunit-mysqli
     volumes:
       - "../:/app"
     working_dir: /app
-    command: --configuration=Test/phpunit.xml --bootstrap=Test/bootstrap.php Test/Integration
+    command: --bootstrap=Test/bootstrap.php Test/Integration
     links:
       - database
 
