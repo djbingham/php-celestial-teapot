@@ -10,20 +10,14 @@
 			"email": "git@davidjbingham.co.uk"
 		}
 	],
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "http://toran.djhodgkinson.co.uk/app.php/repo/private/"
-		}
-	],
 	"require": {
-		"favicon/autoload": "dev-master",
 		"phpunit/phpunit": "4.6.4",
 		"phpunit/dbunit": "1.3.2"
 	},
 	"autoload": {
 		"psr-4": {
-			"PhpMySql\\": "/"
+			"PhpMySql\\": "PhpMySql/",
+			"Test\\": "Test/"
 		}
 	}
 }
