@@ -340,6 +340,24 @@ class ValueTest extends UnitTest
 		$this->assertEquals('NULL', (string) $output);
 	}
 
+	public function testGuessTrue()
+	{
+		$connection = $this->mockConnection(null, 'TRUE');
+		$object = $this->getObject($connection);
+		$output = $object->guess(true);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\Constant', $output);
+		$this->assertEquals('TRUE', (string) $output);
+	}
+
+	public function testGuessFalse()
+	{
+		$connection = $this->mockConnection(null, 'FALSE');
+		$object = $this->getObject($connection);
+		$output = $object->guess(false);
+		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\Constant', $output);
+		$this->assertEquals('FALSE', (string) $output);
+	}
+
 	public function testGuessList()
 	{
 		$mockValues = array(

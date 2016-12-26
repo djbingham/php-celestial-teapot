@@ -16,10 +16,26 @@ class ConstantTest extends UnitTest
 		$this->object = new Constant($this->mockBuilder()->connection());
 	}
 
-	public function testSetValue()
+	public function testSetValueToNull()
 	{
 		$this->object->setValue('NULL');
 		$this->assertEquals('NULL', (string)$this->object);
+	}
+
+	public function testSetValueToTrue()
+	{
+		$this->object->setValue('TRUE');
+		$this->assertEquals('TRUE', (string)$this->object);
+	}
+
+	public function testSetValueToFalse()
+	{
+		$this->object->setValue('FALSE');
+		$this->assertEquals('FALSE', (string)$this->object);
+	}
+
+	public function testSetValueToCurrentTimestamp()
+	{
 		$this->object->setValue('CURRENT_TIMESTAMP');
 		$this->assertEquals('CURRENT_TIMESTAMP', (string)$this->object);
 	}

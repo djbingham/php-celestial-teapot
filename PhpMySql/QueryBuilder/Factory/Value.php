@@ -135,6 +135,8 @@ class Value extends AFactory implements ValueFactoryInterface
 			return 'list';
 		} elseif (is_numeric($value)) {
 			return 'number';
+		} elseif (is_bool($value)) {
+			return 'boolean';
 		} elseif (in_array($value, Constant::$constants)) {
 			return 'constant';
 		} elseif (preg_match('/^.+\(.+\)$/', (string)$value)) {
@@ -176,6 +178,12 @@ class Value extends AFactory implements ValueFactoryInterface
 			case 'constant':
 				return $this->sqlConstant($value);
 				break;
+			case 'boolean':
+				if ($value === true) {
+					return $this->sqlConstant('TRUE');
+				} else {
+					return $this->sqlConstant('FALSE');
+				}
 			case 'function':
 				list($function, $args) = explode('::SEPARATOR::', preg_replace('/^(.+)\((.+)\)$/', '$1::SEPARATOR::$2', $value));
 				$args = explode(',', $args);

@@ -9,7 +9,7 @@ class Constant implements ValueInterface
 {
 	use QueryElementTrait;
 
-	public static $constants = array('NULL', 'CURRENT_TIMESTAMP');
+	public static $constants = array('NULL', 'TRUE', 'FALSE', 'CURRENT_TIMESTAMP');
 
 	protected $value;
 
