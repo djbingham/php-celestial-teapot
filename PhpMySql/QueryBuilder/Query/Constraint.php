@@ -209,6 +209,17 @@ class Constraint implements ConstraintInterface
         return $this;
     }
 
+    /**
+     * @param ValueInterface $value
+     * @return $this
+     */
+    public function is(ValueInterface $value)
+    {
+        $this->setComparator('IS');
+        $this->setValue($value);
+        return $this;
+    }
+
 	/**
 	 * @param $operator
 	 * @return ConstraintInterface $this
@@ -216,7 +227,7 @@ class Constraint implements ConstraintInterface
 	 */
 	public function setComparator($operator)
 	{
-		if (!in_array($operator, array('=', '!=', '>', '>=', '<', '<=', 'IN', 'NOT IN', 'LIKE'))) {
+		if (!in_array($operator, array('=', '!=', '>', '>=', '<', '<=', 'IN', 'NOT IN', 'LIKE', 'IS'))) {
 			throw new \Exception('Invalid comparison operator in MySql constraint');
 		}
 		$this->comparator = $operator;

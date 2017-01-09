@@ -130,6 +130,14 @@ class ConstraintTest extends UnitTest
         $this->assertEquals($value, $this->object->getValue());
     }
 
+    public function testIsAndGetComparatorAndValue()
+    {
+        $value = $this->mockField('fieldName');
+        $this->assertEquals($this->object, $this->object->is($value));
+        $this->assertEquals('IS', $this->object->getComparator());
+        $this->assertEquals($value, $this->object->getValue());
+    }
+
 	public function testSetAndGetValue()
 	{
 		$value = $this->mockField('field name');
@@ -157,6 +165,8 @@ class ConstraintTest extends UnitTest
 		$this->assertEquals('NOT IN', $this->object->getComparator());
         $this->assertEquals($this->object, $this->object->setComparator('LIKE'));
         $this->assertEquals('LIKE', $this->object->getComparator());
+        $this->assertEquals($this->object, $this->object->setComparator('IS'));
+        $this->assertEquals('IS', $this->object->getComparator());
 	}
 
 	public function testSetComparatorRejectsNonComparatorString()
