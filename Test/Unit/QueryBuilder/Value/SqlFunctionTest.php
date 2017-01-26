@@ -1,6 +1,7 @@
 <?php
 namespace Test\QueryBuilder\Value;
 
+use PhpMySql\Face\ConnectionInterface;
 use PhpMySql\QueryBuilder\Value\SqlFunction;
 use Test\Abstractory\UnitTest;
 
@@ -11,9 +12,36 @@ class SqlFunctionTest extends UnitTest
 	 */
 	protected $object;
 
+	/**
+	 * @var ConnectionInterface
+	 */
+	protected $connection;
+
 	public function setup()
 	{
-		$this->object = new SqlFunction($this->mockBuilder()->connection());
+		$this->connection = $this->mockBuilder()->connection();
+		$this->object = new SqlFunction($this->connection);
+	}
+
+	public function testSetFunctionFailsIfFunctionNameIsNotString()
+	{
+		$this->setExpectedException('\Exception', 'Invalid type specified for name of SQL function. Must be a string.');
+		$this->object->setFunction(12);
+	}
+
+	public function testSetFunctionFailsIfFunctionNameIsNotRecognised()
+	{
+		$this->setExpectedException(
+			'\Exception',
+			sprintf('Invalid name specified for SQL function. Must be one of: AVG, COUNT, MAX, MIN, SUM.')
+		);
+		$this->object->setFunction('INVALID');
+	}
+
+	public function testSetFunctionReturnsFluentInterface()
+	{
+		$response = $this->object->setFunction('SUM');
+		$this->assertSame($this->object, $response);
 	}
 
 	public function testSetParamsFailsIfParamsContainsString()
@@ -42,5 +70,47 @@ class SqlFunctionTest extends UnitTest
 		$params = array($this);
 		$this->setExpectedException('\Exception');
 		$this->object->setParams($params);
+	}
+
+	public function testSetParamsReturnsFluentInterface()
+	{
+		$response = $this->object->setParams([]);
+		$this->assertSame($this->object, $response);
+	}
+
+	public function testToStringReturnsSqlForFunctionCallWithSingleParameter()
+	{
+		$parameter = $this->mockBuilder()->queryValue();
+
+		$parameter->expects($this->once())
+			->method('__toString')
+			->willReturn('"argument"');
+
+		$this->object
+			->setFunction('MAX')
+			->setParams([$parameter]);
+
+		$this->assertEquals('MAX("argument")', (string)$this->object);
+	}
+
+	public function testToStringReturnsSqlForFunctionCallWithSeveralParameters()
+	{
+		$params = [
+			$this->mockBuilder()->queryValue(),
+			$this->mockBuilder()->queryValue(),
+			$this->mockBuilder()->queryValue()
+		];
+
+		foreach ($params as $index => $param) {
+			$param->expects($this->once())
+				->method('__toString')
+				->willReturn((string)($index + 1));
+		}
+
+		$this->object
+			->setFunction('MAX')
+			->setParams($params);
+
+		$this->assertEquals('MAX(1,2,3)', (string)$this->object);
 	}
 }
