@@ -70,24 +70,23 @@ class ValueTest extends UnitTest
 
 	public function testSqlFunction()
 	{
-		$testFunction = 'testFunc';
-		$escapedFunction = 'escapedFunc';
+		$testFunction = 'MAX';
 		$testParams = array(
 			$this->getMockBuilder('PhpMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock(),
 			$this->getMockBuilder('PhpMySql\Face\ValueInterface')->disableOriginalConstructor()->getMock()
 		);
-		$testParams[0]->expects($this->any())
+		$testParams[0]->expects($this->once())
 			->method('__toString')
 			->will($this->returnValue('1'));
-		$testParams[1]->expects($this->any())
+		$testParams[1]->expects($this->once())
 			->method('__toString')
 			->will($this->returnValue('2'));
-		$connection = $this->mockConnection($testFunction, $escapedFunction);
+		$connection = $this->mockConnection($testFunction, $testFunction);
 		$object = $this->getObject($connection);
 
 		$output = $object->sqlFunction($testFunction, $testParams);
 		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\SqlFunction', $output);
-		$this->assertEquals($escapedFunction.'('.implode(',', $testParams).')', (string) $output);
+		$this->assertEquals($testFunction.'(1,2)', (string) $output);
 	}
 
 	public function testTable()
@@ -222,16 +221,19 @@ class ValueTest extends UnitTest
 
 	public function testCreateValueFunction()
 	{
-		$value = 'funcName("param1", "param2")';
-		$escapedValue = 'funcName("param1","param2")';
+		$value = 'MAX("101", "102")';
+		$expectedEscapedValue = 'MAX("101","102")';
 		$connection = $this->mockBuilder()->connection();
-		$connection->expects($this->any())
+		$connection->expects($this->exactly(2))
 			->method('escapeString')
-			->will($this->onConsecutiveCalls('funcName', 'param1', 'param2'));
+			->will($this->returnValueMap([
+				['"101"', '101'],
+				['"102"', '102']
+			]));
 		$object = $this->getObject($connection);
 		$output = $object->createValue($value, 'function');
 		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\SqlFunction', $output);
-		$this->assertEquals($escapedValue, (string) $output);
+		$this->assertEquals($expectedEscapedValue, (string) $output);
 	}
 
 	public function testCreateValueTableWithoutBackticks()
@@ -407,13 +409,16 @@ class ValueTest extends UnitTest
 	public function testGuessFunction()
 	{
 		$connection = $this->mockBuilder()->connection();
-		$connection->expects($this->any())
+		$connection->expects($this->exactly(2))
 			->method('escapeString')
-			->will($this->onConsecutiveCalls('funcName', 'param1', 'param2'));
+			->will($this->returnValueMap([
+				['1', '1'],
+				['2', '2']
+			]));
 		$object = $this->getObject($connection);
-		$output = $object->guess('funcName("param1", "param2")');
+		$output = $object->guess('MAX(1, 2)');
 		$this->assertInstanceOf('PhpMySql\QueryBuilder\Value\SqlFunction', $output);
-		$this->assertEquals('funcName("param1","param2")', (string) $output);
+		$this->assertEquals('MAX(1,2)', (string) $output);
 	}
 
 	public function testGuessTable()
